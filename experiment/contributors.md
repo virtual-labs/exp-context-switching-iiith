@@ -4,7 +4,7 @@
 |:----:|:-----------------------:|:-----:|:--------------:|:--:|
 | 1    | Dr. Venkatesh Choppella |       | IIIT Hyderabad |    |
 
-### Developers
+<!-- ### Developers
 | SNo. | Name | Email | Institute | ID |
 |:----:|:----:|:-----:|:---------:|:--:|
-| 1    | name | email | institute | id |
+| 1    | name | email | institute | id | -->
