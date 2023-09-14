@@ -1,0 +1,717 @@
+.simulation_page {
+    width: 80%;
+    float: left;
+}
+
+.control_page {
+    width: 20%;
+    height: 100%;
+    background-color: blanchedalmond;
+    margin-top: 6px;
+    border-radius: 5px;
+    float: left;
+}
+
+.container {
+    width: 100%;
+    /* height:150px; */
+    background-color: green;
+    /* padding-top:20px; */
+    /* padding-left:15px; */
+    /* padding-right:15px; */
+}
+
+.container2 {
+    width: 100%;
+    /* height:150px; */
+    background-color: green;
+    /* padding-top:20px; */
+    /* padding-left:15px; */
+    /* padding-right:15px; */
+}
+
+.container3 {
+    margin-top: 0.4%;
+    margin-left: 1.5%;
+    margin-right: 2%;
+    width: 98%;
+    /* position: absolute; */
+    background-color: khaki;
+    float: left;
+}
+
+#instruction_box {
+    width: 100%;
+    /* height: 100%; */
+    background-color: white;
+    border: solid black;
+}
+
+#response_box {
+    width: 100%;
+    /* height: 100%; */
+    background-color: white;
+    border: solid black;
+}
+
+#observations {
+    width: 100%;
+    /* height: 100%; */
+    background-color: white;
+    border: solid black;
+}
+
+#cpu {
+    float: left;
+    width: 20%;
+    height: 180px;
+    background-color: white;
+    border: solid darkgrey;
+    margin-top: 20px;
+    margin-left: 1.5%;
+}
+
+#intro {
+    /* float: left; */
+    width: 150px;
+    margin: 5px;
+    padding: 4px;
+    margin-left: 1.5%;
+    background-color: sandybrown;
+    text-align: center;
+    border-radius: 5px;
+}
+
+#intro :hover {
+    cursor: pointer;
+}
+
+#k-stack_A {
+    float: left;
+    width: 15%;
+    height: 180px;
+    background-color: white;
+    border: solid darkgrey;
+    margin-top: 20px;
+    margin-left: 1.5%;
+}
+
+#k-stack_B {
+    float: left;
+    width: 15%;
+    height: 180px;
+    background-color: white;
+    border: solid darkgrey;
+    margin-top: 20px;
+    margin-left: 1.5%;
+}
+
+#pcbA {
+    float: left;
+    width: 20%;
+    height: 180px;
+    background-color: white;
+    border: solid darkgrey;
+    margin-top: 20px;
+    margin-left: 1.5%;
+}
+
+#pcbB {
+    float: left;
+    width: 20%;
+    height: 180px;
+    background-color: white;
+    border: solid darkgrey;
+    margin-top: 20px;
+    margin-left: 1.5%;
+}
+
+#mycpu {
+    text-align: center;
+    font-weight: bold;
+    background-color: darkgrey;
+    color: black;
+    padding: 10px;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+#myIntro {
+    text-align: center;
+    font-weight: bold;
+    color: black;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 0;
+    
+}
+
+#k-stack-A {
+    text-align: center;
+    font-weight: bold;
+    background-color: darkgrey;
+    color: black;
+    padding: 10px;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+#k-stack-B {
+    text-align: center;
+    font-weight: bold;
+    background-color: darkgrey;
+    color: black;
+    padding: 10px;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+#pcb_A_p {
+    text-align: center;
+    font-weight: bold;
+    background-color: darkgrey;
+    color: black;
+    padding: 10px;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+#pcb_B_p {
+    text-align: center;
+    font-weight: bold;
+    background-color: darkgrey;
+    color: black;
+    padding: 10px;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+#st-box {
+    float: left;
+    width: 30%;
+    height: 400px;
+    background-color: white;
+    border: solid darkgrey;
+    margin-left: 1.5%;
+}
+
+#dialogue_box {
+    float: left;
+    width: 97%;
+    height: 120px;
+    background-color: white;
+    border-radius: 15px;
+    border: solid tomato;
+    margin: 1.5%;
+    margin-bottom: 0.8%;
+    margin-top: 0.5%;
+}
+
+#nd-box {
+    float: left;
+    width: 30%;
+    height: 400px;
+    background-color: white;
+    border: solid darkgrey;
+    margin-left: 3%;
+}
+
+#rd-box {
+    float: left;
+    width: 30%;
+    height: 400px;
+    background-color: white;
+    border: solid darkgrey;
+    margin-left: 3%;
+}
+
+#umode {
+    text-align: center;
+    font-weight: bold;
+    background-color: darkgrey;
+    color: black;
+    padding: 10px;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+#dialogue {
+    text-align: center;
+    font-weight: bold;
+    background-color: tomato;
+    color: white;
+    padding: 10px;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+#hardware {
+    text-align: center;
+    font-weight: bold;
+    background-color: darkgrey;
+    color: black;
+    padding: 10px;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+#kmode {
+    text-align: center;
+    font-weight: bold;
+    background-color: darkgrey;
+    color: black;
+    padding: 10px;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+#process {
+    scroll-behavior: auto;
+    border: none;
+    padding: 7px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#interrupt {
+    scroll-behavior: auto;
+    border: none;
+    padding: 7px;
+}
+
+#process_buttons {
+    text-align: center;
+    font-weight: bold;
+    background-color: darkgrey;
+    color: white;
+    padding: 10px;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+#prev_process {
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+    color: dodgerblue;
+    border: none;
+    border-radius: 5px;
+}
+
+#next_process {
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+    color: dodgerblue;
+    border: none;
+    border-radius: 5px;
+}
+
+/* hover */
+#prev_process:hover {
+    background-color: dodgerblue;
+    color: white;
+    cursor: pointer;
+}
+
+#next_process:hover {
+    background-color: dodgerblue;
+    color: white;
+    cursor: pointer;
+}
+
+#hardware_buttons {
+    text-align: center;
+    font-weight: bold;
+    background-color: darkgrey;
+    color: white;
+    padding: 10px;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+#prev_hardware_instruction {
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+    color: orange;
+    border: none;
+    border-radius: 5px;
+    margin-right: 4px;
+}
+
+#next_hardware_instruction {
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+    color: orange;
+    border: none;
+    border-radius: 5px;
+}
+
+/* hover */
+#prev_hardware_instruction:hover {
+    background-color: orange;
+    color: white;
+    cursor: pointer;
+}
+
+#next_hardware_instruction:hover {
+    background-color: orange;
+    color: white;
+    cursor: pointer;
+}
+
+#start_hardware_button {
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+    color: orange;
+    border: none;
+    border-radius: 5px;
+}
+
+#start_hardware_button:hover {
+    background-color: orange;
+    color: white;
+    cursor: pointer;
+}
+
+#kernel {
+    /* scroll-behavior: auto; */
+    border: none;
+}
+
+#kernel_buttons {
+    text-align: center;
+    font-weight: bold;
+    background-color: darkgrey;
+    color: white;
+    padding: 10px;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+#kernelCode_execute {
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+    color: green;
+    border: none;
+    border-radius: 5px;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  
+  /* The Close Button */
+  .boot {
+    color: #aaaaaa;
+    
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .boot:hover,
+  .boot:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+#contxtSwitch {
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+    color: green;
+    border: none;
+    border-radius: 5px;
+}
+
+#next_kernel_instruction {
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+    color: green;
+    border: none;
+    border-radius: 5px;
+}
+
+/* hover */
+#kernelCode_execute:hover {
+    background-color: green;
+    color: white;
+    cursor: pointer;
+}
+
+#contxtSwitch:hover {
+    background-color: green;
+    color: white;
+    cursor: pointer;
+}
+
+#next_kernel_instruction:hover {
+    background-color: green;
+    color: white;
+    cursor: pointer;
+}
+
+
+#cpu_section {
+    padding: 10px;
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+}
+
+.spinner {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    border-top-color: #000;
+    animation: spin 1s infinite ease-in-out;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#timerTrap {
+    width: 90%;
+    background-color: rosybrown;
+    color: white;
+    border-radius: 10px;
+    align-self: center;
+    margin-left: 5%;
+    margin-top: 10px;
+}
+
+#readTrap {
+    width: 90%;
+    background-color: rosybrown;
+    color: white;
+    border-radius: 10px;
+    align-self: center;
+    margin-left: 5%;
+    margin-top: 10px;
+}
+
+#exitTrap {
+    width: 90%;
+    background-color: rosybrown;
+    color: white;
+    border-radius: 10px;
+    align-self: center;
+    margin-left: 5%;
+    margin-top: 10px;
+}
+
+#start_simulation {
+    width: 100%;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    background-color: green;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#start_simulation:hover {
+    transform: scale(1.02);
+}
+.wrapper {  
+cursor: help;
+-webkit-transform: translateZ(0); /* webkit flicker fix */
+/* -webkit-font-smoothing: antialiased; webkit text rendering fix */
+}
+
+.wrapper .tooltip {
+background: #1496bb;
+bottom: 100%;
+font-size: 15px;
+color: #fff;
+display: block;
+left: -20px;
+margin-bottom: 15px;
+opacity: 0;
+padding: 10px;
+pointer-events: none;
+position: absolute;
+width: 80%;
+-webkit-transform: translateY(10px);
+  -moz-transform: translateY(10px);
+  -ms-transform: translateY(10px);
+   -o-transform: translateY(10px);
+    transform: translateY(10px);
+-webkit-transition: all .25s ease-out;
+  -moz-transition: all .25s ease-out;
+  -ms-transition: all .25s ease-out;
+   -o-transition: all .25s ease-out;
+    transition: all .25s ease-out;
+-webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+  -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+  -ms-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+   -o-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+}
+
+/* This bridges the gap so you can mouse into the tooltip without it disappearing */
+.wrapper .tooltip:before {
+bottom: -20px;
+content: " ";
+display: block;
+height: 20px;
+left: 0;
+position: absolute;
+width: 100%;
+}
+
+
+.wrapper .tooltip:after {
+border-left: solid transparent 10px;
+border-right: solid transparent 10px;
+border-top: solid #1496bb 10px;
+bottom: -10px;
+content: " ";
+height: 0;
+left: 50%;
+margin-left: -13px;
+position: absolute;
+width: 0;
+}
+
+.wrapper:hover .tooltip {
+opacity: 1;
+pointer-events: auto;
+-webkit-transform: translateY(0px);
+  -moz-transform: translateY(0px);
+  -ms-transform: translateY(0px);
+   -o-transform: translateY(0px);
+    transform: translateY(0px);
+}
+
+/* IE can just show/hide with no transition */
+.lte8 .wrapper .tooltip {
+display: none;
+}
+
+.lte8 .wrapper:hover .tooltip {
+display: block;
+}
+
+.wrapper .contenttip {
+    background: wheat;
+    text-align: left;
+    bottom: 100%;
+    font-size: 20px;
+    color: sienna;
+    display: block;
+    left: -20px;
+    margin-bottom: 15px;
+    opacity: 0;
+    padding: 20px;
+    pointer-events: none;
+    position: absolute;
+    width: 150%;
+    -webkit-transform: translateY(10px);
+      -moz-transform: translateY(10px);
+      -ms-transform: translateY(10px);
+       -o-transform: translateY(10px);
+        transform: translateY(10px);
+    -webkit-transition: all .25s ease-out;
+      -moz-transition: all .25s ease-out;
+      -ms-transition: all .25s ease-out;
+       -o-transition: all .25s ease-out;
+        transition: all .25s ease-out;
+    -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+      -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+      -ms-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+       -o-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+    }
+    
+    /* This bridges the gap so you can mouse into the tooltip without it disappearing */
+    .wrapper .contenttip:before {
+    bottom: -20px;
+    content: " ";
+    display: block;
+    height: 20px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    }
+    
+    
+    .wrapper .contenttip:after {
+    border-left: solid transparent 10px;
+    border-right: solid transparent 10px;
+    border-top: solid wheat 10px;
+    bottom: -10px;
+    content: " ";
+    height: 0;
+    left: 50%;
+    margin-left: -13px;
+    position: absolute;
+    width: 0;
+    }
+    
+    .wrapper:hover .contenttip {
+    opacity: 1;
+    pointer-events: auto;
+    -webkit-transform: translateY(0px);
+      -moz-transform: translateY(0px);
+      -ms-transform: translateY(0px);
+       -o-transform: translateY(0px);
+        transform: translateY(0px);
+    }
+    
+    /* IE can just show/hide with no transition */
+    .lte8 .wrapper .contenttip {
+    display: none;
+    }
+    
+    .lte8 .wrapper:hover .contenttip {
+    display: block;
+    }
