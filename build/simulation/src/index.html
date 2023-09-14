@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="./JS/main.js"></script>
+</head>
+
+<body>
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <!-- <span class="close">&times;</span> -->
+          <p>
+            <h2>Bootstrapping the OS</h2>
+            <p>
+                Bootstrapping the operating system (OS) is the process of initializing a computer's hardware and software components to bring the OS into a running state. This process begins when the computer is powered on or restarted.
+                <h3>Boot loader execution</h3>
+                <p>The bootloader is a small piece of software responsible for loading the OS kernel into memory. It's typically stored in the Master Boot Record (MBR) or the EFI System Partition (ESP) of the boot device.</p>
+                <h3>Kernel initialization</h3>
+                <p>Once the bootloader has loaded, it transfers control to the OS kernel.
+                    The kernel is the core of the operating system. It initializes key system components, including the CPU, memory management, device drivers, and I/O subsystems.</p>
+                <h4>Bootstrap first so that we have all our resources initialized.</h4>
+                <span class="boot" style="width: fit-content; padding: 10px; background-color: dodgerblue; color: white; border-radius:10px;">Bootstrap</span>
+            </p>
+          </p>
+        </div>
+      
+      </div>
+    
+    <div class="simulation_page">
+        <div class="container">
+            <div id="dialogue_box">
+                <p id="dialogue">Dialog Box</p>
+                <div style="height:100px">
+                    <p id="remark" style="padding: 10px; width:90%; margin: 10px;"></table>
+                </div>
+            </div>
+            <div id="st-box">
+                <p id="umode" class="wrapper">USER MODE 
+                    <i style="cursor: pointer;"  class="fa fa-info-circle"></i>
+                    <span class="tooltip">
+                        User Mode is a privilege level in OS where programs and applications run within restricted access to computer's hardware and system resources.
+                    </span>
+                </p>
+                <div id="load_process_A" style="overflow-y: scroll; height:313px">
+                    <table id="process" style="padding: 10px; width:90%; margin: 10px;"></table>
+                </div>
+                <div id="process_buttons">
+                    <button id="prev_process" onclick="process_previous()">Previous</button>
+                    <button id="next_process" onclick="process_next()">Next</button>
+                </div>
+            </div>
+
+            <div id="nd-box">
+                <p id="hardware" class="wrapper">HARDWARE 
+                    <i style="cursor: pointer;" class="fa fa-info-circle"></i>
+                    <span class="tooltip">Hardware provides the foundation on which the OS operates. It offers the computational power, memory, storage, and I/O capabilities that the OS and applications depend on. The OS, in turn, manages and interacts with this hardware to provide a stable and productive computing environment.</span>
+                </p>
+                <div id="interrupt_section" style="height:313px">
+                    <table id="interrupt" style="padding: 10px; width:90%; margin: 10px;"></table>
+                </div>
+            </div>
+
+            <div id="rd-box">
+                <p id="kmode" class="wrapper">KERNEL MODE 
+                    <i class="fa fa-info-circle"></i>
+                    <span class="tooltip">Kernel mode, also known as supervisor mode or privileged mode, is the highest privilege level in an operating system. In kernel mode, software has unrestricted access to hardware. This includes tasks like memory management, process scheduling, device driver operation, and handling hardware interrupts.
+                    </span>
+                </p>
+                <div id="k-container" style="overflow-y: scroll; height:313px;">
+                    <table id="kernel" style="padding: 10px; width:90%; margin: 10px;"></table>
+                </div>
+                <div id="kernel_buttons">
+                    <button id="kernelCode_execute" onclick="execute()">Execute</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="conatiner2"> 
+            <div id="cpu">
+                <p id="mycpu" class="wrapper">Central processing unit 
+                    <i class="fa fa-info-circle"></i>
+                    <span class="tooltip">CPU is the hardware component that carries out the essential computational tasks required by the OS and software applications. The OS manages and coordinates the CPU's activities, ensuring that processes run efficiently, securely, and in accordance with system priorities.</span>
+                </p>
+                <div class="cpu_details">
+                    <table id="cpu_section"></table>
+                </div>
+            </div>
+            <div id="k-stack_A">
+                <p id="k-stack-A" class="wrapper">k-stack of process A 
+                    <i class="fa fa-info-circle"></i>
+                    <span class="tooltip">The kernel stack contains data related to the execution of kernel-level functions and system calls. It includes information such as return addresses, function parameters, and local variables of kernel functions. This particular K-Stack belongs to process A.</span>
+                </p>
+                <table id="kStack_A_Table"></table>
+            </div>
+            <div id="k-stack_B">
+                <p id="k-stack-B" class="wrapper">k-stack of process B 
+                    <i class="fa fa-info-circle"></i>
+                    <span class="tooltip">The kernel stack contains data related to the execution of kernel-level functions and system calls. It includes information such as return addresses, function parameters, and local variables of kernel functions. This particular K-Stack belongs to process B.</span>
+                </p>
+                <table id="kStack_B_Table"></table>
+            </div>
+            <div id="pcbA">
+                <p id="pcb_A_p" class="wrapper">PCB of process A 
+                    <i class="fa fa-info-circle"></i>
+                    <span class="tooltip">PCB serves as a central repository of process-specific information required for process management and scheduling. The PCB contains a wide range of information about a process or thread, including its program counter (PC), CPU registers, process state, process ID, scheduling information, memory management data, and I/O status. This PCB belongs to process A.</span>
+                </p>
+                <table id="pcb_A_table"></table>
+            </div>
+            <div id="pcbB">
+                <p id="pcb_B_p" class="wrapper">PCB of process B 
+                    <i class="fa fa-info-circle"></i>
+                    <span class="tooltip">PCB serves as a central repository of process-specific information required for process management and scheduling. The PCB contains a wide range of information about a process or thread, including its program counter (PC), CPU registers, process state, process ID, scheduling information, memory management data, and I/O status. This PCB belongs to process B.</span>
+                </p>
+                <table id="pcb_B_table"></table>
+            </div>
+        </div>
+
+        <div class="container3">
+            <div style="float: left; margin: 10px; background-color: darkgreen; color: white; border-color: burlywood; border: solid sandybrown; border-radius: 7px; border-width: 10px; width: 250px; padding: 10px; height: fit-content; font-weight: bolder; font-size: 40px;">Know what's happening!</div>
+            <div style="float: left;">
+                <div style="font-weight: bolder; padding: 6px"> Introduction </div>
+                <div id="intro" class="wrapper"> Objective 
+                    <span class="contenttip">
+                        <h2>Objective</h2>
+                        <p>
+                            Our objective in this experiment is to understand the mechanism of context switching used by the OS for multi processing. 
+                        </p>
+                        <p>
+                            In this simulation, we approach the context switching technique using a three workstation model where we analyse the operation at three levels: <br>User, Hardware and Kernel.
+                        </p>
+                    </span>
+                </div>
+                <div id="intro" class="wrapper"> Intuition
+                    <span class="contenttip">
+                        <h2>Intuition</h2>
+                        <p>You are to observe the instruction given in the dialog box and respond with the corresponding action in the simulation above.</p>
+                        <p>Observe the control flow between the user state, hardware and the kernel mode and how the CPU and other resources get's updated accordingly.</p>
+                    </span>
+                </div>
+                <div id="intro" class="wrapper"> Apparatus
+                    <span class="contenttip">
+                        <h2>Apparatus</h2>
+                        <p>1. User mode</p>
+                        <p>2. Hardware</p>
+                        <p>3. Kernel mode</p>
+                        <p>4. CPU</p>
+                        <p>5. Kernel Stack (k-stack)</p>
+                        <p>6. Process Control Block (PCB)</p>
+                        <p>7. Interrupt Handlers</p>
+                    </span>
+                </div>
+            </div>
+
+            <div style="float: left; margin-left: 25px;">
+                <div style="font-weight: bolder; padding: 6px"> Theory </div>
+                <div id="intro" class="wrapper" style="width: 270px;"> What is context?
+                    <span class="contenttip" style="width: 200%;">
+                        <h2>What is context?</h2>
+                        <p>
+                            In the context of computing and operating systems, the term "context" refers to the state and information associated with a process or thread at a specific point in time. It encompasses various aspects of the process's execution environment, including its program counter, register values, memory allocation, and other relevant data. The context provides all the necessary information for the operating system to save and later restore the process's execution when it is preempted or needs to be resumed.
+                        </p>
+                        <h2>How is this different from PCB?</h2>
+                        <p>
+                            Context and Process Control Block (PCB) are closely related concepts in the context of process management within an operating system, but they are not the same thing.
+                            While context and PCB both deal with process management and are closely related, they serve different purposes and exist at different levels of abstraction. <br>
+                            Context is about saving and restoring the immediate execution state of a process or thread during context switches, while the PCB is a data structure used to maintain comprehensive information about a process or thread over its entire lifetime and is used for higher-level process management within the operating system.
+                        </p>
+                    </span>
+                </div>
+                <div id="intro" class="wrapper" style="width: 270px;"> what is context switching?
+                    <span class="contenttip" style="width: 200%;">
+                        <h2>What is context switching?</h2>
+                        <p>
+                            Context switching is a fundamental operation in multitasking operating systems. It refers to the process of saving and restoring the state of a CPU for one process or thread and then loading and executing the state of another process or thread. 
+                            Context switching allows multiple processes or threads to share the CPU, giving the illusion of concurrent execution even on single-core processors. 
+                            Here's how context switching works:
+                        </p>
+                        <p>1. Save the current context.</p>
+                        <p>2. Select a new process/thread.</p>
+                        <p>3. Load new context.</p>
+                        <p>4. Resume execution of new process/thread.</p>
+                        <p>
+                            Context switching allows the operating system to efficiently utilize CPU time among multiple processes or threads, providing the illusion of parallelism and ensuring that each process gets a fair share of CPU resources. It's a crucial mechanism for achieving multitasking, multi-user, and time-sharing capabilities in modern operating systems.
+                        </p>
+                        <p>
+                            However, context switching is not free; it introduces some overhead. The time spent saving and restoring context can impact system performance, especially in real-time or highly latency-sensitive applications. Therefore, operating systems strive to minimize context switches and optimize their efficiency through various scheduling algorithms and techniques.
+                        </p>
+                        
+                    </span>
+                </div>
+                <div id="intro" class="wrapper" style="width: 270px;"> Context switching in Linux OS.
+                    <span class="contenttip" style="width: 200%">
+                        <h2>Context switching in Linux OS.</h2>
+                        <p>Context switching is an essential aspect of modern operating systems that enables them to efficiently manage resources available to them.
+                        Context switches are triggered by various events, including process scheduling, interrupts (such as hardware or system calls), and voluntary process yielding.
+                        Context switching comes with a certain overhead due to the need to save and restore process states. Minimizing context switches is essential for system performance.</p>
+                        <h4>Analytical aspects:</h4>
+                        <p>
+                            1. Context switching overhead can impact system performance, especially in cases with a large number of context switches.<br>
+                            2. Analyzing context switch statistics can help diagnose performance bottlenecks. Tools like `vmstat`, `top`, and `perf` can provide insights into context switch rates.<br>
+                            3. Reducing unnecessary context switches through efficient scheduling policies and avoiding busy-waiting (e.g., using sleep or blocking system calls) can improve system efficiency.
+                        </p>
+                        <p>When context switches are triggered too frequently, they themselves can end up using a significant amount of CPU time. On UNIX systems, context switches are reported using the vmstat command, under the CS column. A rate of more than 75,000 to 100,000 context switches per second is considered to be high.The average Context Switches/sec value should be below 7,500 per processor.</p>
+                        <p><br></p>
+                        
+                    </span>
+                </div>
+                
+            </div>
+
+            <div style="float: left; margin-left: 25px;">
+                <div style="font-weight: bolder; padding: 6px"> Programs used for above simulation.</div>
+                <div id="intro" class="wrapper" style="width: 310px;"> Program A: Simple addition program
+                    <span class="contenttip" style="width: 270%;">
+                        <h2>Program A: Simple addition program.</h2>
+                        <p>
+                            For this context switching simulation, we have two programs. The first program, program A, is a simple addition program that adds two numbers.
+                            <br>The C code for the program is shown below:
+                            <pre>
+                                <code>
+#include <stdio.h>
+int main()
+{
+    int a, b, c;
+    a = 5;
+    b = 10;
+    c = a + b;
+    return c;
+}
+                                </code>
+                            </pre>
+                        </p>
+                        <p>
+                            In the above code, we have three variables: a, b, and c. The variable a is assigned the value 5, the variable b is assigned the value 10, and the variable c is assigned the sum of a and b. The value of c is then returned from the main function.    
+                        </p>
+                        <p>The compiler generates a assembly language code which is what we would be tranversing through while executing the process A.</p>
+                    </span>
+                </div>
+                <div id="intro" class="wrapper" style="width: 310px;"> Program B: Read and add program
+                    <span class="contenttip" style="width: 270%;">
+                        <h2>Program B: Read and add program</h2>
+                        <p>
+                            This is the second program used in the simulation. Program B is another simple addition program that 'READS' two numbers from the user and adds them.
+                            <br>The C code for the program is shown below:
+                            <pre>
+                                <code>
+#include <stdio.h>
+int main()
+{
+    int a, b, c;
+    a = 15;
+    scanf("%d", &b); 
+    c = a + b;
+    return c;
+}
+                                </code>
+                            </pre>
+                        </p>
+                        <p>
+                            In the above code, we have three variables: a, b, and c. The variable a is assigned the value 15, the variable b is to be scanned, i.e, the value is to be given by the user and the variable c is assigned the sum of a and b. The value of c is then returned from the main function.    
+                        </p>
+                        <p>The compiler generates a assembly language code which is what we would be tranversing through while executing the process B.</p>
+                    </span>
+                </div>
+                <div id="intro" class="wrapper" style="width: 310px;"> Kernel codes for interrupt handlings
+                    <span class="contenttip">
+                        <h2>Kernel codes for the interrupt handling.</h2>
+                        <p>The interrupt handling codes have been written into the kernel and whenever there is an interrupt, the kernel mode takes over the control to run the corresponding the interrupt handling codes.</p>
+                        <h3>From where does the kernel get the codes?</h3>
+                        <p>Though the code is written into the system, the CPU can't find it by itself. The interrupt descriptor table (IDT), contains the addresses to all the interrupt handlers available and according to the interrupt arrived, the kernel goes to the corresponding address after refering to the IDT and executes the code on the CPU to deal with the interrupt.</p>
+                        <p>The interrupt handling codes used in this simulation are only a part of code taken from the linux kernel repository. To know more about the linux kernel code please refer to the linux documentaion and code repository</p>
+                        <a href="https://github.com/torvalds/linux">github Repo</a><br>
+                        <a href="https://www.kernel.org/doc/html/latest/">Linux kernel documentaion</a>
+                    </span>
+                </div>
+            </div>
+            <div style="float: left; margin-left: 20px;">
+                <div style="font-weight: bolder; padding: 6px; "> References </div>
+                <a href="https://docs.kernel.org/">Linux documentation</a><br>
+                <a href="https://en.wikipedia.org/wiki/Context_switch">Wikipedia</a><br>
+                <a href="https://pages.cs.wisc.edu/~remzi/OSTEP/">Remzi-threeEasyPieces</a><br>
+                <a href="https://drive.uqu.edu.sa/_/mskhayat/files/MySubjects/2017SS%20Operating%20Systems/Abraham%20Silberschatz-Operating%20System%20Concepts%20(9th,2012_12).pdf">OS by Silberschatz</a><br>
+                <a href="https://github.com/torvalds/linux">Linux github Repo</a>
+            </div>
+           
+        </div>
+    </div>
+    <div class="control_page">
+        <div style="padding: 10px">
+            <p style="font-weight: bolder;"> Student controls </p>
+            <p id="current_running_process"> Current Running program: -- </p>
+            <p id="interrupt_type"> Interrupt type: -- </p>
+            <div id="instruction_box">
+                <p
+                    style="margin-top: auto; margin-bottom: 0px; font-weight: bold; background-color: black; color: white; padding: 10px; text-align: center;">
+                    Instruction Box</p>
+                <div id="instructions" style="overflow-y: scroll; height:150px">
+                    <table id="i" style="overflow-y: scroll; padding-left: 10px; width:90%; margin: 10px;"></table>
+                </div>
+            </div>
+            
+            <div id="ints">
+                <table style="padding: 10px; width:90%; margin: 10px;">
+                    <tr>
+                        <td>I/O completed</td>
+                        <td> <button onclick="trigger_io()">Trigger</button> </td>
+                    </tr>
+                </table>
+            </div>
+
+            <button id="start_simulation" onclick="start()">Start</button>
+
+            <div id="observations" style="margin-top: 10px;">
+                <p
+                    style="margin-top: auto; margin-bottom: 0px; font-weight: bold; background-color: black; color: white; padding: 10px; text-align: center;">
+                    Observations</p>
+                <table style="padding: 10px;">
+                    <tr>
+                        <td>Number of context switches</td>
+                        <td id="context_switches">0</td>
+                    </tr>
+                    <tr>
+                        <td>Number of interrupts</td>
+                        <td id="interrupts">0</td>
+                    </tr>
+                    <tr>
+                        <td>Wrong instruction selection</td>
+                        <td id="wrong_ints_selection">0</td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <div style="margin-top: 10px;">
+                <p id="myTrapHandlers" style="font-weight: bold;">Interrupt Handlers:</p>
+                <table id="handlers"></table>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+
+</html>
