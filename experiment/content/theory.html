@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-09-09 Sat 14:10 -->
+<!-- 2023-09-23 Sat 09:30 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Theory</title>
@@ -196,8 +196,8 @@
 <body>
 <div id="content" class="content">
 
-<div id="outline-container-org8814725" class="outline-2">
-<h2 id="org8814725"><span class="section-number-2">1.</span> Introduction</h2>
+<div id="outline-container-orgb996b3c" class="outline-2">
+<h2 id="orgb996b3c"><span class="section-number-2">1.</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Recall that modern operating systems use virtualization of resources in order to make the management of processes flexible and efficient.
@@ -209,19 +209,19 @@ This experiment introduces the fundamental trick used to virtualize a process&rs
 </div>
 </div>
 
-<div id="outline-container-orge675c78" class="outline-2">
-<h2 id="orge675c78"><span class="section-number-2">2.</span> Processes: A closer look</h2>
+<div id="outline-container-org8faad81" class="outline-2">
+<h2 id="org8faad81"><span class="section-number-2">2.</span> Processes: A closer look</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 In the last experiment, we considered the 4 state model of a process, which provided us with a general overview of the process states and control transfer. Here, we will focus on the minute details of a process, its execution mechanism, and the transfers of control that take place during its execution&#x2014;both between user process and the kernel, and the other processes.
 </p>
 </div>
-<div id="outline-container-org5d5b21a" class="outline-3">
-<h3 id="org5d5b21a"><span class="section-number-3">2.1.</span> Process Context</h3>
+<div id="outline-container-orgcd65718" class="outline-3">
+<h3 id="orgcd65718"><span class="section-number-3">2.1.</span> Process Context</h3>
 <div class="outline-text-3" id="text-2-1">
 </div>
-<div id="outline-container-orge5b6cb1" class="outline-4">
-<h4 id="orge5b6cb1"><span class="section-number-4">2.1.1.</span> Process Control Block</h4>
+<div id="outline-container-orgc67a282" class="outline-4">
+<h4 id="orgc67a282"><span class="section-number-4">2.1.1.</span> Process Control Block</h4>
 <div class="outline-text-4" id="text-2-1-1">
 <p>
 In order to virtualize the execution of a process, the OS needs to have an internal account of the state of a process. This representation of the state of a process is stored in memory as a <i>Process Control Block</i>.
@@ -267,208 +267,9 @@ A process control block stores 3 kinds of information about a process&#x2014;nam
 </div>
 </div>
 
-<div id="outline-container-org5e8501f" class="outline-2">
-<h2 id="org5e8501f"><span class="section-number-2">3.</span> Execution Protocol</h2>
+<div id="outline-container-orgd2971e9" class="outline-2">
+<h2 id="orgd2971e9"><span class="section-number-2">3.</span> References</h2>
 <div class="outline-text-2" id="text-3">
-<p>
-See Figure <a href="#org6682bed">1</a> (<a href="#citeproc_bib_item_1">Arpaci-Dusseau and Arpaci-Dusseau 2018</a> Figure 6.3, pp. 65) for an illustration of how virtualized execution enables context switching.
-</p>
-
-<table id="org6682bed" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 1:</span> Context switch (Process A to B) during virtualized execution.</caption>
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left">Stage</th>
-<th scope="col" class="org-left">OS (Kernel Mode)</th>
-<th scope="col" class="org-left">Hardware</th>
-<th scope="col" class="org-left">User Mode Process</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="org-left">Boot</td>
-<td class="org-left"><b>Initialize Trap Table</b></td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">Store Trap Table in memory</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left"><b>Start Interrupt Timer</b></td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">Start Timer</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">Interrupt CPU in Xms</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-</tbody>
-<tbody>
-<tr>
-<td class="org-left">Run</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">Process A</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#x2026;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left"><b>Timer Interrupt</b></td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">k-stack(A) &larr; regs(A)</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">Switch to Kernel Mode</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">Jump to interrupt handler</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">Handle the Interrupt</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">Context Switch:</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">pcb(A) &larr; regs(A)</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">regs(B) &larr; pcb(B)</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">switch to k-stack(B)</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">return-from-trap into B</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">regs(B) &larr; k-stack(B)</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">Switch to user mode</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">jump to B&rsquo;s PC</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">Process B</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#x2026;</td>
-</tr>
-</tbody>
-</table>
-</div>
-
-
-<div id="outline-container-orga0da888" class="outline-3">
-<h3 id="orga0da888"><span class="section-number-3">3.1.</span> Managing Control during Program Execution</h3>
-</div>
-</div>
-
-<div id="outline-container-org4dc5916" class="outline-2">
-<h2 id="org4dc5916"><span class="section-number-2">4.</span> References</h2>
-<div class="outline-text-2" id="text-4">
 <style>.csl-entry{text-indent: -1.5em; margin-left: 1.5em;}</style><div class="csl-bib-body">
   <div class="csl-entry"><a id="citeproc_bib_item_1"></a>Arpaci-Dusseau, Remzi H., and Andrea C. Arpaci-Dusseau. 2018. <i>Operating Systems: Three Easy Pieces</i>. 1.00. Arpaci-Dusseau Books.</div>
 </div>
