@@ -71,7 +71,7 @@ const processB = {
     name: 'Process B',
     pid: 1,
     state: 'Ready',
-    mode: 'User mode',
+    mode: '1 (User mode)',
     instructionPointer: 0,
     programCounter: 0,
     registers: [],
@@ -149,8 +149,18 @@ const processB = {
             const td2 = document.createElement("td");
 
             td.appendChild(document.createTextNode(Program_B_instructions[i].name));
-            td2.appendChild(document.createTextNode(Program_B_instructions[i].value));
+            text = Program_B_instructions[i].value;
+            
+            const startIndex = 0; // Index where you want to start extracting (inclusive)
+            const endingCharacter = ';'; // Character where you want to stop extracting (exclusive)
+            const endIndex = text.indexOf(endingCharacter);
+            const asmCommand = text.substring(startIndex, endIndex);
+            const comment = text.substring(endIndex);
 
+            const asm_cmd = `<span style="color: red">${asmCommand}</span>`;
+            const comment_cmd = `<span style="color: green">${comment}</span>`;
+
+            td2.innerHTML = asm_cmd + comment_cmd;
             tr.appendChild(td);
             tr.appendChild(td2);
             tbody.appendChild(tr);
@@ -191,7 +201,7 @@ const processB = {
         const tr1 = document.createElement("tr");
         const td0 = document.createElement("td");
         const td1 = document.createElement("td");
-        td0.innerHTML = "Mode: ";
+        td0.innerHTML = "psw (Mode): ";
         td1.innerHTML = this.getMode();
         tr1.appendChild(td0);
         tr1.appendChild(td1);
@@ -246,9 +256,15 @@ const processB = {
             document.getElementById("next_process").disabled = true;
             document.getElementById("prev_process").disabled = true;
 
-            window.alert("You have an exit Interrupt. Hardware will take over the control now. Select the correct instructions from the instruction box in student control box to continue.");
-            document.getElementById("remark").innerHTML = "";
-            document.getElementById("remark").innerHTML = "You have entered the hardware to deal with the exit interrupt. Select the correct instruction which will enable you to load the registers of process B to it's k-stack so that it can be later used by the kernel during it's execution.";
+            var modal = document.getElementById("myModal_exit2");
+            modal.style.display = "block";
+            var span = document.getElementsByClassName("boot-ex2")[0];
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+            
+            document.getElementById("remark").innerHTML += "<br> > <br> a) You have entered the hardware to deal with the exit interrupt. <br> b) Select the correct instruction which will enable you to load the registers of process B to it's k-stack so that it can be later used by the kernel during it's execution.</br>";
+            document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
             setUp_hardware();
 
             return;
@@ -274,9 +290,15 @@ const processB = {
             document.getElementById("next_process").disabled = true;
             document.getElementById("prev_process").disabled = true;
 
-            window.alert("You have a read Interrupt. Hardware will take over the control now. Select the correct instructions from the instruction box in student control box to run the hardware.")
-            document.getElementById("remark").innerHTML = "";
-            document.getElementById("remark").innerHTML = "You have entered the hardware to deal with the read interrupt. Select the correct instruction which will enable you to load the registers of process B to it's k-stack so that it can be later used by the kernel during it's execution.";
+            var modal = document.getElementById("myModal_read");
+            modal.style.display = "block";
+            var span = document.getElementsByClassName("boot-r")[0];
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+            
+            document.getElementById("remark").innerHTML += "<br> > <br> a) You have entered the hardware to deal with the read interrupt. <br> b) Select the correct instruction which will enable you to load the registers of process B to it's k-stack so that it can be later used by the kernel during it's execution.<br>";
+            document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
             setUp_hardware();
             // hardware_u_to_k(current_process);
 
@@ -325,7 +347,7 @@ const processA = {
     name: 'Process A',
     pid: 0,
     state: 'ready',
-    mode: 'User mode',
+    mode: '1 (User mode)',
     instructionPointer: 0,
     programCounter: 0,
     registers: [],
@@ -394,7 +416,18 @@ const processA = {
             const td2 = document.createElement("td");
 
             td.appendChild(document.createTextNode(Program_A_instructions[i].name));
-            td2.appendChild(document.createTextNode(Program_A_instructions[i].value));
+            text = Program_A_instructions[i].value;
+            
+            const startIndex = 0; // Index where you want to start extracting (inclusive)
+            const endingCharacter = ';'; // Character where you want to stop extracting (exclusive)
+            const endIndex = text.indexOf(endingCharacter);
+            const asmCommand = text.substring(startIndex, endIndex);
+            const comment = text.substring(endIndex);
+
+            const asm_cmd = `<span style="color: red">${asmCommand}</span>`;
+            const comment_cmd = `<span style="color: green">${comment}</span>`;
+
+            td2.innerHTML = asm_cmd + comment_cmd;
 
             tr.appendChild(td);
             tr.appendChild(td2);
@@ -437,7 +470,7 @@ const processA = {
         const tr1 = document.createElement("tr");
         const td0 = document.createElement("td");
         const td1 = document.createElement("td");
-        td0.innerHTML = "Mode: ";
+        td0.innerHTML = "psw (Mode): ";
         td1.innerHTML = this.getMode();
         tr1.appendChild(td0);
         tr1.appendChild(td1);
@@ -492,9 +525,15 @@ const processA = {
             document.getElementById("next_process").disabled = true;
             document.getElementById("prev_process").disabled = true;
 
-            window.alert("You have an exit Interrupt. Hardware will take over the control now. Select the correct instructions from the instruction box in student control box to continue.");
-            document.getElementById("remark").innerHTML = "";
-            document.getElementById("remark").innerHTML = "You have entered the hardware to deal with the exit interrupt. Select the correct instruction which will enable you to load the registers of process A to it's k-stack so that it can be later used by the kernel during it's execution in kernel mode.";
+            var modal = document.getElementById("myModal_exit1");
+            modal.style.display = "block";
+            var span = document.getElementsByClassName("boot-ex1")[0];
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+            // document.getElementById("remark").innerHTML = "";
+            document.getElementById("remark").innerHTML += "<br> > <br> a) You have entered the hardware to deal with the exit interrupt. <br> b) Select the correct instruction which will enable you to load the registers of process A to it's k-stack so that it can be later used by the kernel during it's execution in kernel mode.";
+            document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
             setUp_hardware();
 
             return;
@@ -519,9 +558,15 @@ const processA = {
             document.getElementById("next_process").disabled = true;
             document.getElementById("prev_process").disabled = true;
 
-            window.alert("You have a timer Interrupt. Hardware will take over the control now. Select the correct instructions from the instruction box in student control box to run the hardware.")
-            document.getElementById("remark").innerHTML = "";
-            document.getElementById("remark").innerHTML = "You have entered the hardware to deal with the timer interrupt. Select the correct instruction which will enable you to load the registers of process A to it's k-stack so that it can be later used by the kernel during it's execution in kernel mode.";
+            var modal = document.getElementById("myModal_timer");
+            modal.style.display = "block";
+            var span = document.getElementsByClassName("boot-t")[0];
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+            // document.getElementById("remark").innerHTML = "";
+            document.getElementById("remark").innerHTML += "<br> > <br> a) You have entered the hardware to deal with the timer interrupt. <br> b) Select the correct instruction which will enable you to load the registers of process A to it's k-stack so that it can be later used by the kernel during it's execution in kernel mode.";
+            document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
             setUp_hardware();
             // hardware_u_to_k(current_process);
 
@@ -910,7 +955,8 @@ function start() {
         document.getElementById("start_simulation").style.color = "white";
 
         // Start the simulation
-        document.getElementById("remark").innerHTML = "Observe the User mode and tranverse through the Process A running on CPU by using the 'next' and 'previous' buttons."
+        document.getElementById("remark").innerHTML += "<br> > <br> a) 'User' is running Process A. <br> b) Traverse the process using 'previous' and 'next' buttons. <br> c) Observe the changes in CPU."
+        document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
         document.getElementById("current_running_process").innerHTML = "Current Running Process: " + current_process;
         simulation();
     }
@@ -958,8 +1004,8 @@ function process_next() {
 
 function setUp_hardware() {
     const h_box = document.getElementById("nd-box");
-    h_box.style.borderColor = "orange";
-    document.getElementById("hardware").style.backgroundColor = "orange";
+    h_box.style.borderColor = "dodgerblue";
+    document.getElementById("hardware").style.backgroundColor = "dodgerblue";
     document.getElementById("hardware").style.color = "white";
     document.getElementById("interrupt_type").innerHTML = "Interrupt type: " + interrupt;
 
@@ -1004,9 +1050,9 @@ function change_mode() {
         return;
     }
 
-    document.getElementById("remark").innerHTML = "";
-    document.getElementById("remark").innerHTML = "Observe the mode into which CPU had shifted. Now select the correct instruction to get the correct interrupt handler."
-
+    // document.getElementById("remark").innerHTML = "";
+    document.getElementById("remark").innerHTML += "<br> > <br> a) Observe the mode into which CPU had shifted. <br> b) Now select the correct instruction to get the correct interrupt handler."
+    document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
     const hardware = document.getElementById("interrupt");
     const tr = document.createElement("tr");
     const td = document.createElement("td");
@@ -1020,11 +1066,11 @@ function change_mode() {
     const cpu = document.getElementById("cpu_section");
     let mode = cpu.rows[1].cells[1].innerHTML;
 
-    if (mode == "User mode") {
-        mode = "Kernel mode";
+    if (mode == "1 (User mode)") {
+        mode = "0 (Kernel mode)";
     }
     else {
-        mode = "User mode";
+        mode = "1 (User mode)";
     }
 
     cpu.rows[1].cells[1].innerHTML = mode;
@@ -1042,10 +1088,10 @@ function load_trap_handlers() {
     const cpu = document.getElementById("cpu_section");
     cpu.rows[1].style.backgroundColor = "white";
 
-    window.alert("Select the appropriate trap handler for the " + interrupt + " interrupt from the interrupt handler box.");
-    document.getElementById("remark").innerHTML = "";
-    document.getElementById("remark").innerHTML = "Select the timer handler from the interrupt handler box in the student control panel.";
-
+    // window.alert("Select the appropriate trap handler for the " + interrupt + " interrupt from the interrupt handler box.");
+    // document.getElementById("remark").innerHTML = "";
+    document.getElementById("remark").innerHTML += "<br> > Select the correct handler from the interrupt handler box in the student control panel.";
+    document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
     const hardware = document.getElementById("interrupt");
     const tr = document.createElement("tr");
     const td = document.createElement("td");
@@ -1101,10 +1147,10 @@ function timerHandler() {
         document.getElementById("timer").style.backgroundColor = "green";
         document.getElementById("timer").style.color = "white";
 
-        window.alert("You have selected the correct trap handler to resolve timer interrupt. The kernel will take over the control now.");
-        document.getElementById("remark").innerHTML = "";
-        document.getElementById("remark").innerHTML = "You have selected the correct trap handler to resolve timer interrupt. The kernel now has the control to execute the interrupt handler.";
-
+        // window.alert("You have selected the correct trap handler to resolve timer interrupt. The kernel will take over the control now.");
+        // document.getElementById("remark").innerHTML = "";
+        document.getElementById("remark").innerHTML += "<br> > You have selected the correct trap handler to resolve timer interrupt. The kernel now has the control to execute the interrupt handler.";
+        document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
         runTimerHandler();
     }
 }
@@ -1124,10 +1170,10 @@ function runTimerHandler() {
     const kernelSection = document.getElementById("kernel");
 
     const k_box = document.getElementById("rd-box");
-    k_box.style.borderColor = "green";
-    document.getElementById("kmode").style.backgroundColor = "green";
+    k_box.style.borderColor = "dodgerblue";
+    document.getElementById("kmode").style.backgroundColor = "dodgerblue";
     document.getElementById("kmode").style.color = "white";
-    document.getElementById("kernel_buttons").backgroundColor = "green";
+    document.getElementById("kernel_buttons").backgroundColor = "dodgerblue";
 
     // Remove existing content from the kernel section
     kernelSection.innerHTML = "";
@@ -1135,9 +1181,10 @@ function runTimerHandler() {
 
     // Create a tbody element
     const tbody = document.createElement("tbody");
-
+    tbody.insertRow(0).insertCell(0).innerHTML = "This code represents the handling of timer interrupts generated by the local APIC timer. It checks if there's a valid event handler registered for the timer event and takes appropriate actions in case of a spurious interrupt. If a valid handler is present, it increments IRQ statistics and invokes the event handler for further processing. This code is a crucial part of managing timer interrupts in the kernel.";
+    tbody.rows[0].cells[0].style.backgroundColor = "yellow";
     // Add rows to the tbody
-    tbody.insertRow(0).insertCell(0).innerHTML = "static void local_apic_timer_interrupt(void)";
+    tbody.insertRow(-1).insertCell(0).innerHTML = "static void local_apic_timer_interrupt(void)";
     tbody.insertRow(-1).insertCell(0).innerHTML = "{";
     tbody.insertRow(-1).insertCell(0).innerHTML = "   struct clock_event_device *evt = this_cpu_ptr(&lapic_events);";
     tbody.insertRow(-1).insertCell(0).innerHTML = "   if (!evt->event_handler) {";
@@ -1230,7 +1277,7 @@ function execute() {
 
             const kernel_button = document.getElementById("kernel_buttons");
             kernel_button.innerHTML = "";
-            kernel_button.style.backgroundColor = "green";
+            kernel_button.style.backgroundColor = "dodgerblue";
 
             const end = document.createElement("button");
             end.setAttribute("id", "end");
@@ -1243,11 +1290,12 @@ function execute() {
         }
         kernelSection.innerHTML =
             "<tr><td>Executed the trap Handler</td></tr><tr><td>Please do the context switch ... </td></tr>";
-        document.getElementById("remark").innerHTML = "";
-        document.getElementById("remark").innerHTML = "The trap handler is executed. Now proceed to do the context switch."
+        // document.getElementById("remark").innerHTML = "";
+        document.getElementById("remark").innerHTML += "<br> > The trap handler is executed. Now proceed to do the context switch."
+        document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
         const kernel_button = document.getElementById("kernel_buttons");
         kernel_button.innerHTML = "";
-        kernel_button.style.backgroundColor = "green";
+        kernel_button.style.backgroundColor = "dodgerblue";
 
         const contextSwitchButton = document.createElement("button");
         contextSwitchButton.setAttribute("id", "contxtSwitch");
@@ -1282,9 +1330,9 @@ function contextSwitch() {
         instructionBox.innerHTML = "";
         const tbody = document.createElement("tbody");
 
-        document.getElementById("remark").innerHTML = "";
-        document.getElementById("remark").innerHTML = "Select the instruction that will first save the context of the current running process to it's PCB from the instruction box in student control panel to start the context switch process."
-
+        // document.getElementById("remark").innerHTML = "";
+        document.getElementById("remark").innerHTML += "<br> > Select the instruction that will save the context of the current process to it's PCB from the instruction box in student control panel."
+        document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
         const context_switch_instruction = context_switch_instructions(current_process, next_process);
 
         const tr1 = document.createElement("tr");
@@ -1340,10 +1388,10 @@ function trigger_io() {
         const kernelSection = document.getElementById("kernel");
 
         const k_box = document.getElementById("rd-box");
-        k_box.style.borderColor = "green";
-        document.getElementById("kmode").style.backgroundColor = "green";
+        k_box.style.borderColor = "dodgerblue";
+        document.getElementById("kmode").style.backgroundColor = "dodgerblue";
         document.getElementById("kmode").style.color = "white";
-        document.getElementById("kernel_buttons").backgroundColor = "green";
+        document.getElementById("kernel_buttons").backgroundColor = "dodgerblue";
 
         // Remove existing content from the kernel section
         kernelSection.innerHTML = "";
@@ -1351,9 +1399,11 @@ function trigger_io() {
 
         // Create a tbody element
         const tbody = document.createElement("tbody");
-
+        // Appending a yellow colored text
+        tbody.insertRow(0).insertCell(0).innerHTML = "This function is part of a larger system that deals with asynchronous I/O operations. It prepares and processes linked lists of I/O requests and performs different actions based on whether a specific flag is set in the request structure.";
+        tbody.rows[0].cells[0].style.backgroundColor = "yellow";
         // Add rows to the tbody
-        tbody.insertRow(0).insertCell(0).innerHTML = "static void io_prep_async_link(struct io_kiocb *req)";
+        tbody.insertRow(-1).insertCell(0).innerHTML = "static void io_prep_async_link(struct io_kiocb *req)";
         tbody.insertRow(-1).insertCell(0).innerHTML = "{";
         tbody.insertRow(-1).insertCell(0).innerHTML = "   struct io_kiocb *cur;";
         tbody.insertRow(-1).insertCell(0).innerHTML = "   if (req->flags & REQ_F_LINK_TIMEOUT) {";
@@ -1373,7 +1423,7 @@ function trigger_io() {
 
         const kernel_button = document.getElementById("kernel_buttons");
         kernel_button.innerHTML = "";
-        kernel_button.style.backgroundColor = "green";
+        kernel_button.style.backgroundColor = "dodgerblue";
         const executeButton = document.createElement("button");
         executeButton.setAttribute("id", "kernelCode_execute");
         executeButton.innerHTML = "Execute";
@@ -1396,9 +1446,10 @@ function hardware_k_to_u() {
         console.log("Exit");
         io = 1;
         interrupt = "";
-        window.alert("Process " + next_process + " is still waiting for I/O to complete. Click on I/O trigger to complete the I/O operation.");
-        document.getElementById("remark").innerHTML = "";
-        document.getElementById("remark").innerHTML = "Process " + next_process + " is still waiting for I/O to complete. Click on I/O trigger in student controls to send a signal to the hardware that the I/O operation is complete.";
+        // window.alert("Process " + next_process + " is still waiting for I/O to complete. Click on I/O trigger to complete the I/O operation.");
+        // document.getElementById("remark").innerHTML = "";
+        document.getElementById("remark").innerHTML += "<br> > <br> a) Process " + next_process + " is still waiting for I/O to complete. <br> b) Click on I/O trigger in student controls to send a signal to the hardware that the I/O operation is complete.";
+        document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
         return;
     }
 
@@ -1417,8 +1468,8 @@ function hardware_k_to_u() {
     document.getElementById("kmode").style.backgroundColor = "darkgrey";
     document.getElementById("kmode").style.color = "black";
 
-    document.getElementById("nd-box").style.borderColor = "orange";
-    document.getElementById("hardware").style.backgroundColor = "orange";
+    document.getElementById("nd-box").style.borderColor = "dodgerblue";
+    document.getElementById("hardware").style.backgroundColor = "dodgerblue";
     document.getElementById("hardware").style.color = "white";
 
     document.getElementById("k-stack_A").style.borderColor = "darkgrey";
@@ -1464,9 +1515,10 @@ function hardware_k_to_u() {
     instructionBox.appendChild(tbody);
 
     console.log("Going from kernel to hardware mode");
-    window.alert("The kernel execution for dealing with the trap and context switching is done. Now the hardware will switch to user mode. Select the correct instructions from the instruction box for the hardware to execute. Click OK to continue");
-    document.getElementById("remark").innerHTML = "";
-    document.getElementById("remark").innerHTML = "The kernel execution for dealing with the trap and context switching is done. Now you are in the hardware. Select the correct instructions from the instruction box to load the registers into CPU from k-stack for it's execution.";
+    // window.alert("The kernel execution for dealing with the trap and context switching is done. Now the hardware will switch to user mode. Select the correct instructions from the instruction box for the hardware to execute. Click OK to continue");
+    // document.getElementById("remark").innerHTML = "";
+    document.getElementById("remark").innerHTML += "<br> > <br> a) You are in the hardware now. <br> b) Select the correct instructions from the instruction box to load the registers into CPU from k-stack for it's execution.";
+    document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
 }
 
 function jump_to_process() {
@@ -1482,9 +1534,9 @@ function jump_to_process() {
     const htable = document.getElementById("interrupt");
     htable.innerHTML = "";
 
-    document.getElementById("remark").innerHTML = "";
-    document.getElementById("remark").innerHTML = "You are in the User mode now. Use the 'next' and 'previous' buttons in the user mode to traverse through the program."
-
+    // document.getElementById("remark").innerHTML = "";
+    document.getElementById("remark").innerHTML += "<br> > <br> a) You are in the User mode now. <br> b) Use the 'next' and 'previous' buttons in the user mode to traverse through the program."
+    scrollToBottom();
     document.getElementById("st-box").style.borderColor = "dodgerblue";
     document.getElementById("umode").style.backgroundColor = "dodgerblue";
     document.getElementById("umode").style.color = "white";
@@ -1513,7 +1565,7 @@ function jump_to_process() {
     hardwarePointer = 0;
 
     console.log("Going from hardware to user mode");
-    window.alert("User mode will take over the control now. We are going into ${current_process}'s user mode. Click OK to continue");
+    // window.alert("User mode will take over the control now. We are going into ${current_process}'s user mode. Click OK to continue");
 }
 
 function move_to_user_mode() {
@@ -1526,9 +1578,9 @@ function move_to_user_mode() {
     document.getElementById("move_to_user_mode").style.backgroundColor = "green";
     document.getElementById("move_to_user_mode").style.color = "white";
 
-    document.getElementById("remark").innerHTML = "";
-    document.getElementById("remark").innerHTML = "Observe the change in the mode CPU is running. Now select the instruction to jump to the process. This will lead you to User mode.";
-
+    // document.getElementById("remark").innerHTML = "";
+    document.getElementById("remark").innerHTML += "<br> > <br> a) Observe the change in the mode CPU is running. <br> b) Now select the instruction to jump to the process. <br> c) This will lead you into User mode.";
+    document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
     const htable = document.getElementById("interrupt");
     const tbody = document.createElement("tbody");
     const tr = document.createElement("tr");
@@ -1549,7 +1601,7 @@ function move_to_user_mode() {
         document.getElementById("k-stack-B").style.backgroundColor = "darkgrey";
         document.getElementById("k-stack-B").style.color = "black";
     }
-    cpu.rows[1].cells[1].innerHTML = "User Mode";
+    cpu.rows[1].cells[1].innerHTML = "1 (User Mode)";
     cpu.rows[1].style.backgroundColor = "yellow";
 
     console.log("Moving to user mode");
@@ -1564,8 +1616,8 @@ function restore_registers() {
         return;
     }
 
-    document.getElementById("remark").innerHTML = "Observe the registers CPU will be working on from now on. These are the registers of the process we have switched to. To execute the process, select the instruction that will change the CPU mode to user mode.";
-
+    document.getElementById("remark").innerHTML += "<br> > <br> a) Observe the registers CPU will be working on from now on. <br> b) These are the registers of the process we have switched to. <br> c) To execute the process, select the instruction that will change the CPU mode to user mode.";
+    document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
     let reg = "";
 
     const cpu = document.getElementById("cpu_section");
@@ -1575,8 +1627,8 @@ function restore_registers() {
             reg = "--";
         }
 
-        document.getElementById("k-stack_A").style.borderColor = "yellow";
-        document.getElementById("k-stack-A").style.backgroundColor = "yellow";
+        document.getElementById("k-stack_A").style.borderColor = "dodgerblue";
+        document.getElementById("k-stack-A").style.backgroundColor = "dodgerblue";
         document.getElementById("k-stack-A").style.color = "black";
     }
     else {
@@ -1585,8 +1637,8 @@ function restore_registers() {
             reg = "--";
         }
 
-        document.getElementById("k-stack_B").style.borderColor = "yellow";
-        document.getElementById("k-stack-B").style.backgroundColor = "yellow";
+        document.getElementById("k-stack_B").style.borderColor = "dodgerblue";
+        document.getElementById("k-stack-B").style.backgroundColor = "dodgerblue";
         document.getElementById("k-stack-B").style.color = "black";
     }
     cpu.rows[2].cells[1].innerHTML = reg;
@@ -1615,8 +1667,9 @@ function restorePCB() {
         return;
     }
 
-    document.getElementById("remark").innerHTML = "";
-    document.getElementById("remark").innerHTML = "The k-stack of new process is loaded succesfully from it's PCB. Now select the appropriate instruction to switch to the k-stack of new process.";
+    // document.getElementById("remark").innerHTML = "";
+    document.getElementById("remark").innerHTML += "<br> > <br> a) The k-stack of new process is loaded succesfully from it's PCB. <br> b) Now select the appropriate instruction to switch to the k-stack of new process.";
+    document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
     console.log("Restoring PCB of " + current_process);
 
     const kernel = document.getElementById("kernel");
@@ -1660,8 +1713,8 @@ function restorePCB() {
 
 function restorePCB_B() {
 
-    document.getElementById("k-stack_B").style.borderColor = "yellow";
-    document.getElementById("k-stack-B").style.backgroundColor = "yellow";
+    document.getElementById("k-stack_B").style.borderColor = "dodgerblue";
+    document.getElementById("k-stack-B").style.backgroundColor = "dodgerblue";
     document.getElementById("k-stack-B").style.color = "black";
 
     const pcbTable = document.getElementById("pcb_B_table");
@@ -1713,8 +1766,8 @@ function restorePCB_B() {
 
 function restorePCB_A() {
 
-    document.getElementById("k-stack_A").style.borderColor = "yellow";
-    document.getElementById("k-stack-A").style.backgroundColor = "yellow";
+    document.getElementById("k-stack_A").style.borderColor = "dodgerblue";
+    document.getElementById("k-stack-A").style.backgroundColor = "dodgerblue";
     document.getElementById("k-stack-A").style.color = "black";
 
     const pcbTable = document.getElementById("pcb_A_table");
@@ -1765,6 +1818,12 @@ function restorePCB_A() {
     }
     stack.appendChild(tbody1);
 }
+function scrollToBottom() {
+    var remarkDiv = document.getElementById("remark");
+    remarkDiv.scrollTop = remarkDiv.scrollHeight;
+    // requestAnimationFrame(scrollToBottom);
+}
+
 
 function updatePCB() {
     if (kPointer != 0) {
@@ -1773,8 +1832,8 @@ function updatePCB() {
         return;
     }
 
-    document.getElementById("remark").innerHTML = "";
-    document.getElementById("remark").innerHTML = "You have successfully updated the PCB of process " + current_process + ". Now select the instruction that will load the k-stack of process " + next_process + " from the PCB so that kernel can start the execution of new process.";
+    document.getElementById("remark").innerHTML += "<br> > <br> a) You have successfully updated the PCB of process " + current_process + ". <br> b) Now select the instruction that will load the k-stack of process " + next_process + " from the PCB so that kernel can start the execution of new process.<br>";
+    document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
     console.log("Updating PCB of " + current_process);
 
     const kernel = document.getElementById("kernel");
@@ -1896,7 +1955,7 @@ function readHandler() {
         document.getElementById("read").style.backgroundColor = "green";
         document.getElementById("read").style.color = "white";
 
-        window.alert("You have selected the correct trap handler to resolve I/O Read interrupt. The kernel will take over the control now.");
+        // window.alert("You have selected the correct trap handler to resolve I/O Read interrupt. The kernel will take over the control now.");
 
         runReadHandler();
     }
@@ -1918,10 +1977,10 @@ function runExitHandler() {
     const kernelSection = document.getElementById("kernel");
 
     const k_box = document.getElementById("rd-box");
-    k_box.style.borderColor = "green";
-    document.getElementById("kmode").style.backgroundColor = "green";
+    k_box.style.borderColor = "dodgerblue";
+    document.getElementById("kmode").style.backgroundColor = "dodgerblue";
     document.getElementById("kmode").style.color = "white";
-    document.getElementById("kernel_buttons").backgroundColor = "green";
+    document.getElementById("kernel_buttons").backgroundColor = "dodgerblue";
 
     // Remove existing content from the kernel section
     kernelSection.innerHTML = "";
@@ -1929,6 +1988,9 @@ function runExitHandler() {
 
     // Create a tbody element
     const tbody = document.createElement("tbody");
+
+    tbody.insertRow(0).insertCell(0).innerHTML = "This code essentially manages the termination of a task (process) within an operating system kernel or similar system-level software. It ensures that various resources are cleaned up and that the exit is properly synchronized with other tasks and processes. It also handles the case where the entire process group is exiting, taking additional actions in that scenario.";
+    tbody.rows[0].cells[0].style.backgroundColor = "yellow";
 
     // Add rows to the tbody
     tbody.insertRow(-1).insertCell(0).innerHTML = "void __noreturn do_exit(long code)";
@@ -2039,10 +2101,10 @@ function runReadHandler() {
     const kernelSection = document.getElementById("kernel");
 
     const k_box = document.getElementById("rd-box");
-    k_box.style.borderColor = "green";
-    document.getElementById("kmode").style.backgroundColor = "green";
+    k_box.style.borderColor = "dodgerblue";
+    document.getElementById("kmode").style.backgroundColor = "dodgerblue";
     document.getElementById("kmode").style.color = "white";
-    document.getElementById("kernel_buttons").backgroundColor = "green";
+    document.getElementById("kernel_buttons").backgroundColor = "dodgerblue";
 
     // Remove existing content from the kernel section
     kernelSection.innerHTML = "";
@@ -2050,18 +2112,22 @@ function runReadHandler() {
 
     // Create a tbody element
     const tbody = document.createElement("tbody");
-
+    tbody.insertRow(0).insertCell(0).innerHTML = "this code defines a function for synchronous reading of data from a file. It initializes data structures, performs the read operation, handles errors, and updates the file position if necessary before returning the result. This code is typical in file I/O operations within operating systems and file systems.";
+    tbody.rows[0].cells[0].style.backgroundColor = "yellow";
     // Add rows to the tbody
-    tbody.insertRow(0).insertCell(0).innerHTML = "static void local_apic_timer_interrupt(void)";
+    tbody.insertRow(-1).insertCell(0).innerHTML = "static ssize_t new_sync_read(struct file *filp, char __user *buf, size_t len, loff_t *ppos)";
     tbody.insertRow(-1).insertCell(0).innerHTML = "{";
-    tbody.insertRow(-1).insertCell(0).innerHTML = "   struct clock_event_device *evt = this_cpu_ptr(&lapic_events);";
-    tbody.insertRow(-1).insertCell(0).innerHTML = "   if (!evt->event_handler) {";
-    tbody.insertRow(-1).insertCell(0).innerHTML = "       pr_warn(\"Spurious LAPIC timer interrupt on cpu %d\\n\", smp_processor_id());";
-    tbody.insertRow(-1).insertCell(0).innerHTML = "       lapic_timer_shutdown(evt);";
-    tbody.insertRow(-1).insertCell(0).innerHTML = "       return;";
-    tbody.insertRow(-1).insertCell(0).innerHTML = "   }";
-    tbody.insertRow(-1).insertCell(0).innerHTML = "   inc_irq_stat(apic_timer_irqs);";
-    tbody.insertRow(-1).insertCell(0).innerHTML = "   evt->event_handler(evt);";
+    tbody.insertRow(-1).insertCell(0).innerHTML = "struct kiocb kiocb;";
+    tbody.insertRow(-1).insertCell(0).innerHTML = "struct iov_iter iter;";
+    tbody.insertRow(-1).insertCell(0).innerHTML = "ssize_t ret;";
+    tbody.insertRow(-1).insertCell(0).innerHTML = "init_sync_kiocb(&kiocb, filp);";
+    tbody.insertRow(-1).insertCell(0).innerHTML = "kiocb.ki_pos = (ppos ? *ppos : 0);";
+    tbody.insertRow(-1).insertCell(0).innerHTML = "iov_iter_ubuf(&iter, ITER_DEST, buf, len);";
+    tbody.insertRow(-1).insertCell(0).innerHTML = "ret = call_read_iter(filp, &kiocb, &iter);";
+    tbody.insertRow(-1).insertCell(0).innerHTML = "BUG_ON(ret == -EIOCBQUEUED);";
+    tbody.insertRow(-1).insertCell(0).innerHTML = "if (ppos)";
+    tbody.insertRow(-1).insertCell(0).innerHTML = "*ppos = kiocb.ki_pos;";
+    tbody.insertRow(-1).insertCell(0).innerHTML = "return ret;";
     tbody.insertRow(-1).insertCell(0).innerHTML = "}";
 
     // Append the tbody to the kernelTable
@@ -2070,7 +2136,7 @@ function runReadHandler() {
 
     const kernel_button = document.getElementById("kernel_buttons");
     kernel_button.innerHTML = "";
-    kernel_button.style.backgroundColor = "green";
+    kernel_button.style.backgroundColor = "dodgerblue";
     const executeButton = document.createElement("button");
     executeButton.setAttribute("id", "kernelCode_execute");
     executeButton.innerHTML = "Execute";
@@ -2093,7 +2159,7 @@ function exitHandler() {
         document.getElementById("exit").style.backgroundColor = "green";
         document.getElementById("exit").style.color = "white";
 
-        window.alert("You have selected the correct trap handler to resolve I/O Read interrupt. The kernel will take over the control now.");
+        // window.alert("You have selected the correct trap handler to resolve I/O Read interrupt. The kernel will take over the control now.");
 
         runExitHandler();
     }
@@ -2120,10 +2186,9 @@ function load_k_stack_kernel() {
     const tbody = document.createElement("tbody");
     tbody.insertRow(-1).insertCell(0).innerHTML = context_switch_instruction[2]();
     kernel.appendChild(tbody);
-        
-    document.getElementById("remark").innerHTML = "";
-    document.getElementById("remark").innerHTML = "Now select the correct instruction to jump into the new process and complete the context switch.";
-
+    
+    document.getElementById("remark").innerHTML += "<br> > Now select the correct instruction to jump into the new process and complete the context switch.<br>";
+    document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
     document.getElementById("kernel_stack_k").style.backgroundColor = "green";
     document.getElementById("kernel_stack_k").style.color = "white";
 
@@ -2133,8 +2198,8 @@ function load_k_stack_kernel() {
         document.getElementById("pcb_A_p").style.backgroundColor = "darkgrey";
         document.getElementById("pcb_A_p").style.color = "black";
 
-        document.getElementById("k-stack_A").style.borderColor = "goldenrod";
-        document.getElementById("k-stack-A").style.backgroundColor = "goldenrod";
+        document.getElementById("k-stack_A").style.borderColor = "dodgerblue";
+        document.getElementById("k-stack-A").style.backgroundColor = "dodgerblue";
         document.getElementById("k-stack-A").style.color = "white";
     }
     else if (next_process == "B") {
@@ -2143,8 +2208,8 @@ function load_k_stack_kernel() {
         document.getElementById("pcb_B_p").style.backgroundColor = "darkgrey";
         document.getElementById("pcb_B_p").style.color = "black";
 
-        document.getElementById("k-stack_B").style.borderColor = "goldenrod";
-        document.getElementById("k-stack-B").style.backgroundColor = "goldenrod";
+        document.getElementById("k-stack_B").style.borderColor = "dodgerblue";
+        document.getElementById("k-stack-B").style.backgroundColor = "dodgerblue";
         document.getElementById("k-stack-B").style.color = "white";
     }
 
@@ -2159,9 +2224,9 @@ function load_k_stack() {
         return;
     }
 
-    document.getElementById("remark").innerHTML = "";
-    document.getElementById("remark").innerHTML = "You have now populated your kernel stack. Now you need to change to kernel mode. Select the correct instruction to do that.";
-
+    
+    document.getElementById("remark").innerHTML += "<br> > <br> a) You have now populated your kernel stack. <br> b) Now you need to change to kernel mode. Select the correct instruction to do that.<br>";
+    document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
     document.getElementById("kernel_stack").style.backgroundColor = "green";
     document.getElementById("kernel_stack").style.color = "white";
 
@@ -2174,14 +2239,14 @@ function load_k_stack() {
 
     if (current_process == "A") {
         load_k_stack_A();
-        document.getElementById("k-stack_A").style.borderColor = "goldenrod";
-        document.getElementById("k-stack-A").style.backgroundColor = "goldenrod";
+        document.getElementById("k-stack_A").style.borderColor = "dodgerblue";
+        document.getElementById("k-stack-A").style.backgroundColor = "dodgerblue";
         document.getElementById("k-stack-A").style.color = "white";
     }
     else if (current_process == "B") {
         load_k_stack_B();
-        document.getElementById("k-stack_B").style.borderColor = "goldenrod";
-        document.getElementById("k-stack-B").style.backgroundColor = "goldenrod";
+        document.getElementById("k-stack_B").style.borderColor = "dodgerblue";
+        document.getElementById("k-stack-B").style.backgroundColor = "dodgerblue";
         document.getElementById("k-stack-B").style.color = "white";
     }
 
