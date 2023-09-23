@@ -6,7 +6,7 @@
 .control_page {
     width: 20%;
     height: 100%;
-    background-color: blanchedalmond;
+    background-color: lightgrey;
     margin-top: 6px;
     border-radius: 5px;
     float: left;
@@ -34,7 +34,7 @@
     margin-top: 0.4%;
     margin-left: 1.5%;
     margin-right: 2%;
-    width: 98%;
+    width: 96.4%;
     /* position: absolute; */
     background-color: khaki;
     float: left;
@@ -67,6 +67,7 @@
     height: 180px;
     background-color: white;
     border: solid darkgrey;
+    border-radius: 10px;;
     margin-top: 20px;
     margin-left: 1.5%;
 }
@@ -92,8 +93,9 @@
     height: 180px;
     background-color: white;
     border: solid darkgrey;
+    border-radius: 10px;
     margin-top: 20px;
-    margin-left: 1.5%;
+    margin-left: 1%;
 }
 
 #k-stack_B {
@@ -102,8 +104,9 @@
     height: 180px;
     background-color: white;
     border: solid darkgrey;
+    border-radius: 10px;
     margin-top: 20px;
-    margin-left: 1.5%;
+    margin-left: 1%;
 }
 
 #pcbA {
@@ -112,8 +115,9 @@
     height: 180px;
     background-color: white;
     border: solid darkgrey;
+    border-radius: 10px;
     margin-top: 20px;
-    margin-left: 1.5%;
+    margin-left: 1%;
 }
 
 #pcbB {
@@ -122,8 +126,9 @@
     height: 180px;
     background-color: white;
     border: solid darkgrey;
+    border-radius: 10px;
     margin-top: 20px;
-    margin-left: 1.5%;
+    margin-left: 1%;
 }
 
 #mycpu {
@@ -192,19 +197,20 @@
     height: 400px;
     background-color: white;
     border: solid darkgrey;
+    border-radius: 10px;
     margin-left: 1.5%;
 }
 
 #dialogue_box {
     float: left;
-    width: 97%;
+    width: 95.4%;
     height: 120px;
     background-color: white;
-    border-radius: 15px;
+    border-radius: 10px;
     border: solid tomato;
     margin: 1.5%;
     margin-bottom: 0.8%;
-    margin-top: 0.5%;
+    margin-top: 0.3%;
 }
 
 #nd-box {
@@ -213,7 +219,8 @@
     height: 400px;
     background-color: white;
     border: solid darkgrey;
-    margin-left: 3%;
+    border-radius: 10px;
+    margin-left: 2.3%;
 }
 
 #rd-box {
@@ -222,7 +229,8 @@
     height: 400px;
     background-color: white;
     border: solid darkgrey;
-    margin-left: 3%;
+    border-radius: 10px;
+    margin-left: 2.3%;
 }
 
 #umode {
@@ -417,11 +425,101 @@
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgba(0,0,0,0.91); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content-t {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  .modal_timer {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+  }
+
+  /* Modal Content */
+  .modal-content-r {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  .modal_read {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+  }
+
+  .modal_exit1 {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+  }
+
+  .modal_exit2 {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
   }
   
   /* Modal Content */
   .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  .modal-content-ex1 {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  .modal-content-ex2 {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
@@ -439,6 +537,65 @@
   
   .boot:hover,
   .boot:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* The Close Button */
+  .boot-t {
+    color: #aaaaaa;
+    
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .boot-t:hover,
+  .boot-t:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* The Close Button */
+  .boot-r {
+    color: #aaaaaa;
+    
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .boot-r:hover,
+  .boot-r:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* The Close Button */
+  .boot-ex1 {
+    color: #aaaaaa;
+    
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .boot-ex1:hover,
+  .boot-ex1:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .boot-ex2 {
+    color: #aaaaaa;
+    
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .boot-ex2:hover,
+  .boot-ex2:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
