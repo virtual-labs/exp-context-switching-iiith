@@ -94,6 +94,7 @@ User-level processes running in user mode can request privileged operations (e.g
 
 This mode-switching mechanism is essential for maintaining system security and stability, as it prevents user-level processes from interfering with each other or with critical system resources. The Linux kernel enforces access controls and system policies to ensure that only authorized operations are allowed in kernel mode.
 
+Below is a diagram showing the transition between two modes during the process execution period.
 ![Mode Transition](./images/modeChange.png)
 ### Execution State
 
