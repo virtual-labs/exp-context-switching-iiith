@@ -61,7 +61,7 @@ A process control block stores 3 kinds of information about a process&#x2014;nam
 
 <tr>
 <td class="org-left">Execution State Information</td>
-<td class="org-left">PC, Registers, Flags, stacks etc.</td>
+<td class="org-left">PC, Mode, Registers, Flags, stacks etc.</td>
 </tr>
 
 
@@ -72,7 +72,29 @@ A process control block stores 3 kinds of information about a process&#x2014;nam
 </tbody>
 </table>
 
+In the above table, the execution state information holds data about the mode or level in which the process is executing in, along with the execution stack informations.
 
+Let us take a closer look at these both terms and see how they play a important role in context switching.
+
+### Modes of Execution
+
+In the context of the Linux operating system architecture, there are primarily two main modes of execution:
+
+1. **User Mode**:
+   - **Privileges**: Limited privileges.
+   - **Use Case**: User applications run in user mode. In this mode, processes have restricted access to system resources and cannot directly perform privileged operations. User-level code executes with a reduced set of permissions, and it cannot directly access or modify hardware resources or perform critical system tasks.
+
+2. **Kernel Mode (Supervisor Mode or Privileged Mode)**:
+   - **Privileges**: Full control over hardware and system resources.
+   - **Use Case**: The Linux kernel operates in kernel mode. It has unrestricted access to the CPU, memory, hardware devices, and system services. Kernel mode is where the core operating system functions, such as device management, memory management, and system call handling, take place. Only code running in kernel mode can execute privileged operations and directly control hardware resources.
+
+The transition between these two modes of execution is managed by the hardware. 
+
+User-level processes running in user mode can request privileged operations (e.g., reading or writing to hardware devices or accessing protected memory) by making system calls. When a system call is made, control is transferred from user mode to kernel mode. The kernel performs the requested operation on behalf of the user-level process and then returns control to user mode.
+
+This mode-switching mechanism is essential for maintaining system security and stability, as it prevents user-level processes from interfering with each other or with critical system resources. The Linux kernel enforces access controls and system policies to ensure that only authorized operations are allowed in kernel mode.
+
+Here is a simple 
 ### Execution State
 
 1.  CPU State
