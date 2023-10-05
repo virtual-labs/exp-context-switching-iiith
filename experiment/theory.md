@@ -11,6 +11,14 @@ This experiment introduces the fundamental trick used to virtualize a process&rs
 
 In the last experiment, we considered the 4 state model of a process, which provided us with a general overview of the process states and control transfer. Here, we will focus on the minute details of a process, its execution mechanism, and the transfers of control that take place during its execution&#x2014;both between user process and the kernel, and the other processes.
 
+In this experiment, we will look more closely into the transfer of control between the processes and also the process modes. This is also where the crucial term - 'Context Switching' comes into play.
+
+## What is Context Switching?
+
+**Definition:** Context switching is the process that occurs when a multitasking operating system switches the execution context from one process or thread to another. It involves saving the current state (context) of a running process or thread so that it can be later restored and then loading the saved state of another process or thread to continue its execution. Context switching is a fundamental operation in modern operating systems and is necessary for efficient multitasking, allowing multiple processes or threads to share a single CPU.
+
+-------------------------
+In the above definition, we have encountered few terms like context and about loading, storing and restoring the context. Let us look more into what these terms and statements mean.
 
 ## Process Context
 
