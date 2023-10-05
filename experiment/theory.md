@@ -15,19 +15,27 @@ In this experiment, we will look more closely into the transfer of control betwe
 
 ## What is Context Switching?
 
-**Definition:** Context switching is the process that occurs when a multitasking operating system switches the execution context from one process or thread to another. It involves saving the current state (context) of a running process or thread so that it can be later restored and then loading the saved state of another process or thread to continue its execution. Context switching is a fundamental operation in modern operating systems and is necessary for efficient multitasking, allowing multiple processes or threads to share a single CPU.
+**Definition:** Context switching is the process that occurs when a multitasking operating system switches the execution context from one process or thread to another. 
+It involves saving the current state (context) of a running process or thread so that it can be later restored and then loading the saved state of another process or thread to continue its execution. 
+Context switching is a fundamental operation in modern operating systems and is necessary for efficient multitasking, allowing multiple processes or threads to share a single CPU.
 
 -------------------------
 In the above definition, we have encountered few terms like context and about loading, storing and restoring the context. Let us look more into what these terms and statements mean.
 
-## Process Context
+### Process Context
+A process context refers to the current execution state and information associated with a running process in an operating system. It represents a snapshot of the process's execution at a particular point in time.
 
+Process context can change dynamically while the process is executing on the CPU.
+
+During a context switch, the current context of the process is stored in a data structure called 'Process Control block' which is later used to retreive the information of the process and resume it's excution from where it was interrupted.
 
 ### Process Control Block
 
-In order to virtualize the execution of a process, the OS needs to have an internal account of the state of a process. This representation of the state of a process is stored in memory as a *Process Control Block*.
+In order to virtualize the execution of a process, the OS needs to have an internal account of the state of a process. This representation of the state of a process is stored in memory as a *Process Control Block(PCB)*.
 
-A process control block stores 3 kinds of information about a process&#x2014;namely, identification information (Pid), execution state, and control metadata used for scheduling and IPC.
+The PCB is used primarily during context switches, but it doesn't actively reflect the process's changing context while it's running. Instead, the changing process context is stored in various CPU registers and memory locations, not within the PCB.
+
+A process control block stores 3 kinds of information about a process&#x2014;namely, identification information (Pid), execution state, and control metadata used for 'scheduling' and 'Inter process communication(IPC)'.
 
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
