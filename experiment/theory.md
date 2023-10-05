@@ -96,6 +96,7 @@ This mode-switching mechanism is essential for maintaining system security and s
 
 Below is a diagram showing the transition between two modes during the process execution period.
 ![Mode Transition](./images/modeChange.png)
+Source: [image source](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.javatpoint.com%2Fdual-mode-operations-in-operating-system&psig=AOvVaw18NjcaKTyY51LQkQJAMyhf&ust=1696620666265000&source=images&cd=vfe&opi=89978449&ved=0CBMQjhxqFwoTCIDZmdPS34EDFQAAAAAdAAAAABAE)
 ### Execution State
 
 1.  CPU State
