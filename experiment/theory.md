@@ -97,6 +97,32 @@ This mode-switching mechanism is essential for maintaining system security and s
 Below is a diagram showing the transition between two modes during the process execution period.
 ![Mode Transition](./images/modeChange.png)
 Source: [image source](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.javatpoint.com%2Fdual-mode-operations-in-operating-system&psig=AOvVaw18NjcaKTyY51LQkQJAMyhf&ust=1696620666265000&source=images&cd=vfe&opi=89978449&ved=0CBMQjhxqFwoTCIDZmdPS34EDFQAAAAAdAAAAABAE)
+
+### User stack and Kernel stack
+
+In the Linux operating system (and many other operating systems), processes often maintain separate user-level and kernel-level stacks. These stacks serve different purposes and are used for distinct types of function calls and data storage. Here's an explanation of each:
+
+1. **User Stack**:
+   - **Purpose**: The user stack is used by a process to manage function calls and local variables within user-level code.
+   - **Location**: The user stack is part of the process's memory space, typically allocated in the user portion of memory.
+   - **Usage**: When a user-level function is called, the CPU uses the user stack to store information such as function parameters, local variables, and the return address (the address to which control should return after the function call). This stack is used for regular function calls and context within user-level code.
+   - **Access**: User-level code has direct access to its user stack.
+
+2. **Kernel Stack**:
+   - **Purpose**: The kernel stack is used exclusively by the kernel when processing system calls, interrupts, and exceptions.
+   - **Location**: Each process has its own kernel stack, typically located in kernel memory. The kernel stack for a process is separate from its user stack.
+   - **Usage**: When a process makes a system call or encounters an exception, control switches from user mode to kernel mode. The kernel uses the process's kernel stack to store kernel-specific information and context, such as the state of CPU registers, kernel function call information, and other data needed to handle the system call or exception. It ensures that the kernel's activities do not interfere with the user-level stack.
+   - **Access**: User-level code cannot directly access the kernel stack of a process. It's a part of the kernel's internal data structures.
+
+The separation of user and kernel stacks is crucial for security and isolation. It ensures that user-level code cannot corrupt the kernel's data or execution state and vice versa. When a context switch occurs, the kernel saves the user-mode stack pointer and restores the kernel-mode stack pointer (or vice versa) to facilitate a seamless transition between user mode and kernel mode.
+
+Additionally, for system calls, the user-level code typically provides arguments and triggers a context switch to kernel mode, where the kernel can access the user's arguments and perform the requested operation. After the kernel's work is done, it returns to user mode using the user stack, ensuring a clean separation between user and kernel code.
+
+Now that all the important terms have been discussed, let us understand the mechanism of context switching. 
+
+## Mechanism of context switching
+
+
 ### Execution State
 
 1.  CPU State
