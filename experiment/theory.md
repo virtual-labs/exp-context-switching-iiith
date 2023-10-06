@@ -122,6 +122,10 @@ Now that all the important terms have been discussed, let us understand the mech
 
 ## Mechanism of context switching
 
+In this experiment, we view the whole mechanism going through three different levels (User, Hardware and Kernel). Let us understand the flow using a transition state diagram of the CPU.
+
+
+
 
 ### Execution State
 
