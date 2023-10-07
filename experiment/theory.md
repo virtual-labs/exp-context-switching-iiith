@@ -185,7 +185,11 @@ The below table will help you better in understanding the flow of the mechanism.
 | --- | --- | 1. Handle the exit syscall <br /> **Call switch() routine** <br /> 2. save regs(B) to PCB(B) <br /> 3. restore regs(*new process*) from PCB(*new process*) <br /> 4. switch to k-stack(*new process*) <br /> 5. return-from-trap (into *new process*) |
 
 
-*new process* is
+*new process* is the next program in the queue to be executed.
+
+Let us now discuss a little about the 'jumping to trap handler' and also about 'Interrupt-driven I/O requests'.
+
+
 
 
 ### Execution State
