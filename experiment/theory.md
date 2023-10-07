@@ -136,19 +136,49 @@ Program A : Simple addtion program
 #include 
 int main()
 {
-   int a, b, c; // Declaring variables a, b, and c
-   a = 5; // Initializing the value of variable a to 5
-   b = 10; // Initializing the value of b to 10
-   c = a + b; // Initializing the value of c to the sum of a and b
-   return c; // Return c as the output of the program
+   int a, b, c;    // Declaring variables a, b, and c
+   a = 5;          // Initializing the value of variable a to 5
+   b = 10;         // Initializing the value of b to 10
+   c = a + b;      // Initializing the value of c to the sum of a and b
+   return c;       // Return c as the output of the program
 }
 ```
 
-The below diagram will help you better to understand the flow of the mechanism.
+Program B : Read and add program
 
+```
+#include 
+int main()
+{
+    int a, b, c;      // Declaring variables a, b, and c
+    a = 15;           // Initializing the value of variable a to 15
+    scanf("%d", &b);  // Scan the value of b from the user
+    c = a + b;        // Initializing the value of c to the sum of a and b
+    return c;         // Return c as the output of the program
+}
+```
+
+Now let us look at the context between the above two programs.
+
+**Note:** *The instructions executed by the CPU are in machine language (binary). The above C programs as only for an easier understanding. We have used assembly language (asm x_86) in the simulation of the experiment so that the student can understand the change of register values better within the CPU.*
+
+The below table will help you better to understand the flow of the mechanism.
+
+
+**Bootstrap the OS**
 | User | Hardware | Kernel |
 |------| -------- | ------ |
-|
+| *Process A* | ---- | ---- |
+| `#include` | ---- | ---- |
+| `int main()` | --- | --- |
+| `{` | ---- | ---- | 
+| `   int a, b, c;` | --- | --- |
+| `   a = 5;` | --- | ---- |
+| `   b = 10` | --- | --- |
+| ---- | *Hardware generating a timer interrupt* | ---- |
+
+
+
 
 
 ### Execution State
