@@ -133,7 +133,7 @@ To understand the mechanism, let us consider two simple programs A and B.
 Program A : Simple addtion program
 
 ```
-#include 
+#include <stdio.h>
 int main()
 {
    int a, b, c;    // Declaring variables a, b, and c
@@ -147,7 +147,7 @@ int main()
 Program B : Read and add program
 
 ```
-#include 
+#include <stdio.h>
 int main()
 {
     int a, b, c;      // Declaring variables a, b, and c
@@ -168,13 +168,7 @@ The below table will help you better to understand the flow of the mechanism.
 **Bootstrap the OS**
 | User | Hardware | Kernel |
 |------| -------- | ------ |
-| *Process A* | ---- | ---- |
-| `#include` | ---- | ---- |
-| `int main()` | --- | --- |
-| `{` | ---- | ---- | 
-| `   int a, b, c;` | --- | --- |
-| `   a = 5;` | --- | ---- |
-| `   b = 10` | --- | --- |
+| *Process A* <pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 5;<br>   b = 10;</pre>| ---- | ---- |
 | ---- | *Hardware generating a timer interrupt* | ---- |
 
 
