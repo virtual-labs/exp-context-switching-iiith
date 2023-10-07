@@ -169,7 +169,7 @@ The below table will help you better to understand the flow of the mechanism.
 | User | Hardware | Kernel |
 |------| -------- | ------ |
 | *Process A* <pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 5;<br>   b = 10;</pre>| ---- | ---- |
-| ---- | *Hardware generating a timer interrupt* | ---- |
+| ---- | **timer interrupt** <br /> save regs(A) to k-stack(A) <br /> move to kernel mode <br /> jump to trap handler | ---- |
 
 
 
