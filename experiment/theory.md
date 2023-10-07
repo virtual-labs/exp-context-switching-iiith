@@ -169,20 +169,23 @@ The below table will help you better in understanding the flow of the mechanism.
 | User | Hardware | Kernel |
 |------| -------- | ------ |
 | *Process A* <pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 5;<br>   b = 10;</pre>| ---- | ---- |
-| ---- | **timer interrupt** <br /> save regs(A) to k-stack(A) <br /> move to kernel mode <br /> jump to timer interrupt handler | ---- |
-| --- | --- | Handle the timer interrupt <br /> **Call switch() routine** <br /> save regs(A) to PCB(A) <br /> restore regs(B) from PCB(B) <br /> switch to k-stack(B) <br /> return-from-trap (into B) |
-| --- | restore regs(B) from k-stack(B) <br /> move to user mode <br /> jump to B’s Program counter(PC) | --- |
+| ---- | **timer interrupt** <br /> 1. save regs(A) to k-stack(A) <br /> 2. move to kernel mode <br /> 3. jump to timer interrupt handler | ---- |
+| --- | --- | 1. Handle the timer interrupt <br /> **Call switch() routine** <br /> 2. save regs(A) to PCB(A) <br /> 3. restore regs(B) from PCB(B) <br /> 4. switch to k-stack(B) <br /> 5. return-from-trap (into B) |
+| --- | 1. restore regs(B) from k-stack(B) <br /> 2. move to user mode <br /> 3. jump to B’s Program counter(PC) | --- |
 | *Process B* <pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 15;<br>   scanf("%d", &b);</pre> **Note:** The CPU executes the instructions for the function `scanf` from the C standard library where it encounters the read syscall. | --- |
-| ---- | **read syscall** <br /> save regs(B) to k-stack(B) <br /> move to kernel mode <br /> jump to read trap handler | ---- |
-| --- | --- | Handle the read syscall <br /> **Call switch() routine** <br /> save regs(B) to PCB(B) <br /> restore regs(A) from PCB(A) <br /> switch to k-stack(A) <br /> return-from-trap (into A) |
-| --- | restore regs(A) from k-stack(A) <br /> move to user mode <br /> jump to A’s PC | --- |
+| ---- | **read syscall** <br /> 1. save regs(B) to k-stack(B) <br /> 2. move to kernel mode <br /> 3. jump to read trap handler | ---- |
+| --- | --- | 1. Handle the read syscall <br /> **Call switch() routine** <br /> 2. save regs(B) to PCB(B) <br /> 3. restore regs(A) from PCB(A) <br /> 4. switch to k-stack(A) <br /> 5. return-from-trap (into A) |
+| --- | 1. restore regs(A) from k-stack(A) <br /> 2. move to user mode <br /> 3. jump to A’s PC | --- |
 | *Process A* <pre>   c = a + b;<br />   return c;<br />} </pre> **Note:** `return` is an implicit exit syscall | --- | --- |
-| ---- | **exit syscall** <br /> save regs(A) to k-stack(A) <br /> move to kernel mode <br /> jump to exit trap handler | ---- |
-| --- | --- | Handle the exit syscall <br /> **Call switch() routine** <br /> save regs(A) to PCB(A) <br /> restore regs(B) from PCB(B) <br /> switch to k-stack(B) <br /> return-from-trap (into B) |
-| --- | restore regs(B) from k-stack(B) <br /> move to user mode <br /> jump to B’s PC | --- |
+| ---- | **exit syscall** <br /> 1. save regs(A) to k-stack(A) <br /> 2. move to kernel mode <br /> 3. jump to exit trap handler | ---- |
+| --- | --- | 1. Handle the exit syscall <br /> **Call switch() routine** <br /> 2. save regs(A) to PCB(A) <br /> 3. restore regs(B) from PCB(B) <br /> 4. switch to k-stack(B) <br /> 5. return-from-trap (into B) |
+| --- | 1. restore regs(B) from k-stack(B) <br /> 2. move to user mode <br /> 3. jump to B’s PC | --- |
+| *Process B* <pre><br>   c = a + b;<br>   return c;<br>}</pre> **Note:** Some architectures use interrupt-driven I/O to notify the CPU that the I/O request has been fulfilled. In that case, we will have another interrupt from the I/O device to deal with. Read more about this in the below section. | --- | --- |
+| ---- | **exit syscall** <br /> 1. save regs(B) to k-stack(B) <br /> 2. move to kernel mode <br /> 3. jump to exit trap handler | ---- |
+| --- | --- | 1. Handle the exit syscall <br /> **Call switch() routine** <br /> 2. save regs(B) to PCB(B) <br /> 3. restore regs(*new process*) from PCB(*new process*) <br /> 4. switch to k-stack(*new process*) <br /> 5. return-from-trap (into *new process*) |
 
 
-
+*new process* is
 
 
 ### Execution State
