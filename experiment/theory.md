@@ -126,6 +126,10 @@ In this experiment, we view the whole mechanism going through three different le
 
 Hardware provides instructions and mechanisms for transitioning between these privilege levels. During a context switch, the CPU switches from user mode to kernel mode to perform privileged operations, such as modifying page tables or accessing hardware devices.
 
+Hardware also provides the fundamental mechanisms and support for transferring control to trap handlers when exceptions or traps occur. It ensures that the CPU executes the appropriate handler code with the necessary context and privilege level to handle the exceptional condition safely and effectively.
+
+The below diagram will help you better to understand the flow of the mechanism.
+
 
 
 
