@@ -177,7 +177,9 @@ The below table will help you better in understanding the flow of the mechanism.
 | --- | --- | Handle the read syscall <br /> **Call switch() routine** <br /> save regs(B) to PCB(B) <br /> restore regs(A) from PCB(A) <br /> switch to k-stack(A) <br /> return-from-trap (into A) |
 | --- | restore regs(A) from k-stack(A) <br /> move to user mode <br /> jump to A’s PC | --- |
 | *Process A* <pre>   c = a + b;<br />   return c;<br />} </pre> **Note:** `return` is an implicit exit syscall | --- | --- |
-
+| ---- | **exit syscall** <br /> save regs(A) to k-stack(A) <br /> move to kernel mode <br /> jump to exit trap handler | ---- |
+| --- | --- | Handle the exit syscall <br /> **Call switch() routine** <br /> save regs(A) to PCB(A) <br /> restore regs(B) from PCB(B) <br /> switch to k-stack(B) <br /> return-from-trap (into B) |
+| --- | restore regs(B) from k-stack(B) <br /> move to user mode <br /> jump to B’s PC | --- |
 
 
 
