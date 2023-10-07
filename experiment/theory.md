@@ -122,7 +122,9 @@ Now that all the important terms have been discussed, let us understand the mech
 
 ## Mechanism of context switching
 
-In this experiment, we view the whole mechanism going through three different levels (User, Hardware and Kernel). Let us understand the flow using a transition state diagram of the CPU.
+In this experiment, we view the whole mechanism going through three different levels (User, Hardware and Kernel). We have already discussed the role of User mode and Kernel mode in the previous section. So let us understand the role of hardware in this mechanism.
+
+Hardware provides instructions and mechanisms for transitioning between these privilege levels. During a context switch, the CPU switches from user mode to kernel mode to perform privileged operations, such as modifying page tables or accessing hardware devices.
 
 
 
