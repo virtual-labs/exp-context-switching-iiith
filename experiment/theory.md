@@ -202,7 +202,27 @@ Specific exception and interrupt sources are assigned a fixed address(also calle
 | 128 | int80 syscall interface (It provides a way for user-level programs to request services from the Linux kernel by triggering a software interrupt.)|
 | 129 - 255 | Other interrupts (interprocessor interrupts, Reserved by linux for future use, etc)
 
+### Interrupt-driven I/O request
 
+From the above context switching mechansim table, when a process needs an I/O device, the process is removed from the CPU and another process is executed by the CPU. The previously removed process now waits in the I/O pool to use the I/O device. 
+
+The I/O device generates an interrupt when the requested operation is complete or when an error occurs. This interrupt is typically handled by an interrupt service routine (ISR). The ISR is responsible for processing the completed I/O operation and notifying the CPU or the appropriate process that the data is ready or an error has occurred.
+
+Apart from Interrupt-driven I/O, there is also a polling I/O mechanism to check the status of the I/O request.
+
+### Polling I/O
+
+In this method, the CPU executes a sequence of instructions in the program that includes the I/O operation. After initiating the I/O operation (e.g., sending a command to a device), the program enters a loop.
+
+Within the loop, the CPU executes instructions that read the status registers or flags associated with the I/O device. These instructions are part of the program's code and are executed by the CPU as it progresses through the program's logic.
+
+The CPU checks the status of the I/O device by examining specific bits or flags in designated status registers. These bits indicate whether the device is ready, busy, or has completed the requested operation.
+
+The frequency of checking depends on the design of the program but is typically determined by the developer to balance responsiveness and CPU utilization.
+
+Interrupt-driven I/O is more efficient in terms of CPU utilization and latency because the CPU is not continuously polling the device's status. However, it requires more complex hardware support for interrupt generation and handling.
+
+In many modern systems, a combination of both approaches is used. Critical or time-sensitive operations may use interrupt-driven I/O, while less critical operations may use polling. The choice of I/O method depends on the system's requirements, performance goals, and the capabilities of the I/O devices and their drivers.
 
 
 ### Execution State
