@@ -162,14 +162,22 @@ Now let us look at the context between the above two programs.
 
 **Note:** *The instructions executed by the CPU are in machine language (binary). The above C programs as only for an easier understanding. We have used assembly language (asm x_86) in the simulation of the experiment so that the student can understand the change of register values better within the CPU.*
 
-The below table will help you better to understand the flow of the mechanism.
+The below table will help you better in understanding the flow of the mechanism.
 
 
 **Bootstrap the OS**
 | User | Hardware | Kernel |
 |------| -------- | ------ |
 | *Process A* <pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 5;<br>   b = 10;</pre>| ---- | ---- |
-| ---- | **timer interrupt** <br /> save regs(A) to k-stack(A) <br /> move to kernel mode <br /> jump to trap handler | ---- |
+| ---- | **timer interrupt** <br /> save regs(A) to k-stack(A) <br /> move to kernel mode <br /> jump to timer interrupt handler | ---- |
+| --- | --- | Handle the timer interrupt <br /> **Call switch() routine** <br /> save regs(A) to PCB(A) <br /> restore regs(B) from PCB(B) <br /> switch to k-stack(B) <br /> return-from-trap (into B) |
+| --- | restore regs(B) from k-stack(B) <br /> move to user mode <br /> jump to B’s Program counter(PC) | --- |
+| *Process B* <pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 15;<br>   scanf("%d", &b);</pre> **Note:** The CPU executes the instructions for the function `scanf` from the C standard library where it encounters the read syscall. | --- |
+| ---- | **read syscall** <br /> save regs(B) to k-stack(B) <br /> move to kernel mode <br /> jump to read trap handler | ---- |
+| --- | --- | Handle the read syscall <br /> **Call switch() routine** <br /> save regs(B) to PCB(B) <br /> restore regs(A) from PCB(A) <br /> switch to k-stack(A) <br /> return-from-trap (into A) |
+| --- | restore regs(A) from k-stack(A) <br /> move to user mode <br /> jump to A’s PC | --- |
+| *Process A* <pre>   c = a + b;<br />   return c;<br />} </pre> **Note:** `return` is an implicit exit syscall | --- | --- |
+
 
 
 
