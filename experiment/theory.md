@@ -128,9 +128,27 @@ Hardware provides instructions and mechanisms for transitioning between these pr
 
 Hardware also provides the fundamental mechanisms and support for transferring control to trap handlers when exceptions or traps occur. It ensures that the CPU executes the appropriate handler code with the necessary context and privilege level to handle the exceptional condition safely and effectively.
 
+To understand the mechanism, let us consider two simple programs A and B.
+
+Program A : Simple addtion program
+
+```
+#include 
+int main()
+{
+   int a, b, c; // Declaring variables a, b, and c
+   a = 5; // Initializing the value of variable a to 5
+   b = 10; // Initializing the value of b to 10
+   c = a + b; // Initializing the value of c to the sum of a and b
+   return c; // Return c as the output of the program
+}
+```
+
 The below diagram will help you better to understand the flow of the mechanism.
 
-
+| User | Hardware | Kernel |
+|------| -------- | ------ |
+|
 
 
 ### Execution State
