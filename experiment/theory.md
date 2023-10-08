@@ -272,30 +272,30 @@ procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
 Below is the meaning of individual variables of the output.
 
 **procs**<br />
-    * r: The number of processes waiting for run time.<br />
-    * b: The number of processes in uninterruptible sleep.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;r: The number of processes waiting for run time.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;b: The number of processes in uninterruptible sleep.<br />
 **memory**<br />
-    * swpd: the amount of virtual memory used.<br />
-    * free: the amount of idle memory.<br />
-    * buff: the amount of memory used as buffers.<br />
-    * cache: the amount of memory used as cache.<br />
-    * inact: the amount of inactive memory. `vmstat -a`<br />
-    * active: the amount of active memory. `vmstat -a`<br />
+&nbsp;&nbsp;&nbsp;&nbsp;swpd: the amount of virtual memory used.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;free: the amount of idle memory.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;buff: the amount of memory used as buffers.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;cache: the amount of memory used as cache.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;inact: the amount of inactive memory. `vmstat -a`<br />
+&nbsp;&nbsp;&nbsp;&nbsp;active: the amount of active memory. `vmstat -a`<br />
 **swap**<br />
-    * si: Amount of memory swapped in from disk.<br />
-    * so: Amount of memory swapped to disk.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;si: Amount of memory swapped in from disk.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;so: Amount of memory swapped to disk.<br />
 **io**<br />
-    * bi: Blocks received from a block device (blocks/s).<br />
-    * bo: Blocks sent to a block device (blocks/s).<br />
-    >> A block device is a device you can read blocks from. For example hard disks, cdrom drives and floppies are block devices, but not the keyboard.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;bi: Blocks received from a block device (blocks/s).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;bo: Blocks sent to a block device (blocks/s).<br />
+**Note:** A block device is a device you can read blocks from. For example hard disks, cdrom drives and floppies are block devices, but not the keyboard.<br /> 
 **system**<br />
-    * in: The number of interrupts per second, including the clock.<br />
-    * cs: The number of context switches per second.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;in: The number of interrupts per second, including the clock.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;cs: The number of context switches per second.<br />
 **cpu**<br />
-    These are percentages of total CPU time.<br />
-    * us: Time spent running non-kernel code. (user time)<br />
-    * sy: Time spent running kernel code. (system time)<br />
-    * id: Time spent idle. Prior to Linux 2.5.41, his includes IO-wait time.<br />
-    * wa: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.<br />
-    * st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br />
+These are percentages of total CPU time.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;us: Time spent running non-kernel code. (user time)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;sy: Time spent running kernel code. (system time)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;id: Time spent idle. Prior to Linux 2.5.41, his includes IO-wait time.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;wa: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br />
    
