@@ -233,4 +233,69 @@ Linux provides many tools to check the number of context switches, interrupts, I
 ```
 $ htop
 ```
-The above command helps you view all the processes running on the system.
+The above command helps you view all the processes running on the system. You will see an output similar to the below image on your terminal on running the above command.
+
+[htop_output](./images/htop.png)
+
+Let us look further into one particular process. Let us choose the process with pid = 1400
+```
+$ pid=1400
+$ grep ctxt /proc/$pid/status
+```
+The above command displays the number of context switches (both voluntary and involuntary) occured till now. Below is the output displayed by the above command.
+```
+voluntary_ctxt_switches:	2137703
+nonvoluntary_ctxt_switches:	41677
+```
+Use the below command in case you want to view the dynamic changes in the number of context switches of a certain process.
+```
+watch -n.5 grep ctxt /proc/$pid/status
+```
+The above command will show the changes in context switches twice a second.
+
+Use the below command to view the time elapsed since the process has started it's execution
+```
+$ ps -p 1400 -o etime
+```
+This will output the elapsed time in the form of `[[DD-]hh:]mm:ss`.
+```
+    ELAPSED
+   03:39:32
+```
+
+Linux provides another command `vmstat`(virtual memory statistics) that gives us a neat and easy overview of the system. 
+```
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 2  0      0 2149704 195380 2996096    0    0    14    36   89  194  9  2 88  1  0
+```
+Below is the meaning of individual variables of the output.
+
+**procs**
+    r: The number of processes waiting for run time.
+    b: The number of processes in uninterruptible sleep.
+**memory**
+    swpd: the amount of virtual memory used.
+    free: the amount of idle memory.
+    buff: the amount of memory used as buffers.
+    cache: the amount of memory used as cache.
+    inact: the amount of inactive memory. `vmstat -a`
+    active: the amount of active memory. `vmstat -a`
+**swap**
+    si: Amount of memory swapped in from disk.
+    so: Amount of memory swapped to disk.
+**io**
+    bi: Blocks received from a block device (blocks/s).
+    bo: Blocks sent to a block device (blocks/s).
+    > A block device is a device you can read blocks from. For example hard disks, cdrom drives and floppies are block devices, but not the keyboard.
+**system**
+    in: The number of interrupts per second, including the clock.
+    cs: The number of context switches per second.
+**cpu**
+    These are percentages of total CPU time.
+    us: Time spent running non-kernel code. (user time)
+    sy: Time spent running kernel code. (system time)
+    id: Time spent idle. Prior to Linux 2.5.41, his includes IO-wait time.
+    wa: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.
+    st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.
+   
