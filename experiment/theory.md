@@ -224,91 +224,13 @@ Interrupt-driven I/O is more efficient in terms of CPU utilization and latency b
 
 In many modern systems, a combination of both approaches is used. Critical or time-sensitive operations may use interrupt-driven I/O, while less critical operations may use polling. The choice of I/O method depends on the system's requirements, performance goals, and the capabilities of the I/O devices and their drivers.
 
+## Context switching in Linux
 
-### Execution State
+Now that we know about context switch, let us look at it on our own linux machines.
 
-1.  CPU State
+Linux provides many tools to check the number of context switches, interrupts, I/O requests etc. Make use of the below commands to view the context switch information of the processes.
 
-    1.  General Purpose Registers
-    
-    2.  Control Registers
-    
-        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-        
-        
-        <colgroup>
-        <col  class="org-left" />
-        
-        <col  class="org-left" />
-        </colgroup>
-        <thead>
-        <tr>
-        <th scope="col" class="org-left">Register</th>
-        <th scope="col" class="org-left">&#xa0;</th>
-        </tr>
-        </thead>
-        
-        <tbody>
-        <tr>
-        <td class="org-left">IDTR</td>
-        <td class="org-left">&#xa0;</td>
-        </tr>
-        
-        
-        <tr>
-        <td class="org-left">&#xa0;</td>
-        <td class="org-left">&#xa0;</td>
-        </tr>
-        
-        
-        <tr>
-        <td class="org-left">&#xa0;</td>
-        <td class="org-left">&#xa0;</td>
-        </tr>
-        
-        
-        <tr>
-        <td class="org-left">&#xa0;</td>
-        <td class="org-left">&#xa0;</td>
-        </tr>
-        </tbody>
-        </table>
-        
-        1.  IDTR
-
-2.  Memory
-
-    1.  Code
-    
-    2.  Execution Stacks
-    
-        1.  User Program Stack
-        
-        2.  Kernel Stack
-        
-        3.  Other stacks (Interrupt Subroutine Stack etc.)
-    
-    3.  Descriptor Tables
-    
-        These data structures provide the dispatch addresses for handlers and are used to implement interfaces. eg. Trap Table is used to implement the interface between software and hardware.
-
-
-## Interfaces
-
-
-### User Program-kernel interface: In and out of the Kernel
-
-
-## Execution Protocols
-
-
-### Modes of Execution
-
-1.  Privilege Levels
-
-
-# Execution Protocol
-
-
-## Managing Control during Program Execution
-
+```
+$ htop
+```
+The above command helps you view all the processes running on the system.
