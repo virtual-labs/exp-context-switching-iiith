@@ -287,7 +287,7 @@ Below is the meaning of individual variables of the output.
 **io**<br />
 &nbsp;&nbsp;&nbsp;&nbsp;bi: Blocks received from a block device (blocks/s).<br />
 &nbsp;&nbsp;&nbsp;&nbsp;bo: Blocks sent to a block device (blocks/s).<br />
-**Note:** A block device is a device you can read blocks from. For example hard disks, cdrom drives and floppies are block devices, but not the keyboard.<br /> 
+&nbsp;&nbsp;&nbsp;&nbsp;**Note:** A block device is a device you can read blocks from. For example hard disks, cdrom drives and floppies are block devices, but not the keyboard.<br /> 
 **system**<br />
 &nbsp;&nbsp;&nbsp;&nbsp;in: The number of interrupts per second, including the clock.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;cs: The number of context switches per second.<br />
