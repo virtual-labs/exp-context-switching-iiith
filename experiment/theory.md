@@ -235,7 +235,7 @@ $ htop
 ```
 The above command helps you view all the processes running on the system. You will see an output similar to the below image on your terminal on running the above command.
 
-[htop_output](./images/htop.png)
+![htop_output](./images/htop.png)
 
 Let us look further into one particular process. Let us choose the process with pid = 1400
 ```
