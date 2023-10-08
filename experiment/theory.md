@@ -271,31 +271,31 @@ procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
 ```
 Below is the meaning of individual variables of the output.
 
-**procs**
-    r: The number of processes waiting for run time.
-    b: The number of processes in uninterruptible sleep.
-**memory**
-    swpd: the amount of virtual memory used.
-    free: the amount of idle memory.
-    buff: the amount of memory used as buffers.
-    cache: the amount of memory used as cache.
-    inact: the amount of inactive memory. `vmstat -a`
-    active: the amount of active memory. `vmstat -a`
-**swap**
-    si: Amount of memory swapped in from disk.
-    so: Amount of memory swapped to disk.
-**io**
-    bi: Blocks received from a block device (blocks/s).
-    bo: Blocks sent to a block device (blocks/s).
-    > A block device is a device you can read blocks from. For example hard disks, cdrom drives and floppies are block devices, but not the keyboard.
-**system**
-    in: The number of interrupts per second, including the clock.
-    cs: The number of context switches per second.
-**cpu**
-    These are percentages of total CPU time.
-    us: Time spent running non-kernel code. (user time)
-    sy: Time spent running kernel code. (system time)
-    id: Time spent idle. Prior to Linux 2.5.41, his includes IO-wait time.
-    wa: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.
-    st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.
+**procs**<br />
+    r: The number of processes waiting for run time.<br />
+    b: The number of processes in uninterruptible sleep.<br />
+**memory**<br />
+    swpd: the amount of virtual memory used.<br />
+    free: the amount of idle memory.<br />
+    buff: the amount of memory used as buffers.<br />
+    cache: the amount of memory used as cache.<br />
+    inact: the amount of inactive memory. `vmstat -a`<br />
+    active: the amount of active memory. `vmstat -a`<br />
+**swap**<br />
+    si: Amount of memory swapped in from disk.<br />
+    so: Amount of memory swapped to disk.<br />
+**io**<br />
+    bi: Blocks received from a block device (blocks/s).<br />
+    bo: Blocks sent to a block device (blocks/s).<br />
+    > A block device is a device you can read blocks from. For example hard disks, cdrom drives and floppies are block devices, but not the keyboard.<br />
+**system**<br />
+    in: The number of interrupts per second, including the clock.<br />
+    cs: The number of context switches per second.<br />
+**cpu**<br />
+    These are percentages of total CPU time.<br />
+    us: Time spent running non-kernel code. (user time)<br />
+    sy: Time spent running kernel code. (system time)<br />
+    id: Time spent idle. Prior to Linux 2.5.41, his includes IO-wait time.<br />
+    wa: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.<br />
+    st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br />
    
