@@ -195,10 +195,16 @@ When an interrupt or exception occurs, the hardware uses the Interrupt Descripto
 
 Specific exception and interrupt sources are assigned a fixed address(also called an “interrupt vector” or simply “vector”). The interrupt vector is used by the interrupt-handling mechanism to locate the system-software service routine assigned to the exception or interrupt. Up to 256 unique interrupt vectors are available.
 
+-------------
 **References**
+
 [IDT-Wikipedia](https://en.wikipedia.org/wiki/Interrupt_descriptor_table)
+
 [IDT - OSdev](https://wiki.osdev.org/Interrupt_Descriptor_Table)
+
 [Intel 64 and IA-32 Architectures Software Developer’s Manual, Volume 3A:System Programming Guide, Part 1](https://web.archive.org/web/20081221050950/http://download.intel.com/design/processor/manuals/253668.pdf) see CHAPTER 5, INTERRUPT AND EXCEPTION HANDLING and CHAPTER 10, ADVANCED PROGRAMMABLE INTERRUPT CONTROLLER
+
+----------
 
 | Vector Range | Use |
 | --- | --- |
@@ -267,9 +273,15 @@ This will output the elapsed time in the form of `[[DD-]hh:]mm:ss`.
     ELAPSED
    03:39:32
 ```
+
+---------------
 **References**
+
 [How to see how many context switches a process makes? - Stackexchange](https://unix.stackexchange.com/questions/39342/how-to-see-how-many-context-switches-a-process-makes)
+
 [How long a process has been running?](https://www.cyberciti.biz/faq/how-to-check-how-long-a-process-has-been-running/)
+
+-------------
 
 Linux provides another command `vmstat`(virtual memory statistics) that gives us a neat and easy overview of the system. 
 ```
