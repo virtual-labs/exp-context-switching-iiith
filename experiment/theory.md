@@ -119,6 +119,18 @@ Additionally, for system calls, the user-level code typically provides arguments
 
 Now that all the important terms have been discussed, let us understand the mechanism of context switching. 
 
+------------
+
+**References**
+
+[Kernel Stack and User stack - Baeldung](https://www.baeldung.com/linux/kernel-stack-and-user-space-stack#:~:text=User%20and%20Kernel%20Stacks&text=The%20user%20stack%20is%20only,mode%20switches%20to%20kernel%20mode.)
+
+[Why is there a kernel stack for each process? - StackExchange](https://unix.stackexchange.com/questions/603348/why-is-there-kernel-stack-for-each-process-in-linux)
+
+[Kernel stack management during syscall, interrupts and kernel modules](https://exposnitc.github.io/os_design-files/stack_description.html)
+
+----------------
+
 ## Mechanism of context switching
 
 In this experiment, we view the whole mechanism going through three different levels (User, Hardware and Kernel). We have already discussed the role of User mode and Kernel mode in the previous section. So let us understand the role of hardware in this mechanism.
@@ -187,6 +199,7 @@ The below table will help you better in understanding the flow of the mechanism.
 *new process* is the next program in the queue to be executed.
 
 Let us now discuss a little about the 'jumping to trap handler' which includes the concept interrupt descriptor table(IDT) and also about 'Interrupt-driven I/O requests'. 
+**Reference:** [OS Three Easy Pieces](http://diliev.com/Home/applications/Library/Programing%20Books/OS/Operating_Systems_Three_Easy_Pieces_by_R.pdf)
 
 ### Interrupt descriptor table
 The Interrupt Descriptor Table is a data structure used by the Linux kernel, as well as by other operating systems, to manage and handle hardware and software interrupts.
@@ -236,6 +249,15 @@ Interrupt-driven I/O is more efficient in terms of CPU utilization and latency b
 
 In many modern systems, a combination of both approaches is used. Critical or time-sensitive operations may use interrupt-driven I/O, while less critical operations may use polling. The choice of I/O method depends on the system's requirements, performance goals, and the capabilities of the I/O devices and their drivers.
 
+---------------
+**References (I/O)**
+
+[Interrupt driven I/O vs polling in embedded software](https://www.linkedin.com/advice/1/how-do-you-choose-between-polling-interrupt-driven#:~:text=For%20example%2C%20you%20may%20use,O%20to%20read%20the%20data.)
+
+[I/O systems - Yale university](https://codex.cs.yale.edu/avi/os-book/OSE2/practice-exer-dir/12-web.pdf)
+
+---------------
+
 ## Context switching in Linux
 
 Now that we know about context switch, let us look at it on our own linux machines.
@@ -275,15 +297,6 @@ This will output the elapsed time in the form of `[[DD-]hh:]mm:ss`.
    03:39:32
 ```
 
----------------
-**References**
-
-[How to see how many context switches a process makes? - Stackexchange](https://unix.stackexchange.com/questions/39342/how-to-see-how-many-context-switches-a-process-makes)
-
-[How long a process has been running?](https://www.cyberciti.biz/faq/how-to-check-how-long-a-process-has-been-running/)
-
--------------
-
 Linux provides another command `vmstat`(virtual memory statistics) that gives us a neat and easy overview of the system. 
 ```
 procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
@@ -319,4 +332,13 @@ These are percentages of total CPU time.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;id: Time spent idle. Prior to Linux 2.5.41, his includes IO-wait time.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;wa: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.<br />
+
+---------------
+**References**
+
+[How to see how many context switches a process makes? - Stackexchange](https://unix.stackexchange.com/questions/39342/how-to-see-how-many-context-switches-a-process-makes)
+
+[How long a process has been running?](https://www.cyberciti.biz/faq/how-to-check-how-long-a-process-has-been-running/)
+
+-------------
    
