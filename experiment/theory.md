@@ -101,6 +101,13 @@ Source: [image source](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.jav
 
 **Refernces:**
 
+[What are the differences between user mode and kernel mode? - Baeldung](https://www.baeldung.com/cs/user-kernel-modes)
+
+[User-Kernel mode, syscalls, I/O, exceptions - The Unix Heritage Society](https://minnie.tuhs.org/CompArch/Lectures/week05.html)
+
+[Kernel Mode - Science Direct](https://www.sciencedirect.com/topics/engineering/kernel-mode)
+
+----------
 
 
 ### User stack and Kernel stack
