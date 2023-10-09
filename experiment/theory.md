@@ -195,8 +195,15 @@ When an interrupt or exception occurs, the hardware uses the Interrupt Descripto
 
 Specific exception and interrupt sources are assigned a fixed address(also called an “interrupt vector” or simply “vector”). The interrupt vector is used by the interrupt-handling mechanism to locate the system-software service routine assigned to the exception or interrupt. Up to 256 unique interrupt vectors are available.
 
+| Vector Range | Use |
+| --- | --- |
+| 0 - 31 | System traps and exceptions |
+| 32 - 127 | External Interrupts |
+| 128 | int80 syscall interface (It provides a way for user-level programs to request services from the Linux kernel by triggering a software interrupt.)|
+| 129 - 255 | Other interrupts (interprocessor interrupts, Reserved by linux for future use, etc)
+
 -------------
-**References**
+**References (IDT)**
 
 [IDT-Wikipedia](https://en.wikipedia.org/wiki/Interrupt_descriptor_table)
 
@@ -206,12 +213,6 @@ Specific exception and interrupt sources are assigned a fixed address(also calle
 
 ----------
 
-| Vector Range | Use |
-| --- | --- |
-| 0 - 31 | System traps and exceptions |
-| 32 - 127 | External Interrupts |
-| 128 | int80 syscall interface (It provides a way for user-level programs to request services from the Linux kernel by triggering a software interrupt.)|
-| 129 - 255 | Other interrupts (interprocessor interrupts, Reserved by linux for future use, etc)
 
 ### Interrupt-driven I/O request
 
