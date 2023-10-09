@@ -97,6 +97,12 @@ Below is a diagram showing the transition between two modes during the process e
 ![Mode Transition](./images/modeChange.png)
 Source: [image source](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.javatpoint.com%2Fdual-mode-operations-in-operating-system&psig=AOvVaw18NjcaKTyY51LQkQJAMyhf&ust=1696620666265000&source=images&cd=vfe&opi=89978449&ved=0CBMQjhxqFwoTCIDZmdPS34EDFQAAAAAdAAAAABAE)
 
+---------
+
+**Refernces:**
+
+
+
 ### User stack and Kernel stack
 
 In the Linux operating system (and many other operating systems), processes often maintain separate user-level and kernel-level stacks. These stacks serve different purposes and are used for distinct types of function calls and data storage. Here's an explanation of each:
@@ -199,6 +205,7 @@ The below table will help you better in understanding the flow of the mechanism.
 *new process* is the next program in the queue to be executed.
 
 Let us now discuss a little about the 'jumping to trap handler' which includes the concept interrupt descriptor table(IDT) and also about 'Interrupt-driven I/O requests'. 
+
 **Reference:** [OS Three Easy Pieces](http://diliev.com/Home/applications/Library/Programing%20Books/OS/Operating_Systems_Three_Easy_Pieces_by_R.pdf)
 
 ### Interrupt descriptor table
