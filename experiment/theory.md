@@ -276,9 +276,15 @@ Let us first define the state of the system:
 
 ![Transition states](./images/transition_state.png)
 
-Let us look at how the states change from the start to the end of the process A and process B.
+Below are the functions that cause the change in the state of the system.
 
-Each of the the above process will have their own PMAPs.
+*itr()* : Interrupt occurrence. <br />
+*exe()*: Instruction execution of the process code.
+
+Consider we have only two process A and B. 
+
+For simplicity, let us denote User mode as 'u', Hardware as 'h', and Kernel mode as 'k'.
+
 
 ## Context switching in Linux
 
