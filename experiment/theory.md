@@ -274,9 +274,7 @@ In this approach we define a state to the system which keeps changing as the pro
 
 Let us first define the state of the system:
 
-$Q_t = { mode: MODE,
-         pmap: PMAP,
-         kernel: MEM, }
+![Transition states](./images/transitionstate.png)
 
 ## Context switching in Linux
 
