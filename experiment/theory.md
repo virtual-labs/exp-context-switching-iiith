@@ -268,9 +268,15 @@ In many modern systems, a combination of both approaches is used. Critical or ti
 
 ---------------
 
-## Mapcode approach to understand the system during context switching
+## Transition diagram approach to understand the system during context switching
 
-In this app
+In this approach we define a state to the system which keeps changing as the process executes. Various actions are responsible to the change of state. Few of those actions are interrupts, syscalls, and even the normal instruction execution of the process.
+
+Let us first define the state of the system:
+
+$Q_t = { mode: MODE,
+         pmap: PMAP,
+         kernel: MEM, }
 
 ## Context switching in Linux
 
