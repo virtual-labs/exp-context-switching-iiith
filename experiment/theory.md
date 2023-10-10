@@ -268,6 +268,10 @@ In many modern systems, a combination of both approaches is used. Critical or ti
 
 ---------------
 
+## Mapcode approach to understand the system during context switching
+
+In this app
+
 ## Context switching in Linux
 
 Now that we know about context switch, let us look at it on our own linux machines.
