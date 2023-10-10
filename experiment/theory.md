@@ -274,7 +274,11 @@ In this approach we define a state to the system which keeps changing as the pro
 
 Let us first define the state of the system:
 
-![Transition states](./images/transitionstate.png)
+![Transition states](./images/transition_state.png)
+
+Let us look at how the states change from the start to the end of the process A and process B.
+
+Each of the the above process will have their own PMAPs.
 
 ## Context switching in Linux
 
