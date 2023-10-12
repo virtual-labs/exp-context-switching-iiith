@@ -138,6 +138,8 @@ Now that all the important terms have been discussed, let us understand the mech
 
 [Kernel stack management during syscall, interrupts and kernel modules](https://exposnitc.github.io/os_design-files/stack_description.html)
 
+[Kernel stack per process, or per CPU? - OSdev](https://forum.osdev.org/viewtopic.php?f=15&t=31127)
+
 ----------------
 
 ## Mechanism of context switching
