@@ -1,658 +1,111 @@
-interrupt = "";
-current_process = "A";
-next_process = "B";
 
-no_of_interrupts = 0;
-no_of_context_switches = 0;
-no_of_wrong_ints_selections = 0;
-
-hardwarePointer = 0;
-kPointer = 0;
-
-k_trap_execute = 0;
-
-class PCB {
-    constructor(pid, state, instructionPointer, programCounter, registers) {
-        this.pid = pid;
-        this.state = state;
-        this.instructionPointer = instructionPointer;
-        this.programCounter = programCounter;
-        this.registers = registers;
-    }
-
-    // getters and setters
-    getPid() {
-        return this.pid;
-    }
-
-    getState() {
-        return this.state;
-    }
-
-    getInstructionPointer() {
-        return this.instructionPointer;
-    }
-
-    getProgramCounter() {
-        return this.programCounter;
-    }
-
-    getRegisters() {
-        return this.registers;
-    }
-
-    setPid(pid) {
-        this.pid = pid;
-    }
-
-    setState(state) {
-        this.state = state;
-    }
-
-    setInstructionPointer(instructionPointer) {
-        this.instructionPointer = instructionPointer;
-    }
-
-    setProgramCounter(programCounter) {
-        this.programCounter = programCounter;
-    }
-
-    setRegisters(registers) {
-        this.registers = registers;
-    }
-
-    // toString method
-    toString() {
-        return "PID: " + this.pid + " State: " + this.state + " Program Counter: " + this.programCounter + " Registers: " + this.registers;
-    }
-}
-
-const processB = {
-    name: 'Process B',
-    pid: 1,
-    state: 'Ready',
-    mode: '1 (User mode)',
-    instructionPointer: 0,
-    programCounter: 0,
-    registers: [],
-    readInterrupt: 0,
-    exitInterrupt: 0,
-    pcb: new PCB(0, 'New', 0, 0, []),
-
-    process: function () {
-        console.log('Process B');
-    }
-    ,
-    init: function () {
-        console.log('Init Process B');
-    }
-    ,
-    destroy: function () {
-        console.log('Destroy Process B');
-    }
-    ,
-    setPCB: function (pcb) {
-        this.pcb = pcb;
-    }
-    ,
-    setState: function (state) {
-        this.state = state;
-    }
-    ,
-    setMode: function (mode) {
-        this.mode = mode;
-    }
-    ,
-    setIP: function (ip) {
-        this.instructionPointer = ip;
-    }
-    ,
-    setPC: function (pc) {
-        this.programCounter = pc;
-    }
-    ,
-    setRegisters: function (registers) {
-        this.registers = registers;
+const registerValues_A = {
+    0: {
+        rax: "0",
+        rbp: "0",
+        rsp: "0",
+        eax: "0",
+        edx: "0",
     },
-    getPCB: function () {
-        return this.pcb;
+    1: {
+        rax: "0",
+        rbp: "0",
+        rsp: "0",
+        eax: "0",
+        edx: "0",
     },
-    getState: function () {
-        return this.state;
+    2: {
+        rax: "0",
+        rbp: "0",
+        rsp: "0",
+        eax: "0",
+        edx: "0",
     },
-    getMode: function () {
-        return this.mode;
+    3: {
+        rax: "0",
+        rbp: "0",
+        rsp: "0",
+        eax: "0",
+        edx: "0",
     },
-    getIP: function () {
-        return this.instructionPointer;
+    4: {
+        rax: "0",
+        rbp: "0",
+        rsp: "0",
+        eax: "0",
+        edx: "5",
     },
-    getPC: function () {
-        return this.programCounter;
-    }
-    ,
-    getRegisters: function () {
-        let regs = "";
-        for (let i = 0; i < this.registers.length; i++) {
-            regs += this.registers[i] + " ";
-        }
-        return regs;
-    }
-    ,
-    load: function () {
-        const process = document.getElementById("process");
-        process.innerHTML = "";
-        const tbody = document.createElement("tbody");
-
-        for (let i = 0; i < Program_B_instructions.length; i++) {
-            const tr = document.createElement("tr");
-            const td = document.createElement("td");
-            const td2 = document.createElement("td");
-
-            td.appendChild(document.createTextNode(Program_B_instructions[i].name));
-            text = Program_B_instructions[i].value;
-            
-            const startIndex = 0; // Index where you want to start extracting (inclusive)
-            const endingCharacter = ';'; // Character where you want to stop extracting (exclusive)
-            const endIndex = text.indexOf(endingCharacter);
-            const asmCommand = text.substring(startIndex, endIndex);
-            const comment = text.substring(endIndex);
-
-            const asm_cmd = `<span style="color: red">${asmCommand}</span>`;
-            const comment_cmd = `<span style="color: green">${comment}</span>`;
-
-            td2.innerHTML = asm_cmd + comment_cmd;
-            tr.appendChild(td);
-            tr.appendChild(td2);
-            tbody.appendChild(tr);
-        }
-
-        process.appendChild(tbody);
+    5: {
+        rax: "0",
+        rbp: "0",
+        rsp: "0",
+        eax: "10",
+        edx: "5",
     },
-    begin: function () {
-        const stBox = document.getElementById("st-box");
-        stBox.style.borderColor = "dodgerBlue";
-        document.getElementById("umode").style.backgroundColor = "dodgerBlue";
-        document.getElementById("umode").style.color = "white";
-        document.getElementById("process_buttons").style.backgroundColor = "dodgerBlue";
-        this.setPC(this.getPC() + 1);
-        this.setState("Running");
-        this.setRegisters(process_A_regSet[this.getIP()].value);
-        console.log(this.getPC() + " " + this.getIP());
+    6: {
+        rax: "15",
+        rbp: "0",
+        rsp: "0",
+        eax: "15",
+        edx: "5",
     },
-
-    setCPU: function () {
-        document.getElementById("cpu").style.borderColor = "red";
-        document.getElementById("mycpu").style.backgroundColor = "red";
-        document.getElementById("mycpu").style.color = "white";
-
-        const cpu_section = document.getElementById("cpu_section");
-        cpu_section.innerHTML = "";
-
-        tbody = document.createElement("tbody");
-
-        const tr = document.createElement("tr");
-        const td = document.createElement("td");
-        const td2 = document.createElement("td");
-        td.innerHTML = "PC: ";
-        td2.innerHTML = this.getPC();
-        tr.appendChild(td);
-        tr.appendChild(td2);
-
-        const tr1 = document.createElement("tr");
-        const td0 = document.createElement("td");
-        const td1 = document.createElement("td");
-        td0.innerHTML = "psw (Mode): ";
-        td1.innerHTML = this.getMode();
-        tr1.appendChild(td0);
-        tr1.appendChild(td1);
-
-        const tr2 = document.createElement("tr");
-        const td3 = document.createElement("td");
-        const td4 = document.createElement("td");
-        td3.innerHTML = "Registers: ";
-        td4.innerHTML = this.getRegisters();
-        tr2.appendChild(td3);
-        tr2.appendChild(td4);
-
-        tbody.appendChild(tr);
-        tbody.appendChild(tr1);
-        tbody.appendChild(tr2);
-
-        cpu_section.appendChild(tbody);
+    7: {
+        rax: "15",
+        rbp: "0",
+        rsp: "0",
+        eax: "15",
+        edx: "5",
     },
-
-    remove: function () {
-        const process = document.getElementById("process");
-        const tbody = document.getElementsByTagName("tbody")[0];
-
-        process.removeChild(tbody);
+    8: {
+        rax: "15",
+        rbp: "0",
+        rsp: "0",
+        eax: "15",
+        edx: "5",
     },
-
-    highlight: function () {
-        const process = document.getElementById("process");
-        process.rows[this.instructionPointer].style.backgroundColor = "yellow";
-        process.rows[this.instructionPointer].style.fontWeight = "bold";
+    9: {
+        rax: "15",
+        rbp: "0",
+        rsp: "0",
+        eax: "15",
+        edx: "5",
     },
-    next: function () {
-        const process = document.getElementById("process");
-        // Handle corner cases
-        if (this.instructionPointer == Program_B_instructions.length - 1) {
-            this.exitInterrupt = 1;
-            this.setState("Terminated");
-            interrupt = "Exit";
-            no_of_interrupts++;
-            document.getElementById("interrupts").innerHTML = "";
-            document.getElementById("interrupts").innerHTML = no_of_interrupts;
-
-            const stBox = document.getElementById("st-box");
-            stBox.style.borderColor = "darkgrey";
-            document.getElementById("umode").style.backgroundColor = "darkgrey";
-            document.getElementById("umode").style.color = "black";
-            document.getElementById("process_buttons").style.backgroundColor = "darkgrey";
-            process.rows[this.instructionPointer].style.backgroundColor = "white";
-            process.rows[this.instructionPointer].style.fontWeight = "normal";
-
-            // disable the process buttons
-            document.getElementById("next_process").disabled = true;
-            document.getElementById("prev_process").disabled = true;
-
-            var modal = document.getElementById("myModal_exit2");
-            modal.style.display = "block";
-            var span = document.getElementsByClassName("boot-ex2")[0];
-            span.onclick = function () {
-                modal.style.display = "none";
-            }
-            
-            document.getElementById("remark").innerHTML += "<br> > <br> a) You have entered the hardware to deal with the exit interrupt. <br> b) Select the correct instruction which will enable you to load the registers of process B to it's k-stack so that it can be later used by the kernel during it's execution.</br>";
-            document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
-            setUp_hardware();
-
-            return;
-        }
-
-        if (this.instructionPointer == 10 && this.readInterrupt == 0) {
-            this.readInterrupt = 1;
-            this.setState("Waiting");
-            interrupt = "Read";
-            no_of_interrupts++;
-            document.getElementById("interrupts").innerHTML = "";
-            document.getElementById("interrupts").innerHTML = no_of_interrupts;
-
-            const stBox = document.getElementById("st-box");
-            stBox.style.borderColor = "darkgrey";
-            document.getElementById("umode").style.backgroundColor = "darkgrey";
-            document.getElementById("umode").style.color = "black";
-            document.getElementById("process_buttons").style.backgroundColor = "darkgrey";
-            process.rows[this.instructionPointer].style.backgroundColor = "white";
-            process.rows[this.instructionPointer].style.fontWeight = "normal";
-
-            // disable the process buttons
-            document.getElementById("next_process").disabled = true;
-            document.getElementById("prev_process").disabled = true;
-
-            var modal = document.getElementById("myModal_read");
-            modal.style.display = "block";
-            var span = document.getElementsByClassName("boot-r")[0];
-            span.onclick = function () {
-                modal.style.display = "none";
-            }
-            
-            document.getElementById("remark").innerHTML += "<br> > <br> a) You have entered the hardware to deal with the read interrupt. <br> b) Select the correct instruction which will enable you to load the registers of process B to it's k-stack so that it can be later used by the kernel during it's execution.<br>";
-            document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
-            setUp_hardware();
-            // hardware_u_to_k(current_process);
-
-            return;
-        }
-
-        process.rows[this.instructionPointer].style.backgroundColor = "white";
-        process.rows[this.instructionPointer].style.fontWeight = "normal";
-        this.setIP(this.getIP() + 1);
-        // console.log(this.getPC());
-        if (this.getIP() == Program_B_instructions.length - 1) {
-            this.setPC(this.getIP());
-        }
-        else {
-            this.setPC(this.getIP() + 1);
-        }
-
-        console.log(this.getPC() + " " + this.getIP());
-        this.highlight();
-
-        // set registers
-        this.setRegisters(process_B_regSet[this.instructionPointer].value);
-        this.setCPU();
-
+    10: {
+        rax: "15",
+        rbp: "0",
+        rsp: "0",
+        eax: "15",
+        edx: "5",
     },
-    previous: function () {
-        const process = document.getElementById("process");
-        // Handle corner cases
-        if (this.instructionPointer == 0) {
-            return;
-        }
+};
 
-        process.rows[this.instructionPointer].style.backgroundColor = "white";
-        process.rows[this.instructionPointer].style.fontWeight = "normal";
-        this.setIP(this.getIP() - 1);
-        this.setPC(this.getIP() + 1);
-        this.highlight();
-
-        // set registers
-        this.setRegisters(process_B_regSet[this.instructionPointer].value);
-        this.setCPU();
-    }
-}
-
-const processA = {
-    name: 'Process A',
-    pid: 0,
-    state: 'ready',
-    mode: '1 (User mode)',
-    instructionPointer: 0,
-    programCounter: 0,
-    registers: [],
-    timerInterrupt: 0,
-    exitInterrupt: 0,
-    pcb: new PCB(0, 'New', 0, 0, []),
-
-    process: function () {
-        console.log('Process A');
-    },
-    init: function () {
-        console.log('Init Process A');
-    },
-    destroy: function () {
-        console.log('Destroy Process A');
-    },
-    setPCB: function (pcb) {
-        this.pcb = pcb;
-    },
-    setState: function (state) {
-        this.state = state;
-    },
-    setMode: function (mode) {
-        this.mode = mode;
-    },
-    setIP: function (ip) {
-        this.instructionPointer = ip;
-    },
-    setPC: function (pc) {
-        this.programCounter = pc;
-    },
-    setRegisters: function (registers) {
-        this.registers = registers;
-    },
-    getPCB: function () {
-        return this.pcb;
-    },
-    getState: function () {
-        return this.state;
-    },
-    getMode: function () {
-        return this.mode;
-    },
-    getIP: function () {
-        return this.instructionPointer;
-    },
-    getPC: function () {
-        return this.programCounter;
-    },
-    getRegisters: function () {
-        let regs = "";
-        for (let i = 0; i < this.registers.length; i++) {
-            regs += this.registers[i] + " ";
-        }
-        return regs;
-    },
-
-    load: function () {
-        const process = document.getElementById("process");
-        process.innerHTML = "";
-        const tbody = document.createElement("tbody");
-
-        for (let i = 0; i < Program_A_instructions.length; i++) {
-            const tr = document.createElement("tr");
-            const td = document.createElement("td");
-            const td2 = document.createElement("td");
-
-            td.appendChild(document.createTextNode(Program_A_instructions[i].name));
-            text = Program_A_instructions[i].value;
-            
-            const startIndex = 0; // Index where you want to start extracting (inclusive)
-            const endingCharacter = ';'; // Character where you want to stop extracting (exclusive)
-            const endIndex = text.indexOf(endingCharacter);
-            const asmCommand = text.substring(startIndex, endIndex);
-            const comment = text.substring(endIndex);
-
-            const asm_cmd = `<span style="color: red">${asmCommand}</span>`;
-            const comment_cmd = `<span style="color: green">${comment}</span>`;
-
-            td2.innerHTML = asm_cmd + comment_cmd;
-
-            tr.appendChild(td);
-            tr.appendChild(td2);
-            tbody.appendChild(tr);
-        }
-
-        process.appendChild(tbody);
-    },
-
-    begin: function () {
-        const stBox = document.getElementById("st-box");
-        stBox.style.borderColor = "dodgerBlue";
-        document.getElementById("umode").style.backgroundColor = "dodgerBlue";
-        document.getElementById("umode").style.color = "white";
-        document.getElementById("process_buttons").style.backgroundColor = "dodgerBlue";
-        this.setPC(this.getPC() + 1);
-        this.setState("Running");
-        this.setRegisters(process_A_regSet[this.getIP()].value);
-        console.log(this.getPC() + " " + this.getIP());
-    },
-
-    setCPU: function () {
-        document.getElementById("cpu").style.borderColor = "red";
-        document.getElementById("mycpu").style.backgroundColor = "red";
-        document.getElementById("mycpu").style.color = "white";
-
-        const cpu_section = document.getElementById("cpu_section");
-        cpu_section.innerHTML = "";
-
-        tbody = document.createElement("tbody");
-
-        const tr = document.createElement("tr");
-        const td = document.createElement("td");
-        const td2 = document.createElement("td");
-        td.innerHTML = "PC: ";
-        td2.innerHTML = this.getPC();
-        tr.appendChild(td);
-        tr.appendChild(td2);
-
-        const tr1 = document.createElement("tr");
-        const td0 = document.createElement("td");
-        const td1 = document.createElement("td");
-        td0.innerHTML = "psw (Mode): ";
-        td1.innerHTML = this.getMode();
-        tr1.appendChild(td0);
-        tr1.appendChild(td1);
-
-        const tr2 = document.createElement("tr");
-        const td3 = document.createElement("td");
-        const td4 = document.createElement("td");
-        td3.innerHTML = "Registers: ";
-        td4.innerHTML = this.getRegisters();
-        tr2.appendChild(td3);
-        tr2.appendChild(td4);
-
-        tbody.appendChild(tr);
-        tbody.appendChild(tr1);
-        tbody.appendChild(tr2);
-
-        cpu_section.appendChild(tbody);
-    },
-
-    remove: function () {
-        const process = document.getElementById("process");
-        const tbody = document.getElementsByTagName("tbody")[0];
-
-        process.removeChild(tbody);
-    },
-
-    highlight: function () {
-        const process = document.getElementById("process");
-        process.rows[this.instructionPointer].style.backgroundColor = "yellow";
-        process.rows[this.instructionPointer].style.fontWeight = "bold";
-    },
-    next: function () {
-        const process = document.getElementById("process");
-        // Handle corner cases
-        if (this.instructionPointer == Program_A_instructions.length - 1) {
-            this.exitInterrupt = 1;
-            this.setState("Terminated");
-            interrupt = "Exit";
-            no_of_interrupts++;
-            document.getElementById("interrupts").innerHTML = "";
-            document.getElementById("interrupts").innerHTML = no_of_interrupts;
-
-            const stBox = document.getElementById("st-box");
-            stBox.style.borderColor = "darkgrey";
-            document.getElementById("umode").style.backgroundColor = "darkgrey";
-            document.getElementById("umode").style.color = "black";
-            document.getElementById("process_buttons").style.backgroundColor = "darkgrey";
-            process.rows[this.instructionPointer].style.backgroundColor = "white";
-            process.rows[this.instructionPointer].style.fontWeight = "normal";
-
-            // disable the process buttons
-            document.getElementById("next_process").disabled = true;
-            document.getElementById("prev_process").disabled = true;
-
-            var modal = document.getElementById("myModal_exit1");
-            modal.style.display = "block";
-            var span = document.getElementsByClassName("boot-ex1")[0];
-            span.onclick = function () {
-                modal.style.display = "none";
-            }
-            // document.getElementById("remark").innerHTML = "";
-            document.getElementById("remark").innerHTML += "<br> > <br> a) You have entered the hardware to deal with the exit interrupt. <br> b) Select the correct instruction which will enable you to load the registers of process A to it's k-stack so that it can be later used by the kernel during it's execution in kernel mode.";
-            document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
-            setUp_hardware();
-
-            return;
-        }
-
-        if (this.instructionPointer == 6 && this.timerInterrupt == 0) {
-            this.timerInterrupt = 1;
-            interrupt = "Timer";
-            no_of_interrupts++;
-            document.getElementById("interrupts").innerHTML = "";
-            document.getElementById("interrupts").innerHTML = no_of_interrupts;
-
-            const stBox = document.getElementById("st-box");
-            stBox.style.borderColor = "darkgrey";
-            document.getElementById("umode").style.backgroundColor = "darkgrey";
-            document.getElementById("umode").style.color = "black";
-            document.getElementById("process_buttons").style.backgroundColor = "darkgrey";
-            process.rows[this.instructionPointer].style.backgroundColor = "white";
-            process.rows[this.instructionPointer].style.fontWeight = "normal";
-
-            // disable the process buttons
-            document.getElementById("next_process").disabled = true;
-            document.getElementById("prev_process").disabled = true;
-
-            var modal = document.getElementById("myModal_timer");
-            modal.style.display = "block";
-            var span = document.getElementsByClassName("boot-t")[0];
-            span.onclick = function () {
-                modal.style.display = "none";
-            }
-            // document.getElementById("remark").innerHTML = "";
-            document.getElementById("remark").innerHTML += "<br> > <br> a) You have entered the hardware to deal with the timer interrupt. <br> b) Select the correct instruction which will enable you to load the registers of process A to it's k-stack so that it can be later used by the kernel during it's execution in kernel mode.";
-            document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
-            setUp_hardware();
-            // hardware_u_to_k(current_process);
-
-            return;
-        }
-
-        process.rows[this.instructionPointer].style.backgroundColor = "white";
-        process.rows[this.instructionPointer].style.fontWeight = "normal";
-        this.setIP(this.getIP() + 1);
-        // console.log(this.getPC());
-        if (this.getIP() == Program_A_instructions.length - 1) {
-            this.setPC(this.getIP());
-        }
-        else {
-            this.setPC(this.getIP() + 1);
-        }
-
-        console.log(this.getPC() + " " + this.getIP());
-        this.highlight();
-
-        // set registers
-        this.setRegisters(process_A_regSet[this.instructionPointer].value);
-        this.setCPU();
-
-    },
-    previous: function () {
-        const process = document.getElementById("process");
-        // Handle corner cases
-        if (this.instructionPointer == 0) {
-            return;
-        }
-
-        process.rows[this.instructionPointer].style.backgroundColor = "white";
-        process.rows[this.instructionPointer].style.fontWeight = "normal";
-        this.setIP(this.getIP() - 1);
-        this.setPC(this.getIP() + 1);
-        this.highlight();
-
-        // set registers
-        this.setRegisters(process_A_regSet[this.instructionPointer].value);
-        this.setCPU();
-    }
-}
-
-const Program_B_instructions = [
+const Program_A_instructions = [
     { name: "0", value: "pushq %rbp ; Save the current value of the base pointer to the stack" },
     { name: "1", value: "movq %rsp, %rbp ; Set the base pointer to the current value of the stack pointer" },
-    { name: "2", value: "subq $32, %rsp ; Allocate 32 bytes of space on the stack" },
-    { name: "3", value: "movq %fs:40, %rax ; Move the value at address fs:40 into the %rax register" },
-    { name: "4", value: "movq %rax, -8(%rbp) ; Move the value in %rax into the memory location at offset -8 from the base pointer" },
-    { name: "5", value: "xorl %eax, %eax ; Set the %eax register to 0 using XOR operation" },
-    { name: "6", value: "movl $15, -16(%rbp) ; Move the value 15 into the memory location at offset -16 from the base pointer" },
-    { name: "7", value: "leaq -20(%rbp), %rax ; Load the effective address of the memory location at offset -20 from the base pointer into the %rax register" },
-    { name: "8", value: "movq %rax, %rsi ; Move the value in %rax into the %rsi register" },
-    { name: "9", value: "movl $0, %eax ; Move the value 0 into the %eax register" },
-    { name: "10", value: "call __isoc99_scanf@PLT ; Call the function __isoc99_scanf from the PLT (Procedure Linkage Table)" },
-    { name: "11", value: "movl -20(%rbp), %edx ; Move the value in the memory location at offset -20 from the base pointer into the %edx register" },
-    { name: "12", value: "movl -16(%rbp), %eax ; Move the value in the memory location at offset -16 from the base pointer into the %eax register" },
-    { name: "13", value: "addl %edx, %eax ; Add the values in the %edx and %eax registers and store the result in %eax" },
-    { name: "14", value: "movl %eax, -12(%rbp) ; Move the value in the %eax register into the memory location at offset -12 from the base pointer" },
-    { name: "15", value: "movl 12(%rbp), %eax ; Move the value in the memory location at offset 12 from the base pointer into the %eax register" },
-    { name: "16", value: "movq -8(%rbp), %rcx ; Move the value in the memory location at offset -8 from the base pointer into the %rcx register" },
-    { name: "17", value: "xorq %fs:40, %rcx ; XOR the value at address fs:40 with the %rcx register" },
-    { name: "18", value: "ret ; Return from the function" },
+    { name: "2", value: "movl $5, -12(%rbp) ; Move the value 5 into the memory location at offset -12 from the base pointer" },
+    { name: "3", value: "movl $10, -8(%rbp) ; Move the value 10 into the memory location at offset -8 from the base pointer" },
+    { name: "4", value: "movl -12(%rbp), %edx ; Move the value from the memory location at offset -12 from the base pointer into the %edx register" },
+    { name: "5", value: "movl -8(%rbp), %eax ; Move the value from the memory location at offset -8 from the base pointer into the %eax register" },
+    { name: "6", value: "addl %edx, %eax ; Add the values in the %edx and %eax registers and store the result in %eax" },
+    { name: "7", value: "movl %eax, -4(%rbp) ; Move the value in the %eax register into the memory location at offset -4 from the base pointer" },
+    { name: "8", value: "movl -4(%rbp), %eax ; Move the value from the memory location at offset -4 from the base pointer into the %eax register" },
+    { name: "9", value: "popq %rbp ; Restore the base pointer from the stack" },
+    { name: "10", value: "ret ; Return from the function" },
 ]
-6
-const process_B_regSet = [
+
+// Dictionary of registers for process A
+const process_A_regSet = [
     { name: "0", value: ["rbp"] },
     { name: "1", value: ["rbp", "rsp"] },
     { name: "2", value: ["rbp", "rsp"] },
-    { name: "3", value: ["rbp", "rsp", "rax"] },
-    { name: "4", value: ["rbp", "rsp", "rax"] },
-    { name: "5", value: ["rbp", "rsp", "rax", "eax"] },
-    { name: "6", value: ["rbp", "rsp", "rax", "eax"] },
-    { name: "7", value: ["rbp", "rsp", "rax", "eax"] },
-    { name: "8", value: ["rbp", "rsp", "rax", "eax", "rsi"] },
-    { name: "9", value: ["rbp", "rsp", "rax", "eax", "rsi"] },
-    { name: "10", value: ["rbp", "rsp", "rax", "eax", "rsi"] },
-    { name: "11", value: ["rbp", "rsp", "rax", "eax", "rsi", "edx"] },
-    { name: "12", value: ["rbp", "rsp", "rax", "eax", "rsi", "edx"] },
-    { name: "13", value: ["rbp", "rsp", "rax", "eax", "rsi", "edx"] },
-    { name: "14", value: ["rbp", "rsp", "rax", "eax", "rsi", "edx"] },
-    { name: "15", value: ["rbp", "rsp", "rax", "eax", "rsi", "edx"] },
-    { name: "16", value: ["rbp", "rsp", "rax", "eax", "rsi", "edx", "rcx"] },
-    { name: "17", value: ["rbp", "rsp", "rax", "eax", "rsi", "edx", "rcx"] },
-    { name: "18", value: ["--"] }
+    { name: "3", value: ["rbp", "rsp", "edx"] },
+    { name: "4", value: ["rbp", "rsp", "edx", "eax"] },
+    { name: "5", value: ["rbp", "rsp", "edx", "eax"] },
+    { name: "6", value: ["rbp", "rsp", "edx", "eax"] },
+    { name: "7", value: ["rbp", "rsp", "edx", "eax"] },
+    { name: "8", value: ["rbp", "rsp", "edx", "eax"] },
+    { name: "9", value: ["--"] },
+    { name: "10", value: ["--"] }
 ]
 
 const registerValues_B = {
@@ -829,114 +282,688 @@ const registerValues_B = {
     }
 };
 
-const registerValues_A = {
-    0: {
-        rax: "0",
-        rbp: "0",
-        rsp: "0",
-        eax: "0",
-        edx: "0",
-    },
-    1: {
-        rax: "0",
-        rbp: "0",
-        rsp: "0",
-        eax: "0",
-        edx: "0",
-    },
-    2: {
-        rax: "0",
-        rbp: "0",
-        rsp: "0",
-        eax: "0",
-        edx: "0",
-    },
-    3: {
-        rax: "0",
-        rbp: "0",
-        rsp: "0",
-        eax: "0",
-        edx: "0",
-    },
-    4: {
-        rax: "0",
-        rbp: "0",
-        rsp: "0",
-        eax: "0",
-        edx: "5",
-    },
-    5: {
-        rax: "0",
-        rbp: "0",
-        rsp: "0",
-        eax: "10",
-        edx: "5",
-    },
-    6: {
-        rax: "15",
-        rbp: "0",
-        rsp: "0",
-        eax: "15",
-        edx: "5",
-    },
-    7: {
-        rax: "15",
-        rbp: "0",
-        rsp: "0",
-        eax: "15",
-        edx: "5",
-    },
-    8: {
-        rax: "15",
-        rbp: "0",
-        rsp: "0",
-        eax: "15",
-        edx: "5",
-    },
-    9: {
-        rax: "15",
-        rbp: "0",
-        rsp: "0",
-        eax: "15",
-        edx: "5",
-    },
-    10: {
-        rax: "15",
-        rbp: "0",
-        rsp: "0",
-        eax: "15",
-        edx: "5",
-    },
-};
-
-const Program_A_instructions = [
-    { name: "0", value: "pushq %rbp ; Save the current value of the base pointer to the stack" },
-    { name: "1", value: "movq %rsp, %rbp ; Set the base pointer to the current value of the stack pointer" },
-    { name: "2", value: "movl $5, -12(%rbp) ; Move the value 5 into the memory location at offset -12 from the base pointer" },
-    { name: "3", value: "movl $10, -8(%rbp) ; Move the value 10 into the memory location at offset -8 from the base pointer" },
-    { name: "4", value: "movl -12(%rbp), %edx ; Move the value from the memory location at offset -12 from the base pointer into the %edx register" },
-    { name: "5", value: "movl -8(%rbp), %eax ; Move the value from the memory location at offset -8 from the base pointer into the %eax register" },
-    { name: "6", value: "addl %edx, %eax ; Add the values in the %edx and %eax registers and store the result in %eax" },
-    { name: "7", value: "movl %eax, -4(%rbp) ; Move the value in the %eax register into the memory location at offset -4 from the base pointer" },
-    { name: "8", value: "movl -4(%rbp), %eax ; Move the value from the memory location at offset -4 from the base pointer into the %eax register" },
-    { name: "9", value: "popq %rbp ; Restore the base pointer from the stack" },
-    { name: "10", value: "ret ; Return from the function" },
-]
-
-// Dictionary of registers for process A
-const process_A_regSet = [
+const process_B_regSet = [
     { name: "0", value: ["rbp"] },
     { name: "1", value: ["rbp", "rsp"] },
     { name: "2", value: ["rbp", "rsp"] },
-    { name: "3", value: ["rbp", "rsp", "edx"] },
-    { name: "4", value: ["rbp", "rsp", "edx", "eax"] },
-    { name: "5", value: ["rbp", "rsp", "edx", "eax"] },
-    { name: "6", value: ["rbp", "rsp", "edx", "eax"] },
-    { name: "7", value: ["rbp", "rsp", "edx", "eax"] },
-    { name: "8", value: ["rbp", "rsp", "edx", "eax"] },
-    { name: "9", value: ["--"] },
-    { name: "10", value: ["--"] }
+    { name: "3", value: ["rbp", "rsp", "rax"] },
+    { name: "4", value: ["rbp", "rsp", "rax"] },
+    { name: "5", value: ["rbp", "rsp", "rax", "eax"] },
+    { name: "6", value: ["rbp", "rsp", "rax", "eax"] },
+    { name: "7", value: ["rbp", "rsp", "rax", "eax"] },
+    { name: "8", value: ["rbp", "rsp", "rax", "eax", "rsi"] },
+    { name: "9", value: ["rbp", "rsp", "rax", "eax", "rsi"] },
+    { name: "10", value: ["rbp", "rsp", "rax", "eax", "rsi"] },
+    { name: "11", value: ["rbp", "rsp", "rax", "eax", "rsi", "edx"] },
+    { name: "12", value: ["rbp", "rsp", "rax", "eax", "rsi", "edx"] },
+    { name: "13", value: ["rbp", "rsp", "rax", "eax", "rsi", "edx"] },
+    { name: "14", value: ["rbp", "rsp", "rax", "eax", "rsi", "edx"] },
+    { name: "15", value: ["rbp", "rsp", "rax", "eax", "rsi", "edx"] },
+    { name: "16", value: ["rbp", "rsp", "rax", "eax", "rsi", "edx", "rcx"] },
+    { name: "17", value: ["rbp", "rsp", "rax", "eax", "rsi", "edx", "rcx"] },
+    { name: "18", value: ["--"] }
 ]
+const Program_B_instructions = [
+    { name: "0", value: "pushq %rbp ; Save the current value of the base pointer to the stack" },
+    { name: "1", value: "movq %rsp, %rbp ; Set the base pointer to the current value of the stack pointer" },
+    { name: "2", value: "subq $32, %rsp ; Allocate 32 bytes of space on the stack" },
+    { name: "3", value: "movq %fs:40, %rax ; Move the value at address fs:40 into the %rax register" },
+    { name: "4", value: "movq %rax, -8(%rbp) ; Move the value in %rax into the memory location at offset -8 from the base pointer" },
+    { name: "5", value: "xorl %eax, %eax ; Set the %eax register to 0 using XOR operation" },
+    { name: "6", value: "movl $15, -16(%rbp) ; Move the value 15 into the memory location at offset -16 from the base pointer" },
+    { name: "7", value: "leaq -20(%rbp), %rax ; Load the effective address of the memory location at offset -20 from the base pointer into the %rax register" },
+    { name: "8", value: "movq %rax, %rsi ; Move the value in %rax into the %rsi register" },
+    { name: "9", value: "movl $0, %eax ; Move the value 0 into the %eax register" },
+    { name: "10", value: "call __isoc99_scanf@PLT ; Call the function __isoc99_scanf from the PLT (Procedure Linkage Table)" },
+    { name: "11", value: "movl -20(%rbp), %edx ; Move the value in the memory location at offset -20 from the base pointer into the %edx register" },
+    { name: "12", value: "movl -16(%rbp), %eax ; Move the value in the memory location at offset -16 from the base pointer into the %eax register" },
+    { name: "13", value: "addl %edx, %eax ; Add the values in the %edx and %eax registers and store the result in %eax" },
+    { name: "14", value: "movl %eax, -12(%rbp) ; Move the value in the %eax register into the memory location at offset -12 from the base pointer" },
+    { name: "15", value: "movl 12(%rbp), %eax ; Move the value in the memory location at offset 12 from the base pointer into the %eax register" },
+    { name: "16", value: "movq -8(%rbp), %rcx ; Move the value in the memory location at offset -8 from the base pointer into the %rcx register" },
+    { name: "17", value: "xorq %fs:40, %rcx ; XOR the value at address fs:40 with the %rcx register" },
+    { name: "18", value: "ret ; Return from the function" },
+]
+interrupt = "";
+current_process = "A";
+next_process = "B";
+
+no_of_interrupts = 0;
+no_of_context_switches = 0;
+no_of_wrong_ints_selections = 0;
+
+hardwarePointer = 0;
+kPointer = 0;
+
+k_trap_execute = 0;
+
+class PCB {
+    constructor(pid, state, instructionPointer, programCounter, registers) {
+        this.pid = pid;
+        this.state = state;
+        this.instructionPointer = instructionPointer;
+        this.programCounter = programCounter;
+        this.registers = registers;
+    }
+
+    // getters and setters
+    getPid() {
+        return this.pid;
+    }
+
+    getState() {
+        return this.state;
+    }
+
+    getInstructionPointer() {
+        return this.instructionPointer;
+    }
+
+    getProgramCounter() {
+        return this.programCounter;
+    }
+
+    getRegisters() {
+        return this.registers;
+    }
+
+    setPid(pid) {
+        this.pid = pid;
+    }
+
+    setState(state) {
+        this.state = state;
+    }
+
+    setInstructionPointer(instructionPointer) {
+        this.instructionPointer = instructionPointer;
+    }
+
+    setProgramCounter(programCounter) {
+        this.programCounter = programCounter;
+    }
+
+    setRegisters(registers) {
+        this.registers = registers;
+    }
+
+    // toString method
+    toString() {
+        return "PID: " + this.pid + " State: " + this.state + " Program Counter: " + this.programCounter + " Registers: " + this.registers;
+    }
+}
+
+const processB = {
+    name: 'Process B',
+    pid: 1,
+    state: 'Ready',
+    mode: '1 (User mode)',
+    instructionPointer: 0,
+    programCounter: 0,
+    registers: [],
+    readInterrupt: 0,
+    exitInterrupt: 0,
+    pcb: new PCB(0, 'New', 0, 0, []),
+
+    process: function () {
+        console.log('Process B');
+    }
+    ,
+    init: function () {
+        console.log('Init Process B');
+    }
+    ,
+    destroy: function () {
+        console.log('Destroy Process B');
+    }
+    ,
+    setPCB: function (pcb) {
+        this.pcb = pcb;
+    }
+    ,
+    setState: function (state) {
+        this.state = state;
+    }
+    ,
+    setMode: function (mode) {
+        this.mode = mode;
+    }
+    ,
+    setIP: function (ip) {
+        this.instructionPointer = ip;
+    }
+    ,
+    setPC: function (pc) {
+        this.programCounter = pc;
+    }
+    ,
+    setRegisters: function (registers) {
+        this.registers = registers;
+    },
+    getPCB: function () {
+        return this.pcb;
+    },
+    getState: function () {
+        return this.state;
+    },
+    getMode: function () {
+        return this.mode;
+    },
+    getIP: function () {
+        return this.instructionPointer;
+    },
+    getPC: function () {
+        return this.programCounter;
+    }
+    ,
+    getRegisters: function () {
+        let regs = "";
+        // Print registers along with the register values
+        const values = registerValues_B[processB.instructionPointer];
+        for (let j = 0; j < process_B_regSet[processB.instructionPointer].value.length; j++) {
+            
+            register = process_B_regSet[processB.instructionPointer].value[j];
+            regs += register + "-" + values[register] + " ";
+        }
+
+        return regs;
+    },
+    load: function () {
+        const process = document.getElementById("process");
+        process.innerHTML = "";
+        const tbody = document.createElement("tbody");
+
+        for (let i = 0; i < Program_B_instructions.length; i++) {
+            const tr = document.createElement("tr");
+            const td = document.createElement("td");
+            const td2 = document.createElement("td");
+
+            td.appendChild(document.createTextNode(Program_B_instructions[i].name));
+            text = Program_B_instructions[i].value;
+
+            const startIndex = 0; // Index where you want to start extracting (inclusive)
+            const endingCharacter = ';'; // Character where you want to stop extracting (exclusive)
+            const endIndex = text.indexOf(endingCharacter);
+            const asmCommand = text.substring(startIndex, endIndex);
+            const comment = text.substring(endIndex);
+
+            const asm_cmd = `<span style="color: red">${asmCommand}</span>`;
+            const comment_cmd = `<span style="color: green">${comment}</span>`;
+
+            td2.innerHTML = asm_cmd + comment_cmd;
+            tr.appendChild(td);
+            tr.appendChild(td2);
+            tbody.appendChild(tr);
+        }
+
+        process.appendChild(tbody);
+    },
+    begin: function () {
+        const stBox = document.getElementById("st-box");
+        stBox.style.borderColor = "dodgerBlue";
+        document.getElementById("umode").style.backgroundColor = "dodgerBlue";
+        document.getElementById("umode").style.color = "white";
+        document.getElementById("process_buttons").style.backgroundColor = "dodgerBlue";
+        this.setPC(this.getPC() + 1);
+        this.setState("Running");
+        this.setRegisters(process_A_regSet[this.getIP()].value);
+        console.log(this.getPC() + " " + this.getIP());
+    },
+
+    setCPU: function () {
+        document.getElementById("cpu").style.borderColor = "red";
+        document.getElementById("mycpu").style.backgroundColor = "red";
+        document.getElementById("mycpu").style.color = "white";
+
+        const cpu_section = document.getElementById("cpu_section");
+        cpu_section.innerHTML = "";
+
+        tbody = document.createElement("tbody");
+
+        const createRow = (label, value, tooltip) => {
+            const tr = document.createElement("tr");
+            const td = document.createElement("td");
+            const td2 = document.createElement("td");
+            td2.innerHTML = value;
+
+            const tooltipContainer = document.createElement("span");
+            tooltipContainer.classList.add("note");
+            // set attribute
+            tooltipContainer.setAttribute("data-tooltip", tooltip);
+            // tooltipContainer.setAttribute("data-tooltip", tooltip);
+            tooltipContainer.innerHTML = label + ": ";
+            td.appendChild(tooltipContainer);
+
+            tr.appendChild(td);
+            tr.appendChild(td2);
+            return tr;
+        };
+
+        const tr = createRow("pc", this.getPC(), "Program Counter");
+        const tr1 = createRow("psw", this.getMode(), "Program Status Word - Stores the current mode of the processor");
+        const tr2 = createRow("Registers", this.getRegisters(), "CPU Registers");
+
+        tbody.appendChild(tr);
+        tbody.appendChild(tr1);
+        tbody.appendChild(tr2);
+
+        cpu_section.appendChild(tbody);
+    },
+
+    remove: function () {
+        const process = document.getElementById("process");
+        const tbody = document.getElementsByTagName("tbody")[0];
+
+        process.removeChild(tbody);
+    },
+
+    highlight: function () {
+        const process = document.getElementById("process");
+        process.rows[this.instructionPointer].style.backgroundColor = "yellow";
+        process.rows[this.instructionPointer].style.fontWeight = "bold";
+    },
+    next: function () {
+        const process = document.getElementById("process");
+        // Handle corner cases
+        if (this.instructionPointer == Program_B_instructions.length - 1) {
+            this.exitInterrupt = 1;
+            this.setState("Terminated");
+            interrupt = "Exit";
+            no_of_interrupts++;
+            document.getElementById("interrupts").innerHTML = "";
+            document.getElementById("interrupts").innerHTML = no_of_interrupts;
+
+            const stBox = document.getElementById("st-box");
+            stBox.style.borderColor = "darkgrey";
+            document.getElementById("umode").style.backgroundColor = "darkgrey";
+            document.getElementById("umode").style.color = "black";
+            document.getElementById("process_buttons").style.backgroundColor = "darkgrey";
+            process.rows[this.instructionPointer].style.backgroundColor = "white";
+            process.rows[this.instructionPointer].style.fontWeight = "normal";
+
+            // disable the process buttons
+            document.getElementById("next_process").disabled = true;
+            document.getElementById("prev_process").disabled = true;
+
+            var modal = document.getElementById("myModal_exit2");
+            modal.style.display = "block";
+            var span = document.getElementsByClassName("boot-ex2")[0];
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            document.getElementById("cpu_section").innerHTML = "";
+            const overlay = document.querySelector('.overlay');
+            overlay.style.display = 'block';
+
+            document.getElementById("remark").innerHTML += "<br> > <br> a) You have entered the hardware to deal with the exit interrupt. <br> b) Select the correct instruction which will enable you to load the registers of process B to it's k-stack so that it can be later used by the kernel during it's execution.</br>";
+            document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
+            setUp_hardware();
+
+            return;
+        }
+
+        if (this.instructionPointer == 10 && this.readInterrupt == 0) {
+            this.readInterrupt = 1;
+            this.setState("Waiting");
+            interrupt = "Read";
+            no_of_interrupts++;
+            document.getElementById("interrupts").innerHTML = "";
+            document.getElementById("interrupts").innerHTML = no_of_interrupts;
+
+            const stBox = document.getElementById("st-box");
+            stBox.style.borderColor = "darkgrey";
+            document.getElementById("umode").style.backgroundColor = "darkgrey";
+            document.getElementById("umode").style.color = "black";
+            document.getElementById("process_buttons").style.backgroundColor = "darkgrey";
+            process.rows[this.instructionPointer].style.backgroundColor = "white";
+            process.rows[this.instructionPointer].style.fontWeight = "normal";
+
+            // disable the process buttons
+            document.getElementById("next_process").disabled = true;
+            document.getElementById("prev_process").disabled = true;
+
+            var modal = document.getElementById("myModal_read");
+            modal.style.display = "block";
+            var span = document.getElementsByClassName("boot-r")[0];
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            document.getElementById("cpu_section").innerHTML = "";
+            const overlay = document.querySelector('.overlay');
+            overlay.style.display = 'block';
+
+            document.getElementById("remark").innerHTML += "<br> > <br> a) You have entered the hardware to deal with the read interrupt. <br> b) Select the correct instruction which will enable you to load the registers of process B to it's k-stack so that it can be later used by the kernel during it's execution.<br>";
+            document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
+            setUp_hardware();
+            // hardware_u_to_k(current_process);
+
+            return;
+        }
+
+        process.rows[this.instructionPointer].style.backgroundColor = "white";
+        process.rows[this.instructionPointer].style.fontWeight = "normal";
+        this.setIP(this.getIP() + 1);
+        // console.log(this.getPC());
+        if (this.getIP() == Program_B_instructions.length - 1) {
+            this.setPC(this.getIP());
+        }
+        else {
+            this.setPC(this.getIP() + 1);
+        }
+
+        console.log(this.getPC() + " " + this.getIP());
+        this.highlight();
+
+        // set registers
+        this.setRegisters(process_B_regSet[this.instructionPointer].value);
+        this.setCPU();
+
+    },
+    previous: function () {
+        const process = document.getElementById("process");
+        // Handle corner cases
+        if (this.instructionPointer == 0) {
+            return;
+        }
+
+        process.rows[this.instructionPointer].style.backgroundColor = "white";
+        process.rows[this.instructionPointer].style.fontWeight = "normal";
+        this.setIP(this.getIP() - 1);
+        this.setPC(this.getIP() + 1);
+        this.highlight();
+
+        // set registers
+        this.setRegisters(process_B_regSet[this.instructionPointer].value);
+        this.setCPU();
+    }
+}
+
+const processA = {
+    name: 'Process A',
+    pid: 0,
+    state: 'ready',
+    mode: '1 (User mode)',
+    instructionPointer: 0,
+    programCounter: 0,
+    registers: [],
+    timerInterrupt: 0,
+    exitInterrupt: 0,
+    pcb: new PCB(0, 'New', 0, 0, []),
+
+    process: function () {
+        console.log('Process A');
+    },
+    init: function () {
+        console.log('Init Process A');
+    },
+    destroy: function () {
+        console.log('Destroy Process A');
+    },
+    setPCB: function (pcb) {
+        this.pcb = pcb;
+    },
+    setState: function (state) {
+        this.state = state;
+    },
+    setMode: function (mode) {
+        this.mode = mode;
+    },
+    setIP: function (ip) {
+        this.instructionPointer = ip;
+    },
+    setPC: function (pc) {
+        this.programCounter = pc;
+    },
+    setRegisters: function (registers) {
+        this.registers = registers;
+    },
+    getPCB: function () {
+        return this.pcb;
+    },
+    getState: function () {
+        return this.state;
+    },
+    getMode: function () {
+        return this.mode;
+    },
+    getIP: function () {
+        return this.instructionPointer;
+    },
+    getPC: function () {
+        return this.programCounter;
+    },
+    getRegisters: function () {
+        let regs = "";
+        // Print registers along with the register values
+        const values = registerValues_A[processA.instructionPointer];
+        for (let j = 0; j < process_A_regSet[processA.instructionPointer].value.length; j++) {
+            
+            register = process_A_regSet[processA.instructionPointer].value[j];
+            regs += register + "-" + values[register] + " ";
+        }
+
+        return regs;
+    },
+
+    load: function () {
+        const process = document.getElementById("process");
+        process.innerHTML = "";
+        const tbody = document.createElement("tbody");
+
+        for (let i = 0; i < Program_A_instructions.length; i++) {
+            const tr = document.createElement("tr");
+            const td = document.createElement("td");
+            const td2 = document.createElement("td");
+
+            td.appendChild(document.createTextNode(Program_A_instructions[i].name));
+            text = Program_A_instructions[i].value;
+
+            const startIndex = 0; // Index where you want to start extracting (inclusive)
+            const endingCharacter = ';'; // Character where you want to stop extracting (exclusive)
+            const endIndex = text.indexOf(endingCharacter);
+            const asmCommand = text.substring(startIndex, endIndex);
+            const comment = text.substring(endIndex);
+
+            const asm_cmd = `<span style="color: red">${asmCommand}</span>`;
+            const comment_cmd = `<span style="color: green">${comment}</span>`;
+
+            td2.innerHTML = asm_cmd + comment_cmd;
+
+            tr.appendChild(td);
+            tr.appendChild(td2);
+            tbody.appendChild(tr);
+        }
+
+        process.appendChild(tbody);
+    },
+
+    begin: function () {
+        const stBox = document.getElementById("st-box");
+        stBox.style.borderColor = "dodgerBlue";
+        document.getElementById("umode").style.backgroundColor = "dodgerBlue";
+        document.getElementById("umode").style.color = "white";
+        document.getElementById("process_buttons").style.backgroundColor = "dodgerBlue";
+        this.setPC(this.getPC() + 1);
+        this.setState("Running");
+        this.setRegisters(process_A_regSet[this.getIP()].value);
+        console.log(this.getPC() + " " + this.getIP());
+    },
+
+    setCPU: function () {
+        document.getElementById("cpu").style.borderColor = "red";
+        document.getElementById("mycpu").style.backgroundColor = "red";
+        document.getElementById("mycpu").style.color = "white";
+
+        const cpu_section = document.getElementById("cpu_section");
+        cpu_section.innerHTML = "";
+
+        tbody = document.createElement("tbody");
+
+        const createRow = (label, value, tooltip) => {
+            const tr = document.createElement("tr");
+            const td = document.createElement("td");
+            const td2 = document.createElement("td");
+            td2.innerHTML = value;
+
+            const tooltipContainer = document.createElement("span");
+            tooltipContainer.classList.add("note");
+            // set attribute
+            tooltipContainer.setAttribute("data-tooltip", tooltip);
+            // tooltipContainer.setAttribute("data-tooltip", tooltip);
+            tooltipContainer.innerHTML = label + ": ";
+            td.appendChild(tooltipContainer);
+
+            tr.appendChild(td);
+            tr.appendChild(td2);
+            return tr;
+        };
+
+        const tr = createRow("pc", this.getPC(), "Program Counter");
+        const tr1 = createRow("psw", this.getMode(), "Program Status Word - Stores the current mode of the processor");
+        const tr2 = createRow("Registers", this.getRegisters(), "CPU Registers");
+
+        tbody.appendChild(tr);
+        tbody.appendChild(tr1);
+        tbody.appendChild(tr2);
+
+        cpu_section.appendChild(tbody);
+    },
+
+    remove: function () {
+        const process = document.getElementById("process");
+        const tbody = document.getElementsByTagName("tbody")[0];
+
+        process.removeChild(tbody);
+    },
+
+    highlight: function () {
+        const process = document.getElementById("process");
+        process.rows[this.instructionPointer].style.backgroundColor = "yellow";
+        process.rows[this.instructionPointer].style.fontWeight = "bold";
+    },
+    next: function () {
+        const process = document.getElementById("process");
+        // Handle corner cases
+        if (this.instructionPointer == Program_A_instructions.length - 1) {
+            this.exitInterrupt = 1;
+            this.setState("Terminated");
+            interrupt = "Exit";
+            no_of_interrupts++;
+            document.getElementById("interrupts").innerHTML = "";
+            document.getElementById("interrupts").innerHTML = no_of_interrupts;
+
+            const stBox = document.getElementById("st-box");
+            stBox.style.borderColor = "darkgrey";
+            document.getElementById("umode").style.backgroundColor = "darkgrey";
+            document.getElementById("umode").style.color = "black";
+            document.getElementById("process_buttons").style.backgroundColor = "darkgrey";
+            process.rows[this.instructionPointer].style.backgroundColor = "white";
+            process.rows[this.instructionPointer].style.fontWeight = "normal";
+
+            // disable the process buttons
+            document.getElementById("next_process").disabled = true;
+            document.getElementById("prev_process").disabled = true;
+
+            var modal = document.getElementById("myModal_exit1");
+            modal.style.display = "block";
+            var span = document.getElementsByClassName("boot-ex1")[0];
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            document.getElementById("remark").innerHTML = "";
+            const overlay = document.querySelector('.overlay');
+            overlay.style.display = 'block';
+
+
+            // document.getElementById("remark").innerHTML = "";
+            document.getElementById("remark").innerHTML += "<br> > <br> a) You have entered the hardware to deal with the exit interrupt. <br> b) Select the correct instruction which will enable you to load the registers of process A to it's k-stack so that it can be later used by the kernel during it's execution in kernel mode.";
+            document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
+            setUp_hardware();
+
+            return;
+        }
+
+        if (this.instructionPointer == 6 && this.timerInterrupt == 0) {
+            this.timerInterrupt = 1;
+            interrupt = "Timer";
+            no_of_interrupts++;
+            document.getElementById("interrupts").innerHTML = "";
+            document.getElementById("interrupts").innerHTML = no_of_interrupts;
+
+            const stBox = document.getElementById("st-box");
+            stBox.style.borderColor = "darkgrey";
+            document.getElementById("umode").style.backgroundColor = "darkgrey";
+            document.getElementById("umode").style.color = "black";
+            document.getElementById("process_buttons").style.backgroundColor = "darkgrey";
+            process.rows[this.instructionPointer].style.backgroundColor = "white";
+            process.rows[this.instructionPointer].style.fontWeight = "normal";
+
+            // disable the process buttons
+            document.getElementById("next_process").disabled = true;
+            document.getElementById("prev_process").disabled = true;
+
+            var modal = document.getElementById("myModal_timer");
+            modal.style.display = "block";
+            var span = document.getElementsByClassName("boot-t")[0];
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            document.getElementById("remark").innerHTML = "";
+            const overlay = document.querySelector('.overlay');
+            overlay.style.display = 'block';
+
+
+            // document.getElementById("remark").innerHTML = "";
+            document.getElementById("remark").innerHTML += "<br> > <br> a) You have entered the hardware to deal with the timer interrupt. <br> b) Select the correct instruction which will enable you to load the registers of process A to it's k-stack so that it can be later used by the kernel during it's execution in kernel mode.";
+            document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
+            setUp_hardware();
+            // hardware_u_to_k(current_process);
+
+            return;
+        }
+
+        process.rows[this.instructionPointer].style.backgroundColor = "white";
+        process.rows[this.instructionPointer].style.fontWeight = "normal";
+        this.setIP(this.getIP() + 1);
+        // console.log(this.getPC());
+        if (this.getIP() == Program_A_instructions.length - 1) {
+            this.setPC(this.getIP());
+        }
+        else {
+            this.setPC(this.getIP() + 1);
+        }
+
+        console.log(this.getPC() + " " + this.getIP());
+        this.highlight();
+
+        // set registers
+        this.setRegisters(process_A_regSet[this.instructionPointer].value);
+        this.setCPU();
+
+    },
+    previous: function () {
+        const process = document.getElementById("process");
+        // Handle corner cases
+        if (this.instructionPointer == 0) {
+            return;
+        }
+
+        process.rows[this.instructionPointer].style.backgroundColor = "white";
+        process.rows[this.instructionPointer].style.fontWeight = "normal";
+        this.setIP(this.getIP() - 1);
+        this.setPC(this.getIP() + 1);
+        this.highlight();
+
+        // set registers
+        this.setRegisters(process_A_regSet[this.instructionPointer].value);
+        this.setCPU();
+    }
+}
+
 
 let start_simulation = 0;
 
@@ -1339,7 +1366,18 @@ function contextSwitch() {
         const i1 = document.createElement("button");
         i1.setAttribute("onclick", "load_k_stack_kernel()");
         i1.setAttribute("id", "kernel_stack_k");
-        i1.innerHTML = context_switch_instruction[2]();
+        // i1.innerHTML = context_switch_instruction[2]();
+        // create a tooltip
+        const tooltipContainer = document.createElement("span");
+        tooltipContainer.classList.add("note");
+        // set attribute
+        const code2 = document.createElement("code");
+        code2.innerHTML = `movl 4(%eax), %esp # stack is switched here`;
+        tooltipContainer.setAttribute("data-tooltip", code2.textContent);
+        // tooltipContainer.setAttribute("data-tooltip", tooltip);
+        tooltipContainer.innerHTML = context_switch_instruction[2]();
+        // tooltip.innerHTML = "This instruction will load the kernel stack of the next process from it's PCB.";
+        i1.appendChild(tooltipContainer);
         tr1.appendChild(i1);
         tbody.appendChild(tr1);
 
@@ -1347,7 +1385,21 @@ function contextSwitch() {
         const i2 = document.createElement("button");
         i2.setAttribute("onclick", "updatePCB()");
         i2.setAttribute("id", "update_pcb");
-        i2.innerHTML = context_switch_instruction[0]();
+        // i2.innerHTML = context_switch_instruction[0]();
+        const tooltipContainer1 = document.createElement("span");
+        tooltipContainer1.classList.add("note");
+        // set attribute
+        const code0 = document.createElement("code");
+        code0.innerHTML = `# Save old registers
+        movl 4(%esp), %eax # put old ptr into eax
+        popl 0(%eax) # save the old IP
+        movl %esp, 4(%eax) # and stack
+        movl %ebx, 8(%eax) # and other registers`;
+        tooltipContainer1.setAttribute("data-tooltip", code0.textContent);
+        // tooltipContainer.setAttribute("data-tooltip", tooltip);
+        tooltipContainer1.innerHTML = context_switch_instruction[0]();
+        // tooltip.innerHTML = "This instruction will load the kernel stack of the next process from it's PCB.";
+        i2.appendChild(tooltipContainer1);
         tr2.appendChild(i2);
         tbody.appendChild(tr2);
 
@@ -1355,7 +1407,17 @@ function contextSwitch() {
         const i3 = document.createElement("button");
         i3.setAttribute("onclick", "hardware_k_to_u()");
         i3.setAttribute("id", "hardware_kTOu");
-        i3.innerHTML = context_switch_instruction[3]();
+        // i3.innerHTML = context_switch_instruction[3]();
+        const tooltipContainer2 = document.createElement("span");
+        tooltipContainer2.classList.add("note");
+        // set attribute
+        const code3 = document.createElement("code");
+        code3.innerHTML = `pushl 0(%eax) # return addr put in place
+        ret # finally return into new ctxt`;
+        tooltipContainer2.setAttribute("data-tooltip", code3.textContent);
+        // tooltipContainer.setAttribute("data-tooltip", tooltip);
+        tooltipContainer2.innerHTML = context_switch_instruction[3]();
+        i3.appendChild(tooltipContainer2);
         tr3.appendChild(i3);
         tbody.appendChild(tr3);
 
@@ -1363,7 +1425,18 @@ function contextSwitch() {
         const i4 = document.createElement("button");
         i4.setAttribute("onclick", "restorePCB()");
         i4.setAttribute("id", "restore_pcb");
-        i4.innerHTML = context_switch_instruction[1]();
+        // i4.innerHTML = context_switch_instruction[1]();
+        const tooltipContainer3 = document.createElement("span");
+        tooltipContainer3.classList.add("note");
+        // set attribute
+        const code1 = document.createElement("code");
+        code1.innerHTML = `# Load new registers
+        movl 4(%esp), %eax # put new ptr into eax
+        movl 28(%eax), %ebp # restore other registers`;
+        tooltipContainer3.setAttribute("data-tooltip", code1.textContent);
+        // tooltipContainer.setAttribute("data-tooltip", tooltip);
+        tooltipContainer3.innerHTML = context_switch_instruction[1]();
+        i4.appendChild(tooltipContainer3);
         tr4.appendChild(i4);
         tbody.appendChild(tr4);
 
@@ -1535,6 +1608,9 @@ function jump_to_process() {
     htable.innerHTML = "";
 
     // document.getElementById("remark").innerHTML = "";
+    const overlay = document.querySelector('.overlay');
+    overlay.style.display = 'none';
+
     document.getElementById("remark").innerHTML += "<br> > <br> a) You are in the User mode now. <br> b) Use the 'next' and 'previous' buttons in the user mode to traverse through the program."
     scrollToBottom();
     document.getElementById("st-box").style.borderColor = "dodgerblue";
@@ -1608,7 +1684,26 @@ function move_to_user_mode() {
 
     hardwarePointer++;
 }
+$('.footer').click(function () {
 
+    if ($(this).height() > 40) {
+
+        $(this).animate({
+            height: "40px"
+        }, 600, 'swing', function () {
+            $(this).html("Click me!");
+        });
+
+    } else {
+
+        $(this).animate({
+            height: "450px"
+        }, 600, 'swing', function () {
+            $(this).html("Click me again!");
+        });
+
+    }
+});
 function restore_registers() {
     if (hardwarePointer != 0) {
         no_of_wrong_ints_selections++;
@@ -2186,7 +2281,7 @@ function load_k_stack_kernel() {
     const tbody = document.createElement("tbody");
     tbody.insertRow(-1).insertCell(0).innerHTML = context_switch_instruction[2]();
     kernel.appendChild(tbody);
-    
+
     document.getElementById("remark").innerHTML += "<br> > Now select the correct instruction to jump into the new process and complete the context switch.<br>";
     document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
     document.getElementById("kernel_stack_k").style.backgroundColor = "green";
@@ -2224,7 +2319,7 @@ function load_k_stack() {
         return;
     }
 
-    
+
     document.getElementById("remark").innerHTML += "<br> > <br> a) You have now populated your kernel stack. <br> b) Now you need to change to kernel mode. Select the correct instruction to do that.<br>";
     document.getElementById("remarkDiv").scrollTop = document.getElementById("remarkDiv").scrollHeight;
     document.getElementById("kernel_stack").style.backgroundColor = "green";
@@ -2265,7 +2360,7 @@ function load_k_stack_A() {
         const td1 = document.createElement("td");
 
         register = process_A_regSet[processA.instructionPointer].value[j];
-        
+
         td1.innerHTML = register + ": " + values[register];
 
         tr.appendChild(td1);
