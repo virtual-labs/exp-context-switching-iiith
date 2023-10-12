@@ -36,7 +36,6 @@
     margin-right: 2%;
     width: 96.4%;
     /* position: absolute; */
-    background-color: khaki;
     float: left;
 }
 
@@ -204,14 +203,127 @@
 #dialogue_box {
     float: left;
     width: 95.4%;
-    height: 120px;
+    height: 175px;
     background-color: white;
     border-radius: 10px;
     border: solid tomato;
     margin: 1.5%;
     margin-bottom: 0.8%;
     margin-top: 0.3%;
+    /* position: fixed; */
 }
+
+/*
+ CSS for the main interaction
+*/
+.accordion > input[type="checkbox"] {
+    position: absolute;
+    left: -100vw;
+  }
+  
+  .accordion .content {
+    overflow-y: hidden;
+    height: 0;
+    transition: height 0.3s ease;
+  }
+  
+  .accordion > input[type="checkbox"]:checked ~ .content {
+    height: auto;
+    overflow: visible;
+  }
+  
+  .accordion label {
+    display: block;
+  }
+  
+  /*
+   Styling
+  */
+  /* body {
+    font: 16px/1.5em "Overpass", "Open Sans", Helvetica, sans-serif;
+    color: #333;
+    font-weight: 300;
+  } */
+  
+  .accordion {
+    margin-bottom: 1em;
+  }
+  
+  .accordion > input[type="checkbox"]:checked ~ .content {
+    padding: 15px;
+    border: 1px solid #e8e8e8;
+    border-top: 0;
+  }
+  
+  .accordion .handle {
+    margin: 0;
+    font-size: 1.125em;
+    line-height: 1.2em;
+  }
+  
+  .accordion label {
+    color: #333;
+    cursor: pointer;
+    font-weight: normal;
+    padding: 15px;
+    background: #e8e8e8;
+  }
+  
+  .accordion label:hover,
+  .accordion label:focus {
+    background: #d8d8d8;
+  }
+  
+  .accordion .handle label:before {
+    font-family: 'fontawesome';
+    content: "\f054";
+    display: inline-block;
+    margin-right: 10px;
+    font-size: .58em;
+    line-height: 1.556em;
+    vertical-align: middle;
+  }
+  
+  .accordion > input[type="checkbox"]:checked ~ .handle label:before {
+    content: "\f078";
+  }
+  
+  
+  /*
+   Demo purposes only
+  */
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+  
+  /* body {
+    padding: 40px;
+  }
+  
+  a {
+    color: #06c;
+  }
+  
+  p {
+    margin: 0 0 1em;
+  }
+  
+  h1 {
+    margin: 0 0 1.5em;
+    font-weight: 600;
+    font-size: 1.5em;
+  } */
+  
+  .accordion {
+    max-width: 17em;
+    float: left;
+  }
+  
+  .accordion p:last-child {
+    margin-bottom: 0;
+  }
 
 #nd-box {
     float: left;
@@ -872,3 +984,50 @@ display: block;
     .lte8 .wrapper:hover .contenttip {
     display: block;
     }
+
+    .note {
+        position: relative;
+        display: inline-block; /* You can use this line if needed */
+        cursor: pointer;
+        /* font-size: smaller; */
+        /* width: 100%; */
+    }
+    
+    .note::before {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 0%;
+        left: 20%;
+        font-size: smaller;
+        z-index: 9999;
+        /* width: 500%; */
+        transform: translateX(-50%);
+        background-color: #333;
+        color: #fff;
+        padding: 4px 8px;
+        border-radius: 4px;
+        /* white-space: nowrap; */
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease;
+    }
+    
+    .note:hover::before {
+        opacity: 1;
+        /* width: 100px; */
+        visibility: visible;
+        
+    }
+
+    .overlay {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 78%;
+        background-color: rgba(0, 0, 0, 0.147); /* Adjust the color and opacity as needed */
+        backdrop-filter: blur(5px); /* Adjust the blur amount as needed */
+        z-index: 2; /* Ensure the overlay is on top of the content */
+        display: none;
+    }
+    
