@@ -992,6 +992,54 @@ function start() {
         location.reload();
     }
 }
+function back_to_user_mode() {
+    window.alert(hardwarePointer);
+    if (hardwarePointer == 0) {
+        const h_box = document.getElementById("nd-box");
+        h_box.style.borderColor = "darkgrey";
+        document.getElementById("hardware").style.backgroundColor = "darkgrey";
+        document.getElementById("hardware").style.color = "black";
+
+        document.getElementById("k-stack_A").style.borderColor = "darkgrey";
+        document.getElementById("k-stack-A").style.backgroundColor = "darkgrey";
+        document.getElementById("k-stack-A").style.color = "black";
+
+        document.getElementById("interrupt").innerHTML = "";
+
+        if(current_process=="A")
+        {
+            document.getElementById("kernel_stack").style.backgroundColor = "white";
+            document.getElementById("kernel_stack").style.color = "black";
+        }
+    }
+    else{
+        var select = document.getElementById("interrupt");
+        select.removeChild(select.lastChild); 
+        if(current_process=="A"){
+
+            if(hardwarePointer == 2){
+            document.getElementById("int_handlers").style.backgroundColor = "white";
+            document.getElementById("int_handlers").style.color = "black";
+            }
+            else {
+                document.getElementById("changemode").style.backgroundColor = "white";
+                document.getElementById("changemode").style.color = "black";
+            }
+        }
+        else{
+            if(hardwarePointer == 2){
+                document.getElementById("move_to_user_mode").style.backgroundColor = "white";
+                document.getElementById("move_to_user_mode").style.color = "black";
+                }
+                else {
+                    document.getElementById("restore_registers").style.backgroundColor = "white";
+                    document.getElementById("restore_registers").style.color = "black";
+                }
+        }
+    }
+    hardwarePointer--;
+
+}
 
 function simulation() {
     // Load the process
