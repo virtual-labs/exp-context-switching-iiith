@@ -26,11 +26,9 @@ A process context refers to the current execution state and information associat
 
 Process context can change dynamically while the process is executing on the CPU.
 
-During a context switch, the current context of the process is stored in a data structure called 'Process Control block' which is later used to retreive the information of the process and resume it's excution from where it was interrupted.
-
 ### Process Control Block
 
-In order to virtualize the execution of a process, the OS needs to have an internal account of the state of a process. This representation of the state of a process is stored in memory as a *Process Control Block(PCB)*.
+In order to virtualize the execution of a process, the OS needs to have an internal account of the state of a process. This representation of the state of a process is stored in memory as a *Process Control Block(PCB)*. PCB is a data structure which is later used to retrieve the information of the process and resume it's execution from where it was interrupted.
 
 The PCB is used primarily during context switches, but it doesn't actively reflect the process's changing context while it's running. Instead, the changing process context is stored in various CPU registers and memory locations, not within the PCB.
 
