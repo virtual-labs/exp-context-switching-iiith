@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <title>Home</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="./JS/main.js"></script>
+    <script src="./main.js"></script>
 </head>
 
 <body>
@@ -100,184 +102,255 @@
         </div>
 
     </div>
+    <div class="Instructions">
+        <p style="font-weight: bolder; color: dodgerBlue; text-align: center;">Instructions</p>
+        <hr>
+        <p style="padding-left: 10px;">
+            1. Please read the theory before starting the experiment.<br>
+            2. Follow the instructions in the dialog box to walk through the simulation.<br>
+            3. Student can control the simulation using the controls provided in 'Controls' section.<br>
+            4. Click on the "Start" button to start the simulation.<br>
+        </p>
+    </div>
+    <div class="container">
+        <div class="controls">
+            <p style="text-align: center; font-weight: bold">Controls</p>
+            <hr>
+            <button class="start_simulation" id="start" onclick="bootstrap()">
+                Start
+            </button>
+            <hr>
+            <p style="padding-left: 10px" id="cp">Current Process: </p>
+            <p style="padding-left: 10px" id="cs">Current subsystem: </p>
+            <p style="text-align: center; font-weight: bold">Subsystem instructions</p>
+            <div class="Code_instructions">
+                <table id="insts">
 
-    <div class="simulation_page">
-        <div class="container">
-            <div id="dialogue_box">
-                <p id="dialogue" style="position: sticky;">Dialog Box</p>
-                <div id="remarkDiv" style="height:125px; overflow-y: scroll; position: sticky">
-                    <p id="remark"
-                        style="padding: 10px; padding-top: 2px; padding-bottom: 2px; width:90%; margin: 10px;">
-                        > Click on the start button and wait for the OS to boot up.
-                    </p>
-                </div>
+                </table>
             </div>
-            <div id="st-box">
-                <p id="umode" class="wrapper">USER
-                    <i style="cursor: pointer;" class="fa fa-info-circle"></i>
-                    <span class="tooltip">
-                        User Mode is a privilege level in OS where programs and applications run within restricted
-                        access to computer's hardware and system resources.
-                    </span>
-                </p>
-                <div id="load_process_A" style="overflow-y: scroll; height:313px">
-                    <table id="process" style="padding: 10px; width:90%; margin: 10px;"></table>
+            <hr>
+            <p style="text-align: center; font-weight: bold">Interrupt Handlers</p>
+            <div style="margin-left: 10px; margin-right: 10px;">
+                <div style="float: left; width: 50%;">
+                    <button class="Itr_btn" id="Timer">Timer</button>
+                    <button class="Itr_btn" id="Read">Read</button>
                 </div>
-                <div id="process_buttons">
-                    <button id="prev_process" onclick="process_previous()">Previous</button>
-                    <button id="next_process" onclick="process_next()">Next</button>
-                </div>
-            </div>
-
-            <div id="nd-box">
-                <p id="hardware" class="wrapper">HARDWARE
-                    <i style="cursor: pointer;" class="fa fa-info-circle"></i>
-                    <span class="tooltip">Hardware provides the foundation on which the OS operates. It offers the
-                        computational power, memory, storage, and I/O capabilities that the OS and applications depend
-                        on. The OS, in turn, manages and interacts with this hardware to provide a stable and productive
-                        computing environment.</span>
-                </p>
-                <div id="interrupt_section" style="height:313px">
-                    <table id="interrupt" style="padding: 10px; width:90%; margin: 10px;"></table>
-                </div>
-            </div>
-
-            <div id="rd-box">
-                <p id="kmode" class="wrapper">KERNEL
-                    <i class="fa fa-info-circle"></i>
-                    <span class="tooltip">Kernel mode, also known as supervisor mode or privileged mode, is the highest
-                        privilege level in an operating system. In kernel mode, software has unrestricted access to
-                        hardware. This includes tasks like memory management, process scheduling, device driver
-                        operation, and handling hardware interrupts.
-                    </span>
-                </p>
-                <div id="k-container" style="overflow-y: scroll; height:313px;">
-                    <table id="kernel" style="padding: 10px; width:90%; margin: 10px;"></table>
-                </div>
-                <div id="kernel_buttons">
-                    <button id="kernelCode_execute" onclick="execute()">Execute</button>
+                <div style="float: left; width: 50%;">
+                    <button class="Itr_btn" id="Exit">Exit</button>
+                    <button class="Itr_btn" id="IntIO">Interrupt driven I/O</button>
                 </div>
             </div>
         </div>
+        <div class="displays">
+            <p style="text-align: center; font-weight: bold">Displays</p>
+            <hr>
 
-        <div class="conatiner2">
-            <div id="cpu">
-                <p id="mycpu" class="wrapper">CPU
-                    <i class="fa fa-info-circle"></i>
-                    <span class="tooltip">CPU is the hardware component that carries out the essential computational
-                        tasks required by the OS and software applications. The OS manages and coordinates the CPU's
-                        activities, ensuring that processes run efficiently, securely, and in accordance with system
-                        priorities.</span>
-                </p>
-                <div class="overlay"></div>
-                <div class="cpu_details" style="z-index: 2;">
-                    <table id="cpu_section"></table>
+            <div class="modes">
+                <div class="tabset">
+                    <!-- Tab 1 -->
+                    <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
+                    <label for="tab1">User <button class="wrapper" id="info_btn">&#8505 <span class="tooltip">User Mode is a privilege level in OS where programs and applications run within restricted
+                        access to computer's hardware and system resources.</span></button>
+                        </label>
+                    <!-- Tab 2 -->
+                    <input type="radio" name="tabset" id="tab2" aria-controls="rauchbier">
+                    <label for="tab2">Hardware <button class="wrapper" id="info_btn">&#8505
+                        <span class="tooltip">Hardware provides the foundation on which the OS operates. It offers the
+                            computational power, memory, storage, and I/O capabilities that the OS and applications depend
+                            on. The OS, in turn, manages and interacts with this hardware to provide a stable and productive
+                            computing environment.</span></button></label>
+                    <!-- Tab 3 -->
+                    <input type="radio" name="tabset" id="tab3" aria-controls="dunkles">
+                    <label for="tab3">Kernel <button class="wrapper" id="info_btn">&#8505
+                        <span class="tooltip">Kernel mode, also known as supervisor mode or privileged mode, is the highest
+                            privilege level in an operating system. In kernel mode, software has unrestricted access to
+                            hardware. This includes tasks like memory management, process scheduling, device driver
+                            operation, and handling hardware interrupts.
+                        </span></button></label>
+
+                    <div class="tab-panels">
+                        <section id="marzen" class="tab-panel">
+                            <table id="userProgram">
+
+                            </table>
+                        </section>
+                        <section id="rauchbier" class="tab-panel">
+                            <table id="hardware">
+
+                            </table>
+                        </section>
+                        <section id="dunkles" class="tab-panel">
+                            <table id="Kernel">
+
+                            </table>
+                        </section>
+                    </div>
+
                 </div>
             </div>
-            <div id="k-stack_A">
-                <p id="k-stack-A" class="wrapper">k-stack: process A
-                    <i class="fa fa-info-circle"></i>
-                    <span class="tooltip">The kernel stack contains data related to the execution of kernel-level
-                        functions and system calls. It includes information such as return addresses, function
-                        parameters, and local variables of kernel functions. This particular K-Stack belongs to process
-                        A.</span>
-                </p>
-                <table id="kStack_A_Table"></table>
+            <div class="btns">
+                <button class="control-btn" id="previous" onclick="previous()">Previous</button>
+                <button class="control-btn" id="next" onclick="next()">Next</button>
             </div>
-            <div id="k-stack_B">
-                <p id="k-stack-B" class="wrapper">k-stack: process B
-                    <i class="fa fa-info-circle"></i>
-                    <span class="tooltip">The kernel stack contains data related to the execution of kernel-level
-                        functions and system calls. It includes information such as return addresses, function
-                        parameters, and local variables of kernel functions. This particular K-Stack belongs to process
-                        B.</span>
-                </p>
-                <table id="kStack_B_Table"></table>
-            </div>
-            <div id="pcbA">
-                <p id="pcb_A_p" class="wrapper">PCB: process A
-                    <i class="fa fa-info-circle"></i>
-                    <span class="tooltip">PCB serves as a central repository of process-specific information required
-                        for process management and scheduling. The PCB contains a wide range of information about a
-                        process or thread, including its program counter (PC), CPU registers, process state, process ID,
-                        scheduling information, memory management data, and I/O status. This PCB belongs to process
-                        A.</span>
-                </p>
-                <table id="pcb_A_table"></table>
-            </div>
-            <div id="pcbB">
-                <p id="pcb_B_p" class="wrapper">PCB: process B
-                    <i class="fa fa-info-circle"></i>
-                    <span class="tooltip">PCB serves as a central repository of process-specific information required
-                        for process management and scheduling. The PCB contains a wide range of information about a
-                        process or thread, including its program counter (PC), CPU registers, process state, process ID,
-                        scheduling information, memory management data, and I/O status. This PCB belongs to process
-                        B.</span>
-                </p>
-                <table id="pcb_B_table"></table>
+            <div>
+
+                <div class="CPU">
+                    <p style="text-align: center; font-weight: bold;">CPU <button class="wrapper" id="info_btn">&#8505
+                        <span class="tooltip">CPU is the hardware component that carries out the essential computational
+                            tasks required by the OS and software applications. The OS manages and coordinates the CPU's
+                            activities, ensuring that processes run efficiently, securely, and in accordance with system
+                            priorities.</span></button></p>
+                    <hr>
+                    <table id="CPU">
+
+                    </table>
+                </div>
+                <div class="Memory">
+                    <div class="tabset1">
+                        <!-- Tab 1 -->
+                        <input type="radio" name="tabset1" id="tab_kstackA" aria-controls="k_A" checked>
+                        <label for="tab_kstackA">k-stack A <button class="wrapper" id="info_btn">&#8505
+                            <span class="tooltip">The kernel stack contains data related to the execution of kernel-level
+                                functions and system calls. It includes information such as return addresses, function
+                                parameters, and local variables of kernel functions. This particular K-Stack belongs to process
+                                A.</span></button></label>
+                        <!-- Tab 2 -->
+                        <input type="radio" name="tabset1" id="tab_kstackB" aria-controls="k_B">
+                        <label for="tab_kstackB">k-stack B <button class="wrapper" id="info_btn">&#8505
+                            <span class="tooltip">The kernel stack contains data related to the execution of kernel-level
+                                functions and system calls. It includes information such as return addresses, function
+                                parameters, and local variables of kernel functions. This particular K-Stack belongs to process
+                                B.</span></button></label>
+                        <!-- Tab 3 -->
+                        <input type="radio" name="tabset1" id="tab_pcbA" aria-controls="p_A">
+                        <label for="tab_pcbA">pcb-A <button class="wrapper" id="info_btn">&#8505
+                            <span class="tooltip">PCB serves as a central repository of process-specific information required
+                                for process management and scheduling. The PCB contains a wide range of information about a
+                                process or thread, including its program counter (PC), CPU registers, process state, process ID,
+                                scheduling information, memory management data, and I/O status. This PCB belongs to process
+                                A.</span></button></label>
+                        <!--Tab 4-->
+                        <input type="radio" name="tabset1" id="tab_pcbB" aria-controls="p_B">
+                        <label for="tab_pcbB">pcb-B <button class="wrapper" id="info_btn">&#8505
+                            <span class="tooltip">PCB serves as a central repository of process-specific information required
+                                for process management and scheduling. The PCB contains a wide range of information about a
+                                process or thread, including its program counter (PC), CPU registers, process state, process ID,
+                                scheduling information, memory management data, and I/O status. This PCB belongs to process
+                                B.</span></button></label>
+
+                        <div class="tab-panels1">
+                            <section id="k_A" class="tab-panel1">
+                                <table id="kStackA">
+
+                                </table>
+                            </section>
+                            <section id="k_B" class="tab-panel1">
+                                <table id="kStackB">
+
+                                </table>
+                            </section>
+                            <section id="p_A" class="tab-panel1">
+                                <table id="pcbA">
+
+                                </table>
+                            </section>
+                            <section id="p_B" class="tab-panel1">
+                                <table id="pcbB">
+
+                                </table>
+                            </section>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="dialog-box">
+            <p style="text-align: center; font-weight: bold;">Dialog</p>
+            <hr>
+            <table id="dialog">
+                <tr>
+                    <td class="msg">&#128203 Click the "Start" button in the 'Controls' section.</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="container3">
+        <h2>Know what's happening</h2>
+        <section class="accordion">
+            <input type="checkbox" name="collapse2" id="handle1">
+            <h2 class="handle">
+                <label for="handle1">Introduction</label>
+            </h2>
+            <div class="content">
+                <p><strong>Objective:</strong> <br>
+                    Our objective in this experiment is to understand the mechanism of context switching used by
+                    the OS for multi processing.
+                    In this simulation, we approach the context switching technique at a three level abstraction (User,
+                    Hardware and Kernel).
 
-        <div class="container3">
-            <h2>Know what's happening</h2>
-            <section class="accordion">
-                <input type="checkbox" name="collapse2" id="handle1" checked="checked">
-                <h2 class="handle">
-                    <label for="handle1">Introduction</label>
-                </h2>
-                <div class="content">
-                    <p><strong>Objective:</strong> <br>
-                        Our objective in this experiment is to understand the mechanism of context switching used by
-                        the OS for multi processing.
-                        In this simulation, we approach the context switching technique at a three level abstraction (User, Hardware and Kernel).
-                    
                 </p>
                 <p>
-                    <p><strong>Intuition:</strong><br>You are to observe the instruction given in the dialog box and respond with the corresponding
-                        action in the simulation above.</p>
-                    <p>Observe the control flow between the user state, hardware and the kernel mode and how the CPU
-                        and other resources get's updated accordingly.</p>
+                <p><strong>Intuition:</strong><br>Consider we have only two programs in the system. You are to observe the instruction given in the dialog box and respond
+                    with the corresponding
+                    action in the simulation above.</p>
+                <p>Observe the control flow between the user state, hardware and the kernel mode and how the CPU
+                    and other resources get's updated accordingly.</p>
                 </p>
-                    <p><strong>Apparatus:</strong> <br>
-                            1. User<br>
-                            2. Hardware<br>
-                            3. Kernel<br>
-                            4. CPU<br>
-                            5. Kernel Stack (k-stack)<br>
-                            6. Process Control Block (PCB)<br>
-                            7. Interrupt Handlers<br>
-                    </p>
-                </div>
-            </section>
-            <section class="accordion">
-                <input type="checkbox" name="collapse2" id="handle2">
-                <h2 class="handle">
-                    <label for="handle2">Theory</label>
-                </h2>
-                <div class="content">
-                    <p><strong>What is context?</strong><br> The term "context" refers to the state
-                        and information associated with a process or thread at a specific point in time. It
-                        encompasses various aspects of the process's execution environment, including its program
-                        counter, register values, memory allocation, and other relevant data. It provides
-                        all the necessary information for the operating system to save and later restore the
-                        process's execution when it is preempted or needs to be resumed.</p>
-                    <p><strong>How is context different from PCB?:</strong> <br>
-                        While context and PCB both deal with process management and are closely related, they serve
-                        different purposes and exist at different levels of abstraction.
-                        Context is about saving and restoring the immediate execution state of a process or thread
-                        during context switches, while the PCB is a data structure used to maintain comprehensive
-                        information about a process or thread over its entire lifetime and is used for higher-level
-                        process management within the operating system.</p>
-                </div>
-            </section>
-            <section class="accordion">
-                <input type="checkbox" name="collapse2" id="handle3">
-                <h2 class="handle">
-                    <label for="handle3">Programs used</label>
-                </h2>
-                <div class="content">
-                    <p><strong>Program A: Simple addition program</strong>
-<pre>
+                
+                <p><strong>Apparatus:</strong> <br>
+                    1. User<br>
+                    2. Hardware<br>
+                    3. Kernel<br>
+                    4. CPU<br>
+                    5. Kernel Stack (k-stack)<br>
+                    6. Process Control Block (PCB)<br>
+                    7. Interrupt Handlers<br>
+                </p>
+            </div>
+        </section>
+        <section class="accordion">
+            <input type="checkbox" name="collapse2" id="handle6">
+            <h2 class="handle">
+                <label for="handle6">Procedure</label>
+            </h2>
+            <div class="content">
+                <p>1. Read the primary instructions provided at the top of the page. <br>
+                2. Follow the instructions provided in the dialogue box to go through the mechanism.<br>
+                3. Click on the 'Start' button and then bootstrap the OS.<br>
+                4. Once the program is loaded in User, use the next and previous buttons to tranverse through the process.<br>
+                5. Follow the prompts given in the dialogue box at every step to handle the traps and interrupts during the execution of the process.</p>
+            </div>
+        </section>
+        <section class="accordion">
+            <input type="checkbox" name="collapse2" id="handle2">
+            <h2 class="handle">
+                <label for="handle2">Theory</label>
+            </h2>
+            <div class="content">
+                <p><strong>What is context?</strong><br> The term "context" refers to the state
+                    and information associated with a process or thread at a specific point in time. It
+                    encompasses various aspects of the process's execution environment, including its program
+                    counter, register values, memory allocation, and other relevant data. It provides
+                    all the necessary information for the operating system to save and later restore the
+                    process's execution when it is preempted or needs to be resumed.</p>
+                <p><strong>How is context different from PCB?:</strong> <br>
+                    While context and PCB both deal with process management and are closely related, they serve
+                    different purposes and exist at different levels of abstraction.
+                    Context is about saving and restoring the immediate execution state of a process or thread
+                    during context switches, while the PCB is a data structure used to maintain comprehensive
+                    information about a process or thread over its entire lifetime and is used for higher-level
+                    process management within the operating system.</p>
+            </div>
+        </section>
+        <section class="accordion">
+            <input type="checkbox" name="collapse2" id="handle3">
+            <h2 class="handle">
+                <label for="handle3">Programs used</label>
+            </h2>
+            <div class="content">
+                <p><strong>Program A: Simple addition program</strong>
+                <pre>
 <code>
 #include <stdio.h>
 int main()
@@ -289,9 +362,10 @@ int main()
     return c;
 }
 </code>
-</pre></p>
-                    <p><strong>Program B: Read and add program</strong>
-<pre>
+</pre>
+                </p>
+                <p><strong>Program B: Read and add program</strong>
+                <pre>
 <code>
 #include <stdio.h>
 int main()
@@ -304,108 +378,56 @@ int main()
 }
 </code>
 </pre>
-                    </p>
-                </div>
-            </section>
+                </p>
+            </div>
+        </section>
 
-            <section class="accordion">
-                <input type="checkbox" name="collapse2" id="handle4">
-                <h2 class="handle">
-                    <label for="handle4">Context switching in linux OS</label>
-                </h2>
-                <div class="content">
-                    <p>
-                        Here are few commands that will help you understand the context switching in linux OS.
-                        <pre>
+        <section class="accordion">
+            <input type="checkbox" name="collapse2" id="handle4">
+            <h2 class="handle">
+                <label for="handle4">Context switching in linux</label>
+            </h2>
+            <div class="content">
+                <p>
+                    Here are few commands that will help you understand the context switching in linux OS.
+                <pre>
 <code>
 $ grep ctxt /proc/$pid/status
 </code>
 </pre>
-The above command will give you the number of context switches that have happened for the process with the given pid. You can get the pid of a process using the following command.
-<pre>
+                The above command will give you the number of context switches that have happened for the process with
+                the given pid. You can get the pid of a process using the following command.
+                <pre>
 <code>
 $ htop
 </code></pre>
-Another good way to inspect a process on your system is using the <code>vmstat</code> command. This will give you a detailed overview of the number of context switches, number of interrupts, and further information like the cache used etc.
-                        
-                    </p>
-                </div>
-            </section>
+                Another good way to inspect a process on your system is using the <code>vmstat</code> command. This will
+                give you a detailed overview of the number of context switches, number of interrupts, and further
+                information like the cache used etc.
+
+                </p>
+            </div>
+        </section>
 
 
-            <section class="accordion">
-                <input type="checkbox" name="collapse2" id="handle5">
-                <h2 class="handle">
-                    <label for="handle5">References</label>
-                </h2>
-                <div class="content">
-                    <a href="https://docs.kernel.org/" target="_blank">Linux documentation</a><br>
-                    <a href="https://en.wikipedia.org/wiki/Context_switch" target="_blank">Wikipedia</a><br>
-                    <a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank">Remzi-threeEasyPieces</a><br>
-                    <a href="https://drive.uqu.edu.sa/_/mskhayat/files/MySubjects/2017SS%20Operating%20Systems/Abraham%20Silberschatz-Operating%20System%20Concepts%20(9th,2012_12).pdf"
-                        target="_blank">OS
-                        by Silberschatz</a><br>
-                    <a href="https://github.com/torvalds/linux" target="_blank">Linux github Repo</a>
-                </div>
-            </section>
+        <section class="accordion">
+            <input type="checkbox" name="collapse2" id="handle5">
+            <h2 class="handle">
+                <label for="handle5">References</label>
+            </h2>
+            <div class="content">
+                <a href="https://docs.kernel.org/" target="_blank">Linux documentation</a><br>
+                <a href="https://en.wikipedia.org/wiki/Context_switch" target="_blank">Wikipedia</a><br>
+                <a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank">Remzi-threeEasyPieces</a><br>
+                <a href="https://drive.uqu.edu.sa/_/mskhayat/files/MySubjects/2017SS%20Operating%20Systems/Abraham%20Silberschatz-Operating%20System%20Concepts%20(9th,2012_12).pdf"
+                    target="_blank">OS
+                    by Silberschatz</a><br>
+                <a href="https://github.com/torvalds/linux" target="_blank">Linux github Repo</a>
+            </div>
+        </section>
 
-
-        </div>
 
     </div>
-    <div class="control_page">
-        <div style="padding: 10px">
-            <h2 style="font-weight: bolder;"> Student controls </h2>
-            <p id="current_running_process"> Current Running program: -- </p>
-            <div id="instruction_box">
-                <p
-                    style="margin-top: auto; margin-bottom: 0px; font-weight: bold; background-color: black; color: white; padding: 10px; text-align: center;">
-                    Instruction Box</p>
-                <div id="instructions" style="overflow-y: scroll; height:150px">
-                    <table id="i" style="overflow-y: scroll; padding-left: 10px; width:90%; margin: 10px;"></table>
-                </div>
-            </div>
-
-            <div id="ints">
-                <table style="padding: 10px; width:90%; margin: 10px;">
-                    <tr>
-                        <td>I/O completed</td>
-                        <td> <button onclick="trigger_io()">Trigger</button> </td>
-                    </tr>
-                </table>
-            </div>
-
-            <div style="margin-top: 10px;">
-                <p id="myTrapHandlers" style="font-weight: bold;">Interrupt Handlers:</p>
-                <p id="interrupt_type"> Interrupt type: -- </p>
-                <table id="handlers"></table>
-            </div>
-            <button id="start_simulation" onclick="start()">Start</button>
-
-            <div id="observations" style="margin-top: 10px;">
-                <p
-                    style="margin-top: auto; margin-bottom: 0px; font-weight: bold; background-color: black; color: white; padding: 10px; text-align: center;">
-                    Observations</p>
-                <table style="padding: 10px;">
-                    <tr>
-                        <td>Number of context switches</td>
-                        <td id="context_switches">0</td>
-                    </tr>
-                    <tr>
-                        <td>Number of interrupts</td>
-                        <td id="interrupts">0</td>
-                    </tr>
-                    <tr>
-                        <td>Wrong instruction selection</td>
-                        <td id="wrong_ints_selection">0</td>
-                    </tr>
-
-                </table>
-            </div>
-
-        </div>
-    </div>
-
 
 </body>
 
