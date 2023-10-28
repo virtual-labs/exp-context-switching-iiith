@@ -231,7 +231,7 @@ The below table will help you better in understanding the flow of the mechanism.
    <td class="org-left"> -- </td>
 </tr>
 <tr>
-   <td class="org-left"> <i>Process B</i> <pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 15;<br>   scanf("%d", &b);</pre> **Note:** The CPU executes the instructions for the function `scanf` from the C standard library where it encounters the read syscall. </td>
+   <td class="org-left"> <i>Process B</i> <pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 15;<br>   scanf("%d", &b);</pre> <strong>Note:</strong> The CPU executes the instructions for the function `scanf` from the C standard library where it encounters the read syscall. </td>
    <td class="org-left"> --- </td>
    <td class="org-left"> --- </td>
 </tr>
