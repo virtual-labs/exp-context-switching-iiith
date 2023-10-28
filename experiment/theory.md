@@ -188,11 +188,19 @@ The below table will help you better in understanding the flow of the mechanism.
 
 
 **Bootstrap the OS**
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
 <tr>
-   <th>User</th>
+   <th scope="col" class="org-left">User</th>
    <th>Hardware</th>
    <th>Kernel</th>
 </tr>
+</thead>
 | User | Hardware | Kernel |
 |------| -------- | ------ |
 | *Process A* <pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 5;<br>   b = 10;</pre>| ---- | ---- |
