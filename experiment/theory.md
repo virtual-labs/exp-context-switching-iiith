@@ -190,6 +190,8 @@ The below table will help you better in understanding the flow of the mechanism.
 
 **Bootstrap the OS**
 
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
 <colgroup>
 <col  class="org-left" />
 
@@ -208,6 +210,8 @@ The below table will help you better in understanding the flow of the mechanism.
 <tbody>
    <tr class="org-left">*Process A* <pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 5;<br>   b = 10;</pre></tr>
 </tbody>
+
+</table>
 
 | User | Hardware | Kernel |
 |------| -------- | ------ |
