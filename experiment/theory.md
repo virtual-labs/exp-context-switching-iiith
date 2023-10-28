@@ -43,6 +43,7 @@ A process control block stores 3 kinds of information about a process&#x2014;nam
 <col  class="org-left" />
 
 <col  class="org-left" />
+
 </colgroup>
 <thead>
 <tr>
@@ -193,14 +194,21 @@ The below table will help you better in understanding the flow of the mechanism.
 <col  class="org-left" />
 
 <col  class="org-left" />
+
+<col  class="org-left" />
 </colgroup>
 <thead>
 <tr>
    <th scope="col" class="org-left">User</th>
-   <th>Hardware</th>
-   <th>Kernel</th>
+   <th scope="col" class="org-left">Hardware</th>
+   <th scope="col" class="org-left">Kernel</th>
 </tr>
 </thead>
+
+<tbody>
+   <tr class="org-left">*Process A* <pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 5;<br>   b = 10;</pre></tr>
+</tbody>
+
 | User | Hardware | Kernel |
 |------| -------- | ------ |
 | *Process A* <pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 5;<br>   b = 10;</pre>| ---- | ---- |
