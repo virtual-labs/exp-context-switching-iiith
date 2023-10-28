@@ -328,19 +328,15 @@
                 <label for="handle2">Theory</label>
             </h2>
             <div class="content">
-                <p><strong>What is context?</strong><br> The term "context" refers to the state
-                    and information associated with a process or thread at a specific point in time. It
-                    encompasses various aspects of the process's execution environment, including its program
-                    counter, register values, memory allocation, and other relevant data. It provides
-                    all the necessary information for the operating system to save and later restore the
-                    process's execution when it is preempted or needs to be resumed.</p>
-                <p><strong>How is context different from PCB?:</strong> <br>
-                    While context and PCB both deal with process management and are closely related, they serve
-                    different purposes and exist at different levels of abstraction.
-                    Context is about saving and restoring the immediate execution state of a process or thread
-                    during context switches, while the PCB is a data structure used to maintain comprehensive
-                    information about a process or thread over its entire lifetime and is used for higher-level
-                    process management within the operating system.</p>
+                <p><strong>What is context?</strong><br> A process context refers to the current execution state and information associated with a running process in an operating system. It represents a snapshot of the process's execution at a particular point in time.
+
+<br /> Process context can change dynamically while the process is executing on the CPU.
+
+</p>
+                <p><strong>How is PCB?:</strong> <br>
+                    In order to virtualize the execution of a process, the OS needs to have an internal account of the state of a process. This representation of the state of a process is stored in memory as a Process Control Block(PCB).<br>
+
+The PCB is used primarily during context switches, but it doesn't actively reflect the process's changing context while it's running. Instead, the changing process context is stored in various CPU registers and memory locations, not within the PCB.</p>
             </div>
         </section>
         <section class="accordion">
