@@ -208,7 +208,11 @@ The below table will help you better in understanding the flow of the mechanism.
 </thead>
 
 <tbody>
-   <tr class="org-left">*Process A* <pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 5;<br>   b = 10;</pre></tr>
+<tr> 
+   <th class="org-left"> *Process A* <pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 5;<br>   b = 10;</pre> </th>
+   <th class="org-left"> --- </th>
+   <th class="org-left"> --- </th>
+</tr>
 </tbody>
 
 </table>
