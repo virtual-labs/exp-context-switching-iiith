@@ -353,23 +353,6 @@ In many modern systems, a combination of both approaches is used. Critical or ti
 
 ---------------
 
-## Transition diagram approach to understand the system during context switching
-
-In this approach we define a state to the system which keeps changing as the process executes. Various actions are responsible to the change of state. Few of those actions are interrupts, syscalls, and even the normal instruction execution of the process.
-
-Let us first define the state of the system:
-
-![Transition states](./images/transition_state.png)
-
-Below are the functions that cause the change in the state of the system.
-
-*itr()* : Interrupt occurrence. <br />
-*exe()*: Instruction execution of the process code.
-
-Consider we have only two process A and B. 
-
-For simplicity, let us denote User mode as 'u', Hardware as 'h', and Kernel mode as 'k'.
-
 
 ## Context switching in Linux
 
