@@ -213,6 +213,12 @@ The below table will help you better in understanding the flow of the mechanism.
    <td class="org-left"> --- </td>
    <td class="org-left"> --- </td>
 </tr>
+
+<tr>
+   <td class="org-left"> --- </td>
+   <td class="org-left"> **timer interrupt** <br /> 1. save regs(A) to k-stack(A) <br /> 2. move to kernel mode <br /> 3. jump to timer interrupt handler </td>
+   <td class="org-left"> --- </td>
+</tr>
 </tbody>
 
 </table>
