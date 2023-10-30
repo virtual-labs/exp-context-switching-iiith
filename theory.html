@@ -398,6 +398,7 @@
           <col class="org-left">
           
           <col class="org-left">
+          
           </colgroup>
           <thead>
           <tr>
@@ -513,24 +514,107 @@
           <p>Now let us look at the context between the above two programs.</p>
           <p><strong>Note:</strong> <em>The instructions executed by the CPU are in machine language (binary). The above C programs as only for an easier understanding. We have used assembly language (asm x_86) in the simulation of the experiment so that the student can understand the change of register values better within the CPU.</em></p>
           <p>The below table will help you better in understanding the flow of the mechanism.</p>
-          <p><strong>Bootstrap the OS</strong>
-          | User | Hardware | Kernel |
-          |------| -------- | ------ |
-          | <em>Process A</em> </p><pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 5;<br>   b = 10;</stdio.h></pre>| ---- | ---- |
-          | ---- | <strong>timer interrupt</strong> <br> 1. save regs(A) to k-stack(A) <br> 2. move to kernel mode <br> 3. jump to timer interrupt handler | ---- |
-          | --- | --- | 1. Handle the timer interrupt <br> <strong>Call switch() routine</strong> <br> 2. save regs(A) to PCB(A) <br> 3. restore regs(B) from PCB(B) <br> 4. switch to k-stack(B) <br> 5. return-from-trap (into B) |
-          | --- | 1. restore regs(B) from k-stack(B) <br> 2. move to user mode <br> 3. jump to B’s Program counter(PC) | --- |
-          | <em>Process B</em> <pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 15;<br>   scanf("%d", &amp;b);</stdio.h></pre> <strong>Note:</strong> The CPU executes the instructions for the function <code>scanf</code> from the C standard library where it encounters the read syscall. | --- |
-          | ---- | <strong>read syscall</strong> <br> 1. save regs(B) to k-stack(B) <br> 2. move to kernel mode <br> 3. jump to read trap handler | ---- |
-          | --- | --- | 1. Handle the read syscall <br> <strong>Call switch() routine</strong> <br> 2. save regs(B) to PCB(B) <br> 3. restore regs(A) from PCB(A) <br> 4. switch to k-stack(A) <br> 5. return-from-trap (into A) |
-          | --- | 1. restore regs(A) from k-stack(A) <br> 2. move to user mode <br> 3. jump to A’s PC | --- |
-          | <em>Process A</em> <pre>   c = a + b;<br>   return c;<br>} </pre> <strong>Note:</strong> <code>return</code> is an implicit exit syscall | --- | --- |
-          | ---- | <strong>exit syscall</strong> <br> 1. save regs(A) to k-stack(A) <br> 2. move to kernel mode <br> 3. jump to exit trap handler | ---- |
-          | --- | --- | 1. Handle the exit syscall <br> <strong>Call switch() routine</strong> <br> 2. save regs(A) to PCB(A) <br> 3. restore regs(B) from PCB(B) <br> 4. switch to k-stack(B) <br> 5. return-from-trap (into B) |
-          | --- | 1. restore regs(B) from k-stack(B) <br> 2. move to user mode <br> 3. jump to B’s PC | --- |
-          | <em>Process B</em> <pre><br>   c = a + b;<br>   return c;<br>}</pre> <strong>Note:</strong> Some architectures use interrupt-driven I/O to notify the CPU that the I/O request has been fulfilled. In that case, we will have another interrupt from the I/O device to deal with. Read more about this in the below section. | --- | --- |
-          | ---- | <strong>exit syscall</strong> <br> 1. save regs(B) to k-stack(B) <br> 2. move to kernel mode <br> 3. jump to exit trap handler | ---- |
-          | --- | --- | 1. Handle the exit syscall <br> <strong>Call switch() routine</strong> <br> 2. save regs(B) to PCB(B) <br> 3. restore regs(<em>new process</em>) from PCB(<em>new process</em>) <br> 4. switch to k-stack(<em>new process</em>) <br> 5. return-from-trap (into <em>new process</em>) |<p></p>
+          <p><strong>Bootstrap the OS</strong></p>
+          <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+          
+          <colgroup>
+          <col class="org-left">
+          
+          <col class="org-left">
+          
+          <col class="org-left">
+          </colgroup>
+          <thead>
+          <tr>
+             <th scope="col" class="org-left">User</th>
+             <th scope="col" class="org-left">Hardware</th>
+             <th scope="col" class="org-left">Kernel</th>
+          </tr>
+          </thead>
+          
+          <tbody>
+          <tr> 
+             <td class="org-left"> <i>Process A</i> <pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 5;<br>   b = 10;</stdio.h></pre> </td>
+             <td class="org-left"> --- </td>
+             <td class="org-left"> --- </td>
+          </tr>
+          
+          <tr>
+             <td class="org-left"> --- </td>
+             <td class="org-left"> <strong>timer interrupt</strong> <br> 1. save regs(A) to k-stack(A) <br> 2. move to kernel mode <br> 3. jump to timer interrupt handler </td>
+             <td class="org-left"> --- </td>
+          </tr>
+          
+          <tr>
+             <td class="org-left"> --- </td>
+             <td class="org-left"> --- </td>
+             <td class="org-left">1. Handle the timer interrupt <br> <strong> Call switch() routine </strong> <br> 2. save regs(A) to PCB(A) <br> 3. restore regs(B) from PCB(B) <br> 4. switch to k-stack(B) <br> 5. return-from-trap (into B)</td>
+          </tr>
+          <tr>
+             <td class="org-left"> --- </td>
+             <td class="org-left"> 1. restore regs(B) from k-stack(B) <br> 2. move to user mode <br> 3. jump to B’s Program counter(PC) </td>
+             <td class="org-left"> -- </td>
+          </tr>
+          <tr>
+             <td class="org-left"> <i>Process B</i> <pre><br>#include <stdio.h> <br>int main()<br>{ <br>   int a, b, c;<br>   a = 15;<br>   scanf("%d", &amp;b);</stdio.h></pre> <strong>Note:</strong> The CPU executes the instructions for the function `scanf` from the C standard library where it encounters the read syscall. </td>
+             <td class="org-left"> --- </td>
+             <td class="org-left"> --- </td>
+          </tr>
+          <tr>
+             <td class="org-left"> --- </td>
+             <td class="org-left"> <strong>read syscall</strong> <br> 1. save regs(B) to k-stack(B) <br> 2. move to kernel mode <br> 3. jump to read trap handler </td>
+             <td class="org-left"> --- </td>
+          </tr>
+          <tr>
+             <td class="org-left"> --- </td>
+             <td class="org-left"> --- </td>
+             <td class="org-left"> 1. Handle the read syscall <br> <strong>Call switch() routine</strong> <br> 2. save regs(B) to PCB(B) <br> 3. restore regs(A) from PCB(A) <br> 4. switch to k-stack(A) <br> 5. return-from-trap (into A)</td>
+          </tr>
+          <tr>
+             <td class="org-left"> --- </td>
+             <td class="org-left"> 1. restore regs(A) from k-stack(A) <br> 2. move to user mode <br> 3. jump to A’s PC </td>
+             <td class="org=left"> --- </td>
+          </tr>
+          <tr>
+             <td class="org-left"> <i>Process A</i> <pre>   c = a + b;<br>   return c;<br>} </pre> **Note:** `return` is an implicit exit syscall </td>
+             <td class="org-left"> --- </td>
+             <td class="org-left"> --- </td>
+          </tr>
+          <tr>
+             <td class="org-left"> --- </td>
+             <td class="org-left"><strong>exit syscall</strong> <br> 1. save regs(A) to k-stack(A) <br> 2. move to kernel mode <br> 3. jump to exit trap handler</td>
+             <td class="org-left"> --- </td>
+          </tr>
+          <tr>
+             <td class="org-left"> --- </td>
+             <td class="org-left"> --- </td>
+             <td class="org-left"> 1. Handle the exit syscall <br> <strong>Call switch() routine</strong> <br> 2. save regs(A) to PCB(A) <br> 3. restore regs(B) from PCB(B) <br> 4. switch to k-stack(B) <br> 5. return-from-trap (into B)</td>
+          </tr>
+          <tr>
+             <td class="org-left"> --- </td>
+             <td class="org-left"> 1. restore regs(B) from k-stack(B) <br> 2. move to user mode <br> 3. jump to B’s PC </td>
+             <td class="org-left"> --- </td>
+          </tr>
+          <tr>
+             <td class="org-left"> <i>Process B</i> <pre><br>   c = a + b;<br>   return c;<br>}</pre> <strong>Note:</strong> Some architectures use interrupt-driven I/O to notify the CPU that the I/O request has been fulfilled. In that case, we will have another interrupt from the I/O device to deal with. Read more about this in the below section. </td>
+             <td class="org-left"> --- </td>
+             <td class="org-left"> --- </td>
+          </tr>
+          <tr>
+             <td class="org-left"> --- </td>
+             <td class="org-left"> <strong>exit syscall</strong> <br> 1. save regs(B) to k-stack(B) <br> 2. move to kernel mode <br> 3. jump to exit trap handler </td>
+             <td class="org-left"> --- </td>
+          </tr>
+          <tr>
+             <td class="org-left"> --- </td>
+             <td class="org-left"> --- </td>
+             <td class="org-left"> 1. Handle the exit syscall <br> <strong>Call switch() routine</strong> <br> 2. save regs(B) to PCB(B) <br> 3. restore regs(<i>new process</i>) from PCB(<i>new process</i>) <br> 4. switch to k-stack(<i>new process</i>) <br> 5. return-from-trap (into <i>new process</i>) </td>
+          </tr>
+          </tbody>
+             
+          </table>
+          
+          
           <p><em>new process</em> is the next program in the queue to be executed.</p>
           <p>Let us now discuss a little about the 'jumping to trap handler' which includes the concept interrupt descriptor table(IDT) and also about 'Interrupt-driven I/O requests'. </p>
           <p><strong>Reference:</strong> <a href="http://diliev.com/Home/applications/Library/Programing%20Books/OS/Operating_Systems_Three_Easy_Pieces_by_R.pdf">OS Three Easy Pieces</a></p>
@@ -584,15 +668,6 @@
           <p><a href="https://www.linkedin.com/advice/1/how-do-you-choose-between-polling-interrupt-driven#:~:text=For%20example%2C%20you%20may%20use,O%20to%20read%20the%20data.">Interrupt driven I/O vs polling in embedded software</a></p>
           <p><a href="https://codex.cs.yale.edu/avi/os-book/OSE2/practice-exer-dir/12-web.pdf">I/O systems - Yale university</a></p>
           <hr>
-          <h2 id="transition-diagram-approach-to-understand-the-system-during-context-switching">Transition diagram approach to understand the system during context switching</h2>
-          <p>In this approach we define a state to the system which keeps changing as the process executes. Various actions are responsible to the change of state. Few of those actions are interrupts, syscalls, and even the normal instruction execution of the process.</p>
-          <p>Let us first define the state of the system:</p>
-          <p><img src="./images/transition_state.png" alt="Transition states"></p>
-          <p>Below are the functions that cause the change in the state of the system.</p>
-          <p><em>itr()</em> : Interrupt occurrence. <br>
-          <em>exe()</em>: Instruction execution of the process code.</p>
-          <p>Consider we have only two process A and B. </p>
-          <p>For simplicity, let us denote User mode as 'u', Hardware as 'h', and Kernel mode as 'k'.</p>
           <h2 id="context-switching-in-linux">Context switching in Linux</h2>
           <p>Now that we know about context switch, let us look at it on our own linux machines.</p>
           <p>Linux provides many tools to check the number of context switches, interrupts, I/O requests etc. Make use of the below commands to view the context switch information of the processes.</p>
