@@ -1432,6 +1432,22 @@ function jump_to_user() {
     document.getElementById("insts").innerHTML = "";
 }
 
+function openTheory() {
+    if (document.getElementById("toc").style.display == "none") {
+        document.getElementById("toc").style.display = "block";
+    } else {
+        document.getElementById("toc").style.display = "none";
+    }
+}
+
+function openContent(toc_id) {
+    if (document.getElementById(toc_id).style.display == "none") {
+        document.getElementById(toc_id).style.display = "block";
+    } else {
+        document.getElementById(toc_id).style.display = "none";
+    }
+}
+
 // 1. CPU is executing the context switch code
 // 2. mode: Kernel
 // 3. Registers: [Not necessary to know]
