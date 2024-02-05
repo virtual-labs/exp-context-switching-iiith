@@ -453,6 +453,8 @@ function assemble_msg(FEEDBACK, PROMPT, PIN) {
     row.appendChild(td);
     tb.appendChild(row);
     dialogue.appendChild(tb);
+
+    document.getElementById("msg-sec").scrollTop = document.getElementById("msg-sec").scrollHeight
 }
 
 function next() {
