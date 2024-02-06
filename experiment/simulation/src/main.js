@@ -447,9 +447,10 @@ function assemble_msg(FEEDBACK, PROMPT, PIN) {
 
     if (msgElements.length > 0) {
         var prev_msg = msgElements[msgElements.length - 1];
-        prev_msg.style.backgroundColor = "#85C1E9";
+        prev_msg.style.backgroundColor = "white";
+        prev_msg.style.color = "grey"
     }
-    td.style.backgroundColor = "dodgerblue";
+    td.style.backgroundColor = "#85C1E9";
     row.appendChild(td);
     tb.appendChild(row);
     dialogue.appendChild(tb);
