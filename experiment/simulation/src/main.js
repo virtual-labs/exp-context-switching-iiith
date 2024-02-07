@@ -577,6 +577,72 @@ function loadCPU() {
 
 }
 
+function loadCPU_k() {
+
+    var cpu = document.getElementById("CPU");
+    cpu.innerHTML = "";
+
+    var cpu_body = document.createElement("tbody");
+
+    var cpu_row = document.createElement("tr");
+    var td1 = document.createElement("td");
+    td1.innerHTML = "PC: ";
+    var td2 = document.createElement("td");
+
+    if (pid == 0) {
+        td2.innerHTML = ProcessA.get_current_instruction() + 1;
+
+        if (ProcessA.get_current_instruction() == 10) {
+            td2.innerHTML = ProcessA.get_current_instruction();
+        }
+    }
+    else {
+        td2.innerHTML = ProcessB.get_current_instruction() + 1;
+
+        if (ProcessB.get_current_instruction() == 18) {
+            td2.innerHTML = ProcessB.get_current_instruction();
+        }
+    }
+    cpu_row.appendChild(td1);
+    cpu_row.appendChild(td2);
+
+    var cpu_row2 = document.createElement("tr");
+    var td3 = document.createElement("td");
+    td3.innerHTML = "Mode: ";
+    var td4 = document.createElement("td");
+    td4.innerHTML = "Kernel Mode";
+
+    cpu_row2.appendChild(td3);
+    cpu_row2.appendChild(td4);
+
+    var cpu_row3 = document.createElement("tr");
+    var td5 = document.createElement("td");
+    td5.innerHTML = "GPRs: ";
+    var td6 = document.createElement("td");
+
+    if (pid == 0) {
+        for (var i = 0; i < processA_instructions[ProcessA.current_instruction].registers.length; i++) {
+            td6.innerHTML += processA_instructions[ProcessA.current_instruction].registers[i] + ": " + processA_instructions[ProcessA.current_instruction].register_values[i] + "<br />";
+        }
+    }
+    else {
+        for (var i = 0; i < processB_instructions[ProcessB.current_instruction].registers.length; i++) {
+            td6.innerHTML += processB_instructions[ProcessB.current_instruction].registers[i] + ": " + processB_instructions[ProcessB.current_instruction].register_values[i] + "<br />";
+        }
+    }
+
+    cpu_row3.appendChild(td5);
+    cpu_row3.appendChild(td6);
+
+    cpu_body.appendChild(cpu_row);
+    cpu_body.appendChild(cpu_row2);
+    cpu_body.appendChild(cpu_row3);
+
+    cpu.appendChild(cpu_body);
+
+}
+
+
 function simulation() {
     ProcessA.load();
     loadCPU();
@@ -593,7 +659,7 @@ function hardware_u_to_k_instructions(current_process) {
 function hw_user_to_kernel() {
 
     var cpu = document.getElementById("CPU");
-    cpu.innerHTML = " ";
+    cpu.innerHTML = " CPU is currently idle ";
 
     var hw = document.getElementById("hardware");
     hw.innerHTML = "";
@@ -682,16 +748,21 @@ function save_to_k_stack() {
 
 function move_to_kernel_mode() {
     if (h_u_to_k_pointer != 1) {
-        var fb = "Oops! You have not selected the correct instruction."
+        var fb = "Error! You have not selected the correct instruction."
         var prompt = "Please select the correct instruction for the hardware.";
 
         assemble_msg(fb, prompt);
         return;
     }
     h_u_to_k_pointer = 2;
+
+    loadCPU_k();
+
     document.getElementById("move_to_kernel_mode").style.backgroundColor = "green";
     document.getElementById("move_to_kernel_mode").style.color = "white";
     document.getElementById("move_to_trap_handler").disabled = false;
+
+
 
     var hw = document.getElementById("hardware");
     var hw_tb = hw.getElementsByTagName("tbody")[0];
