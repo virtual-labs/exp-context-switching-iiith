@@ -17,8 +17,6 @@ trap_handler = 0;
 
 
 // Constants
-
-let FB_note = "&#128203";
 let pin = "&#128204";
 let task = "&#128172";
 
@@ -153,7 +151,7 @@ const ProcessA = {
         var fb = "<br> 1. You are in process A. <br> 2. CPU is currently executing instruction number: " + this.current_instruction;
         var prompt = "Use the 'Previous' and 'Next' buttons to navigate through the process code."
 
-        assemble_msg(fb, prompt, null);
+        assemble_msg(fb, prompt);
     },
 
     highlight: function () {
@@ -184,7 +182,7 @@ const ProcessA = {
             var fb = "<br> 1. You have encountered a exit syscall. <br> 2. The hardware will take over the control now.";
             var prompt = "<br> 1. Skip to the 'Hardware' tab from 'User' tab. <br> 2. The instructions handled by the hardware are present in the 'Subsystem instructions' in the controls section. <br> 3. Pick the instructions in the right order for the hardware to execute.";
 
-            assemble_msg(fb, prompt, null);
+            assemble_msg(fb, prompt);
             trap_handler = 3;
 
             hw_user_to_kernel();
@@ -206,7 +204,7 @@ const ProcessA = {
             var fb = "<br> 1. You have encountered a timer interrupt. <br> 2. The hardware will take over the control now.";
             var prompt = "<br> 1. Skip to the 'Hardware' tab from 'User' tab. <br> 2. The instructions handled by the hardware are present in the 'Subsystem instructions' in the controls section. <br> 3. Pick the instructions in the right order for the hardware to execute.";
 
-            assemble_msg(fb, prompt, null);
+            assemble_msg(fb, prompt);
             trap_handler = 1;
 
             hw_user_to_kernel();
@@ -223,7 +221,7 @@ const ProcessA = {
         this.highlight();
 
         var prompt = "CPU is currently executing instruction number: " + this.current_instruction;
-        assemble_msg(prompt, null, null);
+        assemble_msg(prompt, null);
     },
 
     previous: function () {
@@ -236,7 +234,7 @@ const ProcessA = {
 
 
         var prompt = "You have jumped to the previous instruction. CPU is currently executing instruction number: " + this.current_instruction;
-        assemble_msg(prompt, null, null);
+        assemble_msg(prompt, null);
     },
 
 }
@@ -325,7 +323,7 @@ const ProcessB = {
         var fb = "Process B is loaded into the CPU.";
         var prompt = "Use the 'Previous' and 'Next' buttons to navigate through the process code."
 
-        assemble_msg(fb, prompt, null);
+        assemble_msg(fb, prompt);
 
     },
 
@@ -357,7 +355,7 @@ const ProcessB = {
             var fb = "<br> 1. You have encountered a exit syscall. <br> 2. The hardware will take over the control now.";
             var prompt = "<br> 1. Skip to the 'Hardware' tab from 'User' tab. <br> 2. The instructions handled by the hardware are present in the 'Subsystem instructions' in the controls section. <br> 3. Pick the instructions in the right order for the hardware to execute.";
 
-            assemble_msg(fb, prompt, null);
+            assemble_msg(fb, prompt);
             trap_handler = 4;
 
             hw_user_to_kernel();
@@ -383,7 +381,7 @@ const ProcessB = {
             var fb = "<br> 1. You have encountered a read syscall. <br> 2. The hardware will take over the control now.";
             var prompt = "<br> 1. Skip to the 'Hardware' tab from 'User' tab. <br> 2. The instructions handled by the hardware are present in the 'Subsystem instructions' in the controls section. <br> 3. Pick the instructions in the right order for the hardware to execute.";
 
-            assemble_msg(fb, prompt, null);
+            assemble_msg(fb, prompt);
             trap_handler = 2;
 
             hw_user_to_kernel();
@@ -399,7 +397,7 @@ const ProcessB = {
         this.highlight();
 
         var prompt = "CPU is currently executing instruction number: " + this.current_instruction;
-        assemble_msg(prompt, null, null);
+        assemble_msg(prompt, null,);
     },
 
     previous: function () {
@@ -416,12 +414,19 @@ const ProcessB = {
 
 }
 
+var _feedback_sym = document.createElement("div"); // creating a div element
+_feedback_sym.innerHTML = "Feedback"; // setting innerHTML to "Feedback"
+_feedback_sym.setAttribute("id", "_fb"); // setting id attribute to "_fb"
+
+var _prompt_sym = document.createElement("div");
+_prompt_sym.innerHTML = "Prompt";
+_prompt_sym.setAttribute("id", "_pmpt");
 
 // Functions
-
-function assemble_msg(FEEDBACK, PROMPT, PIN) {
+function assemble_msg(FEEDBACK, PROMPT) {
     var dialogue = document.getElementById("dialog");
     var tb = dialogue.getElementsByTagName("tbody")[0];
+
     var row = document.createElement("tr");
     var td = document.createElement("td");
     // Assign class to td
@@ -430,27 +435,38 @@ function assemble_msg(FEEDBACK, PROMPT, PIN) {
     var text = "";
 
     if (FEEDBACK != null) {
-        text += FB_note + " " + "<strong>Feedback:</strong> <br />" + FEEDBACK + "<br />";
+        text += _feedback_sym.outerHTML + " " + FEEDBACK + "<br />";
     }
 
     if (PROMPT != null) {
-        text += "<hr>" + task + " " + "<strong>Prompt:</strong> <br/>" + PROMPT + "<br />";
+        text += "<hr>" + _prompt_sym.outerHTML + " " + PROMPT + "<br />";
     }
 
-    if (PIN != null) {
-        text += "<hr>" + pin + " " + "<strong>Info:</strong>" + PIN;
-    }
-
+    
     td.innerHTML = text;
 
     var msgElements = document.getElementsByClassName("msg");
 
     if (msgElements.length > 0) {
         var prev_msg = msgElements[msgElements.length - 1];
+        var prev_feedback_sym = prev_msg.querySelector('#_fb'); // Select _feedback_sym in prev_msg
+        var prev_prompt_sym = prev_msg.querySelector('#_pmpt');
+
+        if (prev_feedback_sym) {
+            prev_feedback_sym.style.backgroundColor = "lightgrey"; // Reset background color
+        }
+        if (prev_prompt_sym) {
+            prev_prompt_sym.style.backgroundColor = "lightgrey";
+        }
         prev_msg.style.backgroundColor = "white";
+        prev_msg.style.border = "none";
         prev_msg.style.color = "grey"
     }
-    td.style.backgroundColor = "#85C1E9";
+    td.style.border = "solid";
+    td.style.color="#333";
+    td.style.borderColor = "dodgerblue";
+    td.style.backgroundColor = "white";
+    td.style.borderWidth = "2px";
     row.appendChild(td);
     tb.appendChild(row);
     dialogue.appendChild(tb);
@@ -463,29 +479,6 @@ function next() {
         pid == 0 ? ProcessA.next() : ProcessB.next();
         loadCPU();
     }
-    // if (currently_in == 1) {
-    //     document.getElementById("hardware").innerHTML = "";
-    //     document.getElementById("insts").innerHTML = "";
-    //     currently_in = 0;
-    //     if (pid == 0) {
-    //         document.getElementById("kStackA").innerHTML = "";
-    //         ProcessA.unhighlight();
-    //         ProcessA.current_instruction = ProcessA.current_instruction - 1;
-    //         ProcessA.highlight();
-    //         loadCPU();
-    //     }
-    //     else {
-    //         document.getElementById("kStackB").innerHTML = "";
-    //         ProcessB.unhighlight();
-    //         ProcessB.current_instruction = ProcessB.current_instruction - 1;
-    //         ProcessB.highlight();
-    //         loadCPU();
-    //     }
-
-    //     k_pointer = 0;
-    //     h_u_to_k_pointer = 0;
-    //     h_k_to_u_pointer = 0;
-    // }
 }
 
 function previous() {
@@ -638,10 +631,9 @@ function hw_user_to_kernel() {
 function save_to_k_stack() {
     if (h_u_to_k_pointer != 0) {
         var fb = "You have already saved the registers to the k-stack.";
-        var prompt = "Select the correct instruction for the hardware to execute";
-        var info = "Take a look at the 'Hardware' tab and choose the next instruction appropriately.";
-
-        assemble_msg(fb, prompt, info);
+        var prompt = "Take a look at the 'Hardware' tab and choose the next instruction appropriately.";
+    
+        assemble_msg(fb, prompt);
         return;
     }
     h_u_to_k_pointer = 1;
@@ -663,7 +655,7 @@ function save_to_k_stack() {
     var fb = "Good job! You have selected the correct instruction."
     var prompt = "You have selected the correct instruction for the hardware. Now, move to kernel mode.";
 
-    assemble_msg(fb, prompt, null);
+    assemble_msg(fb, prompt);
 
     
     if(pid == 0) {
@@ -693,7 +685,7 @@ function move_to_kernel_mode() {
         var fb = "Oops! You have not selected the correct instruction."
         var prompt = "Please select the correct instruction for the hardware.";
 
-        assemble_msg(fb, prompt, null);
+        assemble_msg(fb, prompt);
         return;
     }
     h_u_to_k_pointer = 2;
@@ -716,17 +708,16 @@ function move_to_kernel_mode() {
     var fb = "Good job! You have selected the correct instruction.";
     var prompt = "It's time for the hardware to find the trap handler and hand it over to the kernel.";
 
-    assemble_msg(fb, prompt, null);
+    assemble_msg(fb, prompt);
 
 }
 
 function shift_to_kernel() {
     if (h_u_to_k_pointer != 2) {
-        var fb = "Oops! This isn't the correct instruction in the sequence of hardware exection."
-        var prompt = "Please select the correct instruction for the hardware.";
-        var info = "1. You are trying to jump to the trap handler. But, you need to be in kernel mode to do that. <br> 2. You need to save the registers of the process to the k-stack before moving to kernel mode."
-
-        assemble_msg(fb, prompt, info);
+        var fb = "Error! This isn't the correct instruction in the sequence of hardware exection."
+        var prompt = "1. You are trying to jump to the trap handler. But, you need to be in kernel mode to do that. <br> 2. You need to save the registers of the process to the k-stack before moving to kernel mode.";
+        
+        assemble_msg(fb, prompt);
         return;
     }
     h_u_to_k_pointer = 3;
@@ -747,9 +738,8 @@ function shift_to_kernel() {
 
     var fb = "Good job! You have selected the correct instruction."
     var prompt = "Select the correct intrrupt handler from the 'Interrupt Handlers' section.";
-    var info = "You can check the interrupt handler loaded in the 'Kernel' tab after that."
-
-    assemble_msg(fb, prompt, info);
+    
+    assemble_msg(fb, prompt);
 
     show_handler();
 }
@@ -768,7 +758,7 @@ function show_handler() {
             var fb = "Good job! You have selected the correct interrupt handler."
             var prompt = "Click on the 'Complete Execution' button to complete the execution of the trap handler.";
 
-            assemble_msg(fb, prompt, null);
+            assemble_msg(fb, prompt);
 
             var table = document.getElementById("Kernel");
             table.innerHTML = "";
@@ -808,7 +798,7 @@ function show_handler() {
             var fb = "Good job! You have selected the correct interrupt handler."
             var prompt = "Click on the 'Complete Execution' button to complete the execution of the trap handler.";
 
-            assemble_msg(fb, prompt, null);
+            assemble_msg(fb, prompt);
 
             var table = document.getElementById("Kernel");
             table.innerHTML = "";
@@ -850,7 +840,7 @@ function show_handler() {
             var fb = "Good job! You have selected the correct interrupt handler."
             var prompt = "Click on the 'Complete Execution' button to complete the execution of the trap handler.";
 
-            assemble_msg(fb, prompt, null);
+            assemble_msg(fb, prompt);
 
             var table = document.getElementById("Kernel");
             table.innerHTML = "";
@@ -879,7 +869,7 @@ function show_handler() {
                     var fb = "Good job! You have selected the correct interrupt handler."
                     var prompt = "Click on the 'Complete Execution' button to complete the execution of the interrupt handler.";
 
-                    assemble_msg(fb, prompt, null);
+                    assemble_msg(fb, prompt);
 
                     var table = document.getElementById("Kernel");
                     table.innerHTML = "";
@@ -908,19 +898,14 @@ function show_handler() {
 
                 var fb = "1. Good job!. You have succesfully executed the exit trap handler. <br>2. Let the IO device generate an Interrupt-driven I/O request to the CPU.";
                 var prompt = "Click on the Interrupt driven I/O button in the 'Interrupt handlers' sections to succesfully complete the 'read' syscall of process B.";
-                var info = "We are doing this so that we can have the k_stack of process B ready with the input values from the user. <br> This will help us to complete the execution of the 'read' instruction of process B.";
-
-                assemble_msg(fb, prompt, info);
+                
+                assemble_msg(fb, prompt);
             }
             
             row.appendChild(cell1);
             tb.appendChild(row);
             table.appendChild(tb);
-
-
-
         }
-
     }
 
     if (trap_handler == 4) {
@@ -936,7 +921,7 @@ function show_handler() {
             var fb = "Good job! You have selected the correct interrupt handler."
             var prompt = "Click on the 'Complete Execution' button to complete the execution of the trap handler.";
 
-            assemble_msg(fb, prompt, null);
+            assemble_msg(fb, prompt);
 
             var table = document.getElementById("Kernel");
             table.innerHTML = "";
@@ -991,7 +976,7 @@ function trap_code_execute() {
 
     document.getElementById("next").style.display = "none";
 
-    assemble_msg(fb, prompt, null);
+    assemble_msg(fb, prompt);
 
     let process = pid == 0 ? 'A' : 'B';
     let next_process = pid == 0 ? 'B' : 'A';
@@ -1045,10 +1030,9 @@ function trap_code_execute() {
 function save_to_PCB() {
     if (k_pointer != 0) {
         var fb = "Oops! You have selected the wrong instruction."
-        var prompt = "Select the next correct instruction to do the context switch.";
-        var info = "Look at the instructions already executed by the CPU in the 'Kernel' tab.";
-
-        assemble_msg(fb, prompt, info);
+        var prompt = "Take a look at the instructions already executed by the CPu in the 'Kernel tab' and select the next correct instruction to do the context switch.";
+        
+        assemble_msg(fb, prompt);
         return;
     }
 
@@ -1064,7 +1048,7 @@ function save_to_PCB() {
     var fb = "Good job! You have selected the correct instruction."
     var prompt = "It's time to restore the registers of the process from it's PCB.";
 
-    assemble_msg(fb, prompt, null);
+    assemble_msg(fb, prompt);
 
     var kTable = document.getElementById("Kernel");
     var tb = document.createElement("tbody");
@@ -1142,10 +1126,9 @@ function save_to_PCB() {
 function restore_from_PCB() {
     if (k_pointer != 1) {
         var fb = "Oops! You have selected the wrong instruction."
-        var prompt = "Select the next correct instruction to do the context switch.";
-        var info = "Look at the instructions already executed by the CPU in the 'Kernel' tab.";
-
-        assemble_msg(fb, prompt, info);
+        var prompt = "Take a look at the 'Kernel' tab and select the next correct instruction to do the context switch.";
+        
+        assemble_msg(fb, prompt);
         return;
     }
 
@@ -1157,7 +1140,7 @@ function restore_from_PCB() {
     var fb = "Good job! You have selected the correct instruction."
     var prompt = "It's time to switch to the kernel stack of the next process.";
 
-    assemble_msg(fb, prompt, null);
+    assemble_msg(fb, prompt);
 
     var kTable = document.getElementById("Kernel");
     var tb = document.createElement("tbody");
@@ -1175,11 +1158,10 @@ function restore_from_PCB() {
 
 function switch_to_k_stack() {
     if (k_pointer != 2) {
-        var fb = "Oops! You have selected the wrong instruction."
-        var prompt = "Select the next correct instruction to do the context switch.";
-        var info = "Look at the instructions already executed by the CPU in the 'Kernel' tab.";
-
-        assemble_msg(fb, prompt, info);
+        var fb = "Error! You have selected the wrong instruction."
+        var prompt = "Take a look at the 'Kernel' tab and select the next correct instruction to do the context switch.";
+        
+        assemble_msg(fb, prompt);
         return;
     }
 
@@ -1191,7 +1173,7 @@ function switch_to_k_stack() {
     var fb = "Good job! You have selected the correct instruction."
     var prompt = "It's time to return from the trap into the next process.";
 
-    assemble_msg(fb, prompt, null);
+    assemble_msg(fb, prompt);
 
     var kTable = document.getElementById("Kernel");
     var tb = document.createElement("tbody");
@@ -1218,10 +1200,9 @@ function Hardware_kernelToUserMode(process) {
 function return_from_trap() {
     if (k_pointer != 3) {
         var fb = "Oops! You have selected the wrong instruction."
-        var prompt = "Select the next correct instruction to do the context switch.";
-        var info = "Look at the instructions already executed by the CPU in the 'Kernel' tab.";
-
-        assemble_msg(fb, prompt, info);
+        var prompt = "Take a look at the 'Kernel' tab and select the next correct instruction to do the context switch.";
+        
+        assemble_msg(fb, prompt);
         return;
     }
 
@@ -1235,7 +1216,7 @@ function return_from_trap() {
         var fb = "Hurray! You have successfully completed the execution of the programs A and B."
         var prompt = "Click on the 'End' button to end the simulation.";
 
-        assemble_msg(fb, prompt, null);
+        assemble_msg(fb, prompt);
 
         document.getElementById("next").display = "block";
         document.getElementById("next").innerHTML = "End";
@@ -1251,7 +1232,7 @@ function return_from_trap() {
     document.getElementById("cs").innerHTML = "Current Subsytem: Hardware";
     document.getElementById("cp").innerHTML = "Current Process: " + (pid == 0 ? 'A' : 'B');
 
-    assemble_msg(fb, prompt, null);
+    assemble_msg(fb, prompt);
 
     var hw = document.getElementById("hardware");
     hw.innerHTML = "";
@@ -1320,11 +1301,10 @@ function load_hw_k_to_u_instructions() {
 
 function restore_from_k_stack() {
     if (h_k_to_u_pointer != 0) {
-        var fb = "Oops! You have selected the wrong instruction."
-        var prompt = "Select the next correct instruction to do the context switch.";
-        var info = "Look at the instructions already executed by the CPU in the 'Hardware' tab.";
-
-        assemble_msg(fb, prompt, info);
+        var fb = "Error! You have selected the wrong instruction."
+        var prompt = "Take a look at the 'Hardware' tab and select the next correct instruction to do the context switch.";
+        
+        assemble_msg(fb, prompt);
         return;
     }
 
@@ -1336,7 +1316,7 @@ function restore_from_k_stack() {
     var fb = "Good job! You have selected the correct instruction."
     var prompt = "It's time to change the CPU mode to user mode.";
 
-    assemble_msg(fb, prompt, null);
+    assemble_msg(fb, prompt);
 
     var hw = document.getElementById("hardware");
     var tb = document.createElement("tbody");
@@ -1352,11 +1332,10 @@ function restore_from_k_stack() {
 
 function change_cpu_mode() {
     if (h_k_to_u_pointer != 1) {
-        var fb = "Oops! You have selected the wrong instruction."
-        var prompt = "Select the next correct instruction to do the context switch.";
-        var info = "Look at the instructions already executed by the CPU in the 'Hardware' tab.";
-
-        assemble_msg(fb, prompt, info);
+        var fb = "Error! You have selected the wrong instruction."
+        var prompt = "Take a look at the 'Hardware' tab and select the next correct instruction to do the context switch.";
+        
+        assemble_msg(fb, prompt);
         return;
     }
 
@@ -1368,7 +1347,7 @@ function change_cpu_mode() {
     var fb = "Good job! You have selected the correct instruction."
     var prompt = "It's time to jump to the user process.";
 
-    assemble_msg(fb, prompt, null);
+    assemble_msg(fb, prompt);
 
     var hw = document.getElementById("hardware");
     var tb = document.createElement("tbody");
@@ -1385,10 +1364,9 @@ function change_cpu_mode() {
 function jump_to_user() {
     if (h_k_to_u_pointer != 2) {
         var fb = "Oops! You have selected the wrong instruction."
-        var prompt = "Select the next correct instruction to do the context switch.";
-        var info = "Look at the instructions already executed by the CPU in the 'Hardware' tab.";
-
-        assemble_msg(fb, prompt, info);
+        var prompt = "Take a look at the 'Hardware' tab and select the next correct instruction to do the context switch.";
+        
+        assemble_msg(fb, prompt);
         return;
     }
 
@@ -1400,7 +1378,7 @@ function jump_to_user() {
     var fb = "Good job! All the hardware functions are done."
     var prompt = "Skip to the 'User' tab and start traversing through the new process loaded.";
 
-    assemble_msg(fb, prompt, null);
+    assemble_msg(fb, prompt);
 
     var hw = document.getElementById("hardware");
     var tb = document.createElement("tbody");
@@ -1449,6 +1427,3 @@ function openContent(toc_id) {
     }
 }
 
-// 1. CPU is executing the context switch code
-// 2. mode: Kernel
-// 3. Registers: [Not necessary to know]

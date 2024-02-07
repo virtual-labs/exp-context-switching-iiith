@@ -98,11 +98,30 @@
     overflow-y: scroll;
 }
 
+#_fb {
+  padding: 8px;
+  font-weight: bold;
+  background-color: dodgerblue;
+  color: white;
+  width: fit-content;
+  border-radius: 5px;
+}
+
+#_pmpt {
+  padding: 8px;
+  font-weight: bold;
+  background-color: green;
+  color: white;
+  width: fit-content;
+  border-radius: 5px;
+}
+
 .msg {
   border-collapse: separate;
   border-spacing: 10px;
-  border: solid;
-  border-color: darkgray;
+  color: #333;
+  /* border: solid;
+  border-color: darkgray; */
   border-radius: 10px; 
   padding: 10px;
 }
