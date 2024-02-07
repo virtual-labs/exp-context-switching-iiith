@@ -836,15 +836,8 @@ function show_handler() {
             var tb = document.createElement("tbody");
             var row = document.createElement("tr");
             var cell1 = document.createElement("td");
-            cell1.innerHTML = "/*\n\
-            * Default timer interrupt handler for PIT/HPET\n\
-            */\n\
-            static irqreturn_t timer_interrupt(int irq, void *dev_id)\n\
-            {\n\
-            &nbsp;&nbsp;&nbsp;&nbsp;global_clock_event->event_handler(global_clock_event);\n\
-            &nbsp;&nbsp;&nbsp;&nbsp;return IRQ_HANDLED;\n\
-            }";
-
+            cell1.innerHTML = "<code>// Default timer interrupt handler for PIT/HPET <br /> static irqreturn_t timer_interrupt(int irq, void *dev_id)<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;global_clock_event=event_handler(global_clock_event);<br>&nbsp;&nbsp;&nbsp;&nbsp;return IRQ_HANDLED;<br>}</code><br><br><br>";
+            cell1.innerHTML += "The entire code for timer interrupt can be found <a href='https://github.com/torvalds/linux/blob/master/arch/x86/kernel/time.c'>here</a>"
 
             document.getElementById("next").innerHTML = "Complete Execution";
             document.getElementById("next").setAttribute("onclick", "trap_code_execute()");
@@ -876,14 +869,8 @@ function show_handler() {
             var tb = document.createElement("tbody");
             var row = document.createElement("tr");
             var cell1 = document.createElement("td");
-            cell1.innerHTML = "/*\n\
-            * Default timer interrupt handler for PIT/HPET\n\
-            */\n\
-            static irqreturn_t timer_interrupt(int irq, void *dev_id)\n\
-            {\n\
-            &nbsp;&nbsp;&nbsp;&nbsp;global_clock_event->event_handler(global_clock_event);\n\
-            &nbsp;&nbsp;&nbsp;&nbsp;return IRQ_HANDLED;\n\
-            }";
+            cell1.innerHTML = "<code>ssize_t kernel_read(struct file *file, void *buf, size_t count, loff_t *pos)<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;ssize_t ret;<br>&nbsp;&nbsp;&nbsp;&nbsp;ret = rw_verify_area(READ, file, pos, count);<br>&nbsp;&nbsp;&nbsp;&nbsp;if (ret)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return ret;<br>&nbsp;&nbsp;&nbsp;&nbsp;return __kernel_read(file, buf, count, pos);<br>}</code>";
+            cell1.innerHTML += "The entire code for timer interrupt can be found <a href='https://github.com/torvalds/linux/blob/master/fs/read_write.c'>here</a>"
 
 
             document.getElementById("next").innerHTML = "Complete Execution";
@@ -918,14 +905,8 @@ function show_handler() {
             var tb = document.createElement("tbody");
             var row = document.createElement("tr");
             var cell1 = document.createElement("td");
-            cell1.innerHTML = "/*\n\
-            * Default timer interrupt handler for PIT/HPET\n\
-            */\n\
-            static irqreturn_t timer_interrupt(int irq, void *dev_id)\n\
-            {\n\
-            &nbsp;&nbsp;&nbsp;&nbsp;global_clock_event->event_handler(global_clock_event);\n\
-            &nbsp;&nbsp;&nbsp;&nbsp;return IRQ_HANDLED;\n\
-            }";
+            cell1.innerHTML = "<code>static __init int kernel_exit_sysfs_init(void)<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;sysfs_add_file_to_group(kernel_kobj, &oops_count_attr.attr, NULL);<br>&nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>}</code>";
+            cell1.innerHTML += "The entire code for timer interrupt can be found <a href='https://github.com/torvalds/linux/blob/master/kernel/exit.c'>here</a>"
 
             document.getElementById("next").innerHTML = "Complete Execution";
             document.getElementById("next").onclick = function () {
@@ -947,14 +928,7 @@ function show_handler() {
                     var tb = document.createElement("tbody");
                     var row = document.createElement("tr");
                     var cell1 = document.createElement("td");
-                    cell1.innerHTML = "/*\n\
-            * Default timer interrupt handler for PIT/HPET\n\
-            */\n\
-            static irqreturn_t timer_interrupt(int irq, void *dev_id)\n\
-            {\n\
-            &nbsp;&nbsp;&nbsp;&nbsp;global_clock_event->event_handler(global_clock_event);\n\
-            &nbsp;&nbsp;&nbsp;&nbsp;return IRQ_HANDLED;\n\
-            }";
+                    cell1.innerHTML = "<code>void nfs_end_io_read(struct inode *inode)<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;up_read(&inode->i_rwsem);<br>}</code>";
 
                     document.getElementById("next").innerHTML = "Complete Execution";
                     document.getElementById("next").setAttribute("onclick", "trap_code_execute()");
@@ -999,8 +973,9 @@ function show_handler() {
             var tb = document.createElement("tbody");
             var row = document.createElement("tr");
             var cell1 = document.createElement("td");
-            cell1.innerHTML = "// Default timer interrupt handler for PIT/HPET <br / > static irqreturn_t timer_interrupt(int irq, void *dev_id)<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;global_clock_event->event_handler(global_clock_event);<br>&nbsp;&nbsp;&nbsp;&nbsp;return IRQ_HANDLED;<br>}";
             
+            cell1.innerHTML = "<code>static __init int kernel_exit_sysfs_init(void)<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;sysfs_add_file_to_group(kernel_kobj, &oops_count_attr.attr, NULL);<br>&nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>}</code>";
+            cell1.innerHTML += "The entire code for timer interrupt can be found <a href='https://github.com/torvalds/linux/blob/master/kernel/exit.c'>here</a>"
 
             document.getElementById("next").innerHTML = "Complete Execution";
             document.getElementById("next").setAttribute("onclick", "trap_code_execute()");
