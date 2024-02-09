@@ -17,3 +17,6 @@
 
 - *Environment:* This is something whose state we are never aware of. We only know about the possible actions it can generate. Unlike the *Generator* described above, we don't know the state of this actor after performing the action.
     - IO request done: This is an actions the environment generates in this simulation to send an IO completed signal to the CPU. 
+
+** Systems diagram of the experiment
+[./images/cs_sys_D.png]
