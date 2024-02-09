@@ -1,0 +1,19 @@
+#+TITLE: Systems Model for Context switching
+** What all do we have in this system?
+- Two processes to observe the context switching
+- A CPU to do the computations
+- Memory locations like K-Stacks and PCBs
+- Different modes (User and Kernel) at which the CPU operates
+- Hardware which acts as a mediator between User and Kernel
+
+** How do we categorize the actors in our system?
+- *Plant:* This is where we see the changes happening in our system.
+    - Memory Locations: The k-Stacks and PCBs perform no particular actions that affect the system. They are only responsible to store the information inputted to them.
+
+- *Generator:* This is the system which produces actions that change the state of the system.
+    - CPU: Generates appropriate interrupts based on the instruction encountered during a process execution.
+    - Hardware: This is responsible to perform actions responsible to hand over the resources and control to the kernel.
+    - Kernel: Context switching wouldn't happen without this. Kernel is responsible to perform all the actions required to complete the context switching mechanism.
+
+- *Environment:* This is something whose state we are never aware of. We only know about the possible actions it can generate. Unlike the *Generator* described above, we don't know the state of this actor after performing the action.
+    - IO request done: This is an actions the environment generates in this simulation to send an IO completed signal to the CPU. 
