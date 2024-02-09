@@ -19,4 +19,4 @@
     - IO request done: This is an actions the environment generates in this simulation to send an IO completed signal to the CPU. 
 
 ** Systems diagram of the experiment
-[./images/cs_sys_D.png]
+[[./images/cs_sys_D.png]]
