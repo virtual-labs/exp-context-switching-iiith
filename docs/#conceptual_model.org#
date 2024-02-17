@@ -1,0 +1,17 @@
+
+#+TITLE: Conceptual model for Scheduling
+
+** Aim of the experiment
+This experiment primarily aims at bringing an in depth understanding of the context switching mechanism in the OS and to introduce the student to the ideology of viewing a system as a transitional state model with simply changes depending on the action taken by the user or any other internal actions.
+
+** What will the student do in this experiment?
+- The student is going to play different roles at different times during the whole simulation. The roles played by the student are mainly 'User', 'Hardware', and 'Kernel'.
+- Aided with the prompts and feedbacks provided as a response to their previous actions, the student needs to perform right actions to succesfully do context switch between two process.
+
+** Constraints/Barriers
+- The experiment doesn't provide a diverse options of interrupts and syscalls.
+- We have only two fixed processes to observe the context switching mechanism and the student is not given a choice of adding their own programs.
+
+** Outcomes of the experiment
+- Student will be able to appreciate how different actions perfromed by different modes and subsytems operate together to complete the task of context switching.
+- To develope an high level abstract overview of the actors interacting in the context switching mechanism.

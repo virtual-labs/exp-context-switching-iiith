@@ -149,7 +149,7 @@ const ProcessA = {
         }
 
         var fb = "<br> 1. You are in process A. <br> 2. CPU is currently executing instruction number: " + this.current_instruction;
-        var prompt = "Use the 'Previous' and 'Next' buttons to navigate through the process code."
+        var prompt = "Use the 'Previous' and 'Next' buttons to execute the process code."
 
         assemble_msg(fb, prompt);
     },
@@ -321,7 +321,7 @@ const ProcessB = {
         }
 
         var fb = "Process B is loaded into the CPU.";
-        var prompt = "Use the 'Previous' and 'Next' buttons to navigate through the process code."
+        var prompt = "Use the 'Previous' and 'Next' buttons to execute the the process code."
 
         assemble_msg(fb, prompt);
 
