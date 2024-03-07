@@ -5,11 +5,15 @@
 <head>
     <meta charset="utf-8">
     <title>Home</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="./main.js"></script>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <script src="./js/main.js"></script>
 </head>
 
 <body>
+    <i><b>Note: </b>Click on the 'start' button in the control panel to start the simulation. </i>
     <div id="myModal" class="modal">
 
         <!-- Modal content -->
@@ -102,7 +106,7 @@
         </div>
 
     </div>
-    <div class="Instructions">
+    <!-- <div class="Instructions">
         <p style="font-weight: bolder; color: dodgerBlue; text-align: center;">Instructions</p>
         <hr>
         <p style="padding-left: 10px;">
@@ -111,7 +115,7 @@
             3. Student can control the simulation using the controls provided in 'Controls' section.<br>
             4. Click on the "Start" button to start the simulation.<br>
         </p>
-    </div>
+    </div> -->
     <div class="container">
         <div class="controls">
             <p style="text-align: center; font-weight: bold">Controls</p>
@@ -149,24 +153,30 @@
                 <div class="tabset">
                     <!-- Tab 1 -->
                     <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
-                    <label for="tab1">User <button class="wrapper" id="info_btn">&#8505 <span class="tooltip">User Mode is a privilege level in OS where programs and applications run within restricted
-                        access to computer's hardware and system resources.</span></button>
-                        </label>
+                    <label for="tab1">User <button class="wrapper" id="info_btn">&#8505 <span class="tooltip">User Mode
+                                is a privilege level in OS where programs and applications run within restricted
+                                access to computer's hardware and system resources.</span></button>
+                    </label>
                     <!-- Tab 2 -->
                     <input type="radio" name="tabset" id="tab2" aria-controls="rauchbier">
                     <label for="tab2">Hardware <button class="wrapper" id="info_btn">&#8505
-                        <span class="tooltip">Hardware provides the foundation on which the OS operates. It offers the
-                            computational power, memory, storage, and I/O capabilities that the OS and applications depend
-                            on. The OS, in turn, manages and interacts with this hardware to provide a stable and productive
-                            computing environment.</span></button></label>
+                            <span class="tooltip">Hardware provides the foundation on which the OS operates. It offers
+                                the
+                                computational power, memory, storage, and I/O capabilities that the OS and applications
+                                depend
+                                on. The OS, in turn, manages and interacts with this hardware to provide a stable and
+                                productive
+                                computing environment.</span></button></label>
                     <!-- Tab 3 -->
                     <input type="radio" name="tabset" id="tab3" aria-controls="dunkles">
                     <label for="tab3">Kernel <button class="wrapper" id="info_btn">&#8505
-                        <span class="tooltip">Kernel mode, also known as supervisor mode or privileged mode, is the highest
-                            privilege level in an operating system. In kernel mode, software has unrestricted access to
-                            hardware. This includes tasks like memory management, process scheduling, device driver
-                            operation, and handling hardware interrupts.
-                        </span></button></label>
+                            <span class="tooltip">Kernel mode, also known as supervisor mode or privileged mode, is the
+                                highest
+                                privilege level in an operating system. In kernel mode, software has unrestricted access
+                                to
+                                hardware. This includes tasks like memory management, process scheduling, device driver
+                                operation, and handling hardware interrupts.
+                            </span></button></label>
 
                     <div class="tab-panels">
                         <section id="marzen" class="tab-panel">
@@ -196,10 +206,13 @@
 
                 <div class="CPU">
                     <p style="text-align: center; font-weight: bold;">CPU <button class="wrapper" id="info_btn">&#8505
-                        <span class="tooltip">CPU is the hardware component that carries out the essential computational
-                            tasks required by the OS and software applications. The OS manages and coordinates the CPU's
-                            activities, ensuring that processes run efficiently, securely, and in accordance with system
-                            priorities.</span></button></p>
+                            <span class="tooltip">CPU is the hardware component that carries out the essential
+                                computational
+                                tasks required by the OS and software applications. The OS manages and coordinates the
+                                CPU's
+                                activities, ensuring that processes run efficiently, securely, and in accordance with
+                                system
+                                priorities.</span></button></p>
                     <hr>
                     <table id="CPU">
 
@@ -210,33 +223,47 @@
                         <!-- Tab 1 -->
                         <input type="radio" name="tabset1" id="tab_kstackA" aria-controls="k_A" checked>
                         <label for="tab_kstackA">k-stack A <button class="wrapper" id="info_btn">&#8505
-                            <span class="tooltip">The kernel stack contains data related to the execution of kernel-level
-                                functions and system calls. It includes information such as return addresses, function
-                                parameters, and local variables of kernel functions. This particular K-Stack belongs to process
-                                A.</span></button></label>
+                                <span class="tooltip">The kernel stack contains data related to the execution of
+                                    kernel-level
+                                    functions and system calls. It includes information such as return addresses,
+                                    function
+                                    parameters, and local variables of kernel functions. This particular K-Stack belongs
+                                    to process
+                                    A.</span></button></label>
                         <!-- Tab 2 -->
                         <input type="radio" name="tabset1" id="tab_kstackB" aria-controls="k_B">
                         <label for="tab_kstackB">k-stack B <button class="wrapper" id="info_btn">&#8505
-                            <span class="tooltip">The kernel stack contains data related to the execution of kernel-level
-                                functions and system calls. It includes information such as return addresses, function
-                                parameters, and local variables of kernel functions. This particular K-Stack belongs to process
-                                B.</span></button></label>
+                                <span class="tooltip">The kernel stack contains data related to the execution of
+                                    kernel-level
+                                    functions and system calls. It includes information such as return addresses,
+                                    function
+                                    parameters, and local variables of kernel functions. This particular K-Stack belongs
+                                    to process
+                                    B.</span></button></label>
                         <!-- Tab 3 -->
                         <input type="radio" name="tabset1" id="tab_pcbA" aria-controls="p_A">
                         <label for="tab_pcbA">pcb-A <button class="wrapper" id="info_btn">&#8505
-                            <span class="tooltip">PCB serves as a central repository of process-specific information required
-                                for process management and scheduling. The PCB contains a wide range of information about a
-                                process or thread, including its program counter (PC), CPU registers, process state, process ID,
-                                scheduling information, memory management data, and I/O status. This PCB belongs to process
-                                A.</span></button></label>
+                                <span class="tooltip">PCB serves as a central repository of process-specific information
+                                    required
+                                    for process management and scheduling. The PCB contains a wide range of information
+                                    about a
+                                    process or thread, including its program counter (PC), CPU registers, process state,
+                                    process ID,
+                                    scheduling information, memory management data, and I/O status. This PCB belongs to
+                                    process
+                                    A.</span></button></label>
                         <!--Tab 4-->
                         <input type="radio" name="tabset1" id="tab_pcbB" aria-controls="p_B">
                         <label for="tab_pcbB">pcb-B <button class="wrapper" id="info_btn">&#8505
-                            <span class="tooltip">PCB serves as a central repository of process-specific information required
-                                for process management and scheduling. The PCB contains a wide range of information about a
-                                process or thread, including its program counter (PC), CPU registers, process state, process ID,
-                                scheduling information, memory management data, and I/O status. This PCB belongs to process
-                                B.</span></button></label>
+                                <span class="tooltip">PCB serves as a central repository of process-specific information
+                                    required
+                                    for process management and scheduling. The PCB contains a wide range of information
+                                    about a
+                                    process or thread, including its program counter (PC), CPU registers, process state,
+                                    process ID,
+                                    scheduling information, memory management data, and I/O status. This PCB belongs to
+                                    process
+                                    B.</span></button></label>
 
                         <div class="tab-panels1">
                             <section id="k_A" class="tab-panel1">
@@ -265,7 +292,7 @@
                 </div>
             </div>
         </div>
-        <div class="dialog-box">
+        <div id="msg-sec" class="dialog-box">
             <p style="text-align: center; font-weight: bold;">Dialog</p>
             <hr>
             <table id="dialog">
@@ -275,7 +302,114 @@
             </table>
         </div>
     </div>
-    <div class="container3">
+    <div class="concept-block">
+        <div id="toc">
+            <button class="toc-element" onclick="openContent(1)"> Objective
+            </button>
+            <span class="content-block" id="1">
+                Our objective in this experiment is to understand the mechanism of context switching used by
+                the OS for multi processing.
+                In this simulation, we approach the context switching technique at a three level abstraction (User,
+                Hardware and Kernel)
+            </span>
+
+            <br><br>
+
+            <button class="toc-element" onclick="openContent(2)"> Definations
+            </button>
+            <span class="content-block" id="2">
+                <p><strong>What is context?</strong><br> A process context refers to the current execution state and
+                    information associated with a running process in an operating system. It represents a snapshot of
+                    the process's execution at a particular point in time.
+
+                    <br /> Process context can change dynamically while the process is executing on the CPU.
+
+                </p>
+                <p><strong>What is PCB?:</strong> <br>
+                    In order to virtualize the execution of a process, the OS needs to have an internal account of the
+                    state of a process. This representation of the state of a process is stored in memory as a Process
+                    Control Block(PCB).<br>
+
+                    The PCB is used primarily during context switches, but it doesn't actively reflect the process's
+                    changing context while it's running. Instead, the changing process context is stored in various CPU
+                    registers and memory locations, not within the PCB.</p>
+
+            </span>
+
+            <br><br>
+
+            <button class="toc-element" onclick="openContent(3)"> Programs used for the simulation
+            </button>
+            <span class="content-block" id="3">
+                <p><strong>Program A: Simple addition program</strong>
+                <pre>
+<code>
+#include <stdio.h>
+int main()
+{
+    int a, b, c;
+    a = 5;
+    b = 10;
+    c = a + b;
+    return c;
+}
+</code>
+</pre>
+</p>
+<p><strong>Program B: Read and add program</strong>
+<pre>
+<code>
+#include <stdio.h>
+int main()
+{
+    int a, b, c;
+    a = 15;
+    scanf("%d", &b); 
+    c = a + b;
+    return c;
+}
+</code>
+    </pre>
+                </p>
+            </span>
+
+            <br><br>
+
+            <button class="toc-element" onclick="openContent(4)"> Context Switching in Linux                     
+            </button>
+            <span class="content-block" id="4">
+                <p>
+                    Here are few commands that will help you understand the context switching in linux OS.
+                <pre>
+<code>
+$ grep ctxt /proc/$pid/status
+</code>
+</pre>
+                The above command will give you the number of context switches that have happened for the process with
+                the given pid. You can get the pid of a process using the following command.
+                <pre>
+<code>
+$ htop
+</code></pre>
+                Another good way to inspect a process on your system is using the <code>vmstat</code> command. This will
+                give you a detailed overview of the number of context switches, number of interrupts, and further
+                information like the cache used etc.
+
+                </p>
+            </span>
+
+            <br><br>
+
+            <button class="toc-element" onclick="openContent(5)"> References                    
+            </button>
+            <span class="content-block" id="5">
+               TODO...
+            </span>
+        
+        </div>
+        <i class="fa fa-book" aria-hidden="true" id="study-material" onclick="openTheory()"></i>
+    </div>
+    <!-- <div class="container3">
         <h2>Know what's happening</h2>
         <section class="accordion">
             <input type="checkbox" name="collapse2" id="handle1">
@@ -333,7 +467,7 @@
 <br /> Process context can change dynamically while the process is executing on the CPU.
 
 </p>
-                <p><strong>How is PCB?:</strong> <br>
+                <p><strong>What is PCB?:</strong> <br>
                     In order to virtualize the execution of a process, the OS needs to have an internal account of the state of a process. This representation of the state of a process is stored in memory as a Process Control Block(PCB).<br>
 
 The PCB is used primarily during context switches, but it doesn't actively reflect the process's changing context while it's running. Instead, the changing process context is stored in various CPU registers and memory locations, not within the PCB.</p>
@@ -423,7 +557,7 @@ $ htop
         </section>
 
 
-    </div>
+    </div> -->
 
 </body>
 
