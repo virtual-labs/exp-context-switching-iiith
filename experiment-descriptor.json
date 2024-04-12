@@ -8,7 +8,7 @@
         },
         {
             "target": "theory.html",
-            "source": "content/theory.html",
+            "source": "theory.md",
             "label": "Theory",
             "unit-type": "task",
             "content-type": "text"
