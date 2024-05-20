@@ -66,6 +66,7 @@
 
 .container {
     margin-top: 10px;
+    display: flex;
 }
 
 .controls {
@@ -80,7 +81,7 @@
 
 .displays {
     float: left;
-    width: 57%;
+    width: 60%;
     background-color: #F2F3F4 ;
     border-radius: 10px;
     height: 820px;
@@ -90,12 +91,13 @@
 
 .dialog-box {
     float: left;
-    width: 21%;
+    width: 20%;
     background-color: #F2F3F4 ;
     border-radius: 10px;
     height: 820px;
     padding: 2px;
     overflow-y: scroll;
+    display: relative;
 }
 
 code {
@@ -329,8 +331,8 @@ code {
     border-color: darkgray;
     padding: 5px;
     margin: 10px;
-    width: 40%;
-    height: 300px;
+    width: 35%;
+    height: 352px;
     float: left;
   }
 
