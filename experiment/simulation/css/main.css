@@ -822,3 +822,19 @@ code {
      -o-transform: translateY(0px);
       transform: translateY(0px);
   }
+  
+  .rotate{
+    color: red;
+  }
+
+  @media (min-width: 768px) {
+    .rotate {
+        display: none;
+    }
+  
+    @media (orientation: landscape) {
+      .rotate {
+          display: none;
+      }
+  }
+}
