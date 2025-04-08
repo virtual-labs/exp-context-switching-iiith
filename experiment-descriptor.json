@@ -28,16 +28,9 @@
             "target": "pretest.html"
         },
         {
-            "target": "practice.html",
-            "source": "simulation/practice.html",
-            "label": "Practice",
-            "unit-type": "task",
-            "content-type": "simulation"
-        },
-        {
             "target": "exercise.html",
             "source": "simulation/exercise.html",
-            "label": "Exercise",
+            "label": "Simulation",
             "unit-type": "task",
             "content-type": "simulation"
         },
