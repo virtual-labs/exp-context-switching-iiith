@@ -1,0 +1,111 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "1. In a multi-core processor, what is the primary purpose of context switching?",
+      "answers": {
+        "a": "Load balancing between cores",
+        "b": "Minimizing power consumption",
+        "c": "Maximizing cache utilization",
+        "d": "Enforcing thread synchronization"
+      },
+      "explanations": {
+        "a": "is correct. Context switching in a multi-core processor can help balance the workload between different cores, ensuring efficient utilization of resources.",
+        "b": "is incorrect. Context switching does not help minimize power consumption.",
+        "c": "is incorrect. Context switching does not help maximize cache utilization.",
+        "d": "is incorrect. Context switching does not help enforce thread synchronization."
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "2. Which of the following data structures is commonly used to implement the process control block (PCB) during context switching?",
+      "answers": {
+        "a": "Linked List",
+        "b": "Stack",
+        "c": "Queue",
+        "d": "Binary Tree"
+      },
+      "explanations": {
+        "a": "is incorrect. A linked list is not a common data structure used to implement the PCB during context switching.",
+        "b": "is incorrect. A stack is not a common data structure used to implement the PCB during context switching.",
+        "c": "is correct. A queue is a common data structure used to implement the PCB during context switching. It allows for efficient management of processes in a first-come-first-serve order.",
+        "d": "is incorrect. A binary tree is not a common data structure used to implement the PCB during context switching."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "4. What is the primary drawback of frequent context switching in a multitasking operating system?",
+      "answers": {
+        "a": "Reduced system responsiveness",
+        "b": "Higher memory usage",
+        "c": "High overhead & reduced throughput",
+        "d": "Reduced security"
+      },
+      "explanations":{
+        "a": "is incorrect. Context switching does not improve system responsiveness.",
+        "b": "is incorrect. Context switching does not lower memory usage.",
+        "c": "is correct. Context switching has a high overhead and reduces throughput.",
+        "d": "is incorrect. Context switching does not enhance security."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "5. In a preemptive multitasking environment, which scheduling policy is most likely to result in frequent context switches?",
+      "answers": {"a": "Round Robin",
+        "b": "First Come First Serve",
+        "c": "Shortest Job First",
+        "d": "Priority Based"
+    },
+      "explanations": {
+        "a": "is correct. Round Robin scheduling is a preemptive scheduling policy that results in frequent context switches.",
+        "b": "is incorrect. First Come First Serve scheduling is a non-preemptive scheduling policy that does not result in frequent context switches.",
+        "c": "is incorrect. Shortest Job First scheduling is a non-preemptive scheduling policy that does not result in frequent context switches.",
+        "d": "is incorrect. Priority Based scheduling is a non-preemptive scheduling policy that does not result in frequent context switches."
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+      },
+    {
+      "question": "6. Which of the following mechanisms can be used to reduce the overhead of context switching in a virtual memory system?",
+      "answers":{
+        "a": "Increasing the page size",
+        "b": "Reducing the number of TLB(Translation Lookaside Buffer) entries",
+        "c": "Disabling demand paging",
+        "d": "Implement fine-grained locks"
+      }
+      ,
+      "explanations":{
+        "a": "is correct. Which of the following mechanisms can be used to reduce the overhead of context switching in a virtual memory system?",
+        "b": "is incorrect. Reducing the number of TLB entries will increase the overhead of context switching.",
+        "c": "is incorrect. Disabling demand paging will increase the overhead of context switching.",
+        "d": "is incorrect. Implementing fine-grained locks will increase the overhead of context switching."
+      },
+      "correctAnswer":"a",
+      "difficulty":"beginner"
+
+      
+    },
+    {
+      "question": "7. What is the primary goal of a context switch in a real-time operating system (RTOS)?",
+      "answers":{
+        "a": "Maximize CPU utilization",
+        "b": "Meeting strict timing deadlines",
+        "c": "Ensuring fairness among processes",
+        "d": "Minimizing memory usage"
+      },
+      "explanations":{
+        "a": "is incorrect. Maximizing CPU utilization is not the primary goal of a context switch in a real-time operating system.",
+        "b": "is correct. The primary goal of a context switch in a real-time operating system is to meet strict timing deadlines.",
+        "c": "is incorrect. Ensuring fairness among processes is not the primary goal of a context switch in a real-time operating system.",
+        "d": "is incorrect. Minimizing memory usage is not the primary goal of a context switch in a real-time operating system."
+      },
+      "correctAnswer":"b",
+      "difficulty":"beginner"
+      }
+
+    
+  ]
+}
